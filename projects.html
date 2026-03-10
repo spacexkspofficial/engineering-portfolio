@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects | Alexa</title>
-  <meta name="description" content="Project case studies and engineering work by Alexa." />
+  <title>Projects | Alexander Amadeo-Ranch</title>
+  <meta name="description" content="Projects and technical work by Alexander Amadeo-Ranch across spacecraft structures, simulation, fabrication, and engineering analysis." />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <script defer src="assets/js/site.js"></script>
 </head>
@@ -16,8 +16,8 @@
         <a class="brand" href="index.html">
           <span class="brand-mark">A</span>
           <span class="brand-copy">
-            <strong>Alexa</strong>
-            <span>Software Engineer</span>
+            <strong>Alexander</strong>
+            <span>Aerospace Engineering Student</span>
           </span>
         </a>
         <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">
@@ -28,7 +28,7 @@
           <a href="index.html">Home</a>
           <a href="projects.html" aria-current="page">Projects</a>
           <a href="contact.html">Contact</a>
-          <a class="nav-cta" href="contact.html">Let's build</a>
+          <a class="nav-cta" href="contact.html">Get in touch</a>
         </nav>
       </div>
     </header>
@@ -38,18 +38,17 @@
         <div class="container split-grid">
           <div class="hero-copy" data-reveal>
             <p class="kicker">Project library</p>
-            <h1>Selected work across product, platform, data, and internal tools.</h1>
-            <p class="lead">This page is built for quick recruiter review. Every project highlights the problem, the build, and the measurable result so it is easy to connect the work to the role.</p>
+            <h1>Current project coverage stays close to the resume.</h1>
+            <p class="lead">Until the drive portfolio is uploaded, this page focuses on the three technical threads I can support directly from the materials already available: spacecraft structures, impact analysis, and computational physics.</p>
             <div class="chip-list">
-              <span class="chip">Frontend systems</span>
-              <span class="chip">Platform reliability</span>
-              <span class="chip">Data products</span>
-              <span class="chip">Internal tooling</span>
+              <span class="chip">Structures</span>
+              <span class="chip">Simulation</span>
+              <span class="chip">Scientific computing</span>
             </div>
           </div>
           <div class="image-stack" data-reveal>
-            <img src="assets/images/project-foundry.svg" alt="Placeholder release tooling project image" />
-            <img src="assets/images/project-nova.svg" alt="Placeholder healthcare portal project image" />
+            <img src="assets/images/project-foundry.svg" alt="Engineering design illustration" />
+            <img src="assets/images/project-nova.svg" alt="Simulation workflow illustration" />
           </div>
         </div>
       </section>
@@ -61,15 +60,13 @@
               <p class="eyebrow">Filter view</p>
               <h2>Browse by the kind of engineering problem.</h2>
             </div>
-            <p>Use the filters to quickly zero in on frontend-heavy work, data products, system design, or automation projects.</p>
+            <p>The filters are intentionally simple right now because the site is using only the project information already backed by the uploaded resume.</p>
           </div>
           <div class="filter-row">
             <button class="filter-button active" type="button" data-filter="all">All</button>
-            <button class="filter-button" type="button" data-filter="frontend">Frontend</button>
-            <button class="filter-button" type="button" data-filter="platform">Platform</button>
-            <button class="filter-button" type="button" data-filter="data">Data</button>
-            <button class="filter-button" type="button" data-filter="ai">AI</button>
-            <button class="filter-button" type="button" data-filter="systems">Systems</button>
+            <button class="filter-button" type="button" data-filter="structures">Structures</button>
+            <button class="filter-button" type="button" data-filter="simulation">Simulation</button>
+            <button class="filter-button" type="button" data-filter="software">Software</button>
           </div>
         </div>
       </section>
@@ -77,81 +74,42 @@
       <section class="section section-tight">
         <div class="container">
           <div class="project-grid">
-            <article class="card project-card" data-project-card data-category="platform systems frontend" data-reveal>
-              <img src="assets/images/project-atlas.svg" alt="Placeholder image for Atlas Control Center" />
+            <article class="card project-card" data-project-card data-category="structures simulation" data-reveal>
+              <img src="assets/images/project-atlas.svg" alt="Illustration for UCI CubeSat structures work" />
               <div class="card-body">
-                <p class="meta">Platform reliability</p>
-                <h3>Atlas Control Center</h3>
-                <p>Built a unified operational dashboard for deploy health, incidents, and service ownership so the platform team could act from one place instead of five disconnected tools.</p>
+                <p class="meta">Student design team</p>
+                <h3>UCI CubeSat Structures</h3>
+                <p>Supported structural work for a student spacecraft effort, including static and modal analysis, interface-aware design thinking, and decisions shaped by how components would actually integrate.</p>
                 <ul class="impact-list">
-                  <li><strong>42% faster</strong> triage time during incidents</li>
-                  <li><strong>24/7 teams</strong> adopted the dashboard as the default workflow</li>
-                  <li><strong>Lower noise</strong> through cleaner alert context and routing</li>
+                  <li><strong>Static and modal analysis</strong> used on structural parts</li>
+                  <li><strong>Mechanical-to-PCB integration awareness</strong> where fit mattered</li>
+                  <li><strong>Manufacturability-minded design</strong> carried through the work</li>
                 </ul>
               </div>
             </article>
-            <article class="card project-card" data-project-card data-category="data ai systems" data-reveal>
-              <img src="assets/images/project-pulse.svg" alt="Placeholder image for Pulse Forecast Engine" />
+            <article class="card project-card" data-project-card data-category="structures simulation" data-reveal>
+              <img src="assets/images/project-pulse.svg" alt="Illustration for impact mitigation study" />
               <div class="card-body">
-                <p class="meta">Forecasting and planning</p>
-                <h3>Pulse Forecast Engine</h3>
-                <p>Designed the decision layer around a forecasting model so non-technical operators could trust, challenge, and act on the recommendations.</p>
+                <p class="meta">Impact analysis</p>
+                <h3>Micrometeoroid and Ice Impact Mitigation</h3>
+                <p>Explored ice-based mitigation concepts for lunar conditions by comparing impact damage, scaling behavior, mass implications, and overall engineering feasibility.</p>
                 <ul class="impact-list">
-                  <li><strong>28% reduction</strong> in stockouts during pilot</li>
-                  <li><strong>3x faster</strong> weekly planning cycle</li>
-                  <li><strong>High trust</strong> due to visible assumptions and overrides</li>
+                  <li><strong>Physics-based tradeoffs</strong> rather than single-metric comparisons</li>
+                  <li><strong>Clear visuals</strong> to communicate technical reasoning</li>
+                  <li><strong>Feasibility thinking</strong> kept alongside the analysis</li>
                 </ul>
               </div>
             </article>
-            <article class="card project-card" data-project-card data-category="frontend systems" data-reveal>
-              <img src="assets/images/project-orbit.svg" alt="Placeholder image for Orbit Commerce Studio" />
+            <article class="card project-card" data-project-card data-category="simulation software" data-reveal>
+              <img src="assets/images/project-orbit.svg" alt="Illustration for black hole photon simulation" />
               <div class="card-body">
-                <p class="meta">Commerce tooling</p>
-                <h3>Orbit Commerce Studio</h3>
-                <p>Created a visual editing environment for merchandisers to launch pages, bundles, and experiments without waiting for an engineering queue.</p>
+                <p class="meta">Scientific computing</p>
+                <h3>Photon Paths Near a Black Hole</h3>
+                <p>Built an interactive MATLAB visualization around photon scattering, using the Paczynski-Wiita potential to make a difficult physics topic easier to explore and explain.</p>
                 <ul class="impact-list">
-                  <li><strong>65% faster</strong> campaign launches</li>
-                  <li><strong>18% lift</strong> on refreshed landing pages</li>
-                  <li><strong>One design system</strong> shared across four product groups</li>
-                </ul>
-              </div>
-            </article>
-            <article class="card project-card" data-project-card data-category="ai data frontend" data-reveal>
-              <img src="assets/images/project-vault.svg" alt="Placeholder image for Vault Docs Search" />
-              <div class="card-body">
-                <p class="meta">Knowledge search</p>
-                <h3>Vault Docs Search</h3>
-                <p>Built an internal documentation experience that combined structured content, semantic search, and answer previews so new engineers ramped faster.</p>
-                <ul class="impact-list">
-                  <li><strong>37% fewer</strong> repeated support questions in Slack</li>
-                  <li><strong>Faster onboarding</strong> for new hires in the first month</li>
-                  <li><strong>Self-serve answers</strong> without losing source transparency</li>
-                </ul>
-              </div>
-            </article>
-            <article class="card project-card" data-project-card data-category="platform systems ai" data-reveal>
-              <img src="assets/images/project-foundry.svg" alt="Placeholder image for Foundry Release Assistant" />
-              <div class="card-body">
-                <p class="meta">Developer tooling</p>
-                <h3>Foundry Release Assistant</h3>
-                <p>Built a release workflow assistant that automated release notes, dependency checks, and preflight summaries before launch windows.</p>
-                <ul class="impact-list">
-                  <li><strong>61% less</strong> manual prep before releases</li>
-                  <li><strong>Fewer misses</strong> on risky dependency changes</li>
-                  <li><strong>Cleaner handoffs</strong> between developers and QA</li>
-                </ul>
-              </div>
-            </article>
-            <article class="card project-card" data-project-card data-category="frontend systems" data-reveal>
-              <img src="assets/images/project-nova.svg" alt="Placeholder image for Nova Care Portal" />
-              <div class="card-body">
-                <p class="meta">Healthcare portal</p>
-                <h3>Nova Care Portal</h3>
-                <p>Led the frontend rebuild for a patient portal focused on accessibility, appointment clarity, and low-friction account management.</p>
-                <ul class="impact-list">
-                  <li><strong>Accessibility scores</strong> improved across core flows</li>
-                  <li><strong>Support volume fell</strong> after appointment UX cleanup</li>
-                  <li><strong>Faster feature delivery</strong> with a reusable component set</li>
+                  <li><strong>Interactive simulation</strong> with a clear visual output</li>
+                  <li><strong>Approximate relativity modeling</strong> tied to the analysis</li>
+                  <li><strong>Readable technical storytelling</strong> through computation</li>
                 </ul>
               </div>
             </article>
@@ -163,21 +121,21 @@
       <section class="section">
         <div class="container split-grid case-study">
           <div class="image-stack" data-reveal>
-            <img src="assets/images/project-orbit.svg" alt="Placeholder campaign builder interface" />
-            <img src="assets/images/project-pulse.svg" alt="Placeholder analytics dashboard interface" />
+            <img src="assets/images/project-orbit.svg" alt="Illustration for simulation work" />
+            <img src="assets/images/project-pulse.svg" alt="Illustration for structural analysis work" />
           </div>
           <div data-reveal>
             <div class="section-head">
               <div>
                 <p class="eyebrow">How I work</p>
-                <h2>My strongest projects blend product sense with engineering depth.</h2>
+                <h2>The current project story is analysis-first and resume-grounded.</h2>
               </div>
             </div>
             <ul class="detail-list">
-              <li><strong>Clarify the goal.</strong> I like turning a vague brief into a concrete plan with good tradeoffs and obvious milestones.</li>
-              <li><strong>Make the hard parts visible.</strong> The riskiest states, edge cases, and data flows get designed early, not patched in at the end.</li>
-              <li><strong>Ship a credible first version.</strong> I prefer launching something polished enough to build trust immediately.</li>
-              <li><strong>Leave the system better.</strong> I aim for handoff docs, patterns, and cleanup that help the next sprint move faster.</li>
+              <li><strong>Start with the constraints.</strong> I care about loads, assumptions, interfaces, and failure modes before the solution gets too polished.</li>
+              <li><strong>Keep design practical.</strong> I like connecting analysis to manufacturability, assembly, and subsystem fit.</li>
+              <li><strong>Make the work readable.</strong> Visuals and explanations matter because technical work only helps if the rest of the team can use it.</li>
+              <li><strong>Expand carefully.</strong> When the drive portfolio is uploaded, this page can add deeper case studies without guessing or overclaiming.</li>
             </ul>
           </div>
         </div>
@@ -187,22 +145,22 @@
         <div class="container">
           <div class="section-head" data-reveal>
             <div>
-              <p class="eyebrow">Recruiter notes</p>
-              <h2>Quick answers to the obvious questions.</h2>
+              <p class="eyebrow">What comes next</p>
+              <h2>The next portfolio pass should add the missing depth, not new guesswork.</h2>
             </div>
           </div>
           <div class="card-grid">
             <article class="card faq-card" data-reveal>
-              <h3>What roles fit best?</h3>
-              <p>Frontend engineer, product engineer, full-stack engineer, or platform-adjacent product roles where ownership and communication matter as much as code.</p>
+              <h3>Already supported</h3>
+              <p>School, direction, tool stack, contact details, and the three technical project themes shown on this page.</p>
             </article>
             <article class="card faq-card" data-reveal>
-              <h3>What does this portfolio emphasize?</h3>
-              <p>Projects with measurable outcomes, strong UI craft, and signs that I can work across product, design, and technical systems without getting lost.</p>
+              <h3>Worth adding later</h3>
+              <p>Screenshots, diagrams, longer writeups, and more detailed breakdowns from the drive portfolio once those files are available.</p>
             </article>
             <article class="card faq-card" data-reveal>
-              <h3>What would be swapped later?</h3>
-              <p>Real screenshots, real metrics, actual team names, and a few cleaner case study links. The site structure is already set up for that pass.</p>
+              <h3>Why this is narrower</h3>
+              <p>The current version avoids made-up specifics on purpose. It is better to stay honest now and expand once the missing project material is uploaded.</p>
             </article>
           </div>
         </div>
@@ -215,11 +173,11 @@
           <a class="brand" href="index.html">
             <span class="brand-mark">A</span>
             <span class="brand-copy">
-              <strong>Alexa</strong>
-              <span>Software Engineer</span>
+              <strong>Alexander</strong>
+              <span>Aerospace Engineering Student</span>
             </span>
           </a>
-          <p>Project archive focused on shipped outcomes, system thinking, and recruiter-friendly scanning.</p>
+          <p>Project archive currently focused on resume-backed technical work and ready for a fuller case-study pass later.</p>
         </div>
         <div>
           <ul class="footer-links">
@@ -230,11 +188,11 @@
           </ul>
         </div>
         <div class="footer-note">
-          <p>Need custom case studies or real screenshots next? This structure is ready.</p>
-          <p><a href="mailto:hello@alexa-builds.dev">hello@alexa-builds.dev</a></p>
+          <p>Need more depth later? That should come from the drive portfolio upload.</p>
+          <p><a href="mailto:alex@amadeo.org">alex@amadeo.org</a></p>
         </div>
       </div>
-      <p class="footer-copyright">Copyright 2026 Alexa. All rights reserved.</p>
+      <p class="footer-copyright">Copyright 2026 Alexander Amadeo-Ranch. All rights reserved.</p>
     </footer>
   </div>
 </body>

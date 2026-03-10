@@ -1,38 +1,38 @@
 ﻿const spotlightItems = {
-  atlas: {
-    title: "Atlas Control Center",
+  cubesat: {
+    title: "UCI CubeSat Structures",
     copy:
-      "A unified reliability workspace that brought incidents, deploy health, and service ownership into a single view. I designed the dashboard system, shipped the UI architecture, and partnered with platform teams to make fast decisions feel obvious.",
+      "Structural work for a student spacecraft team, with attention to analysis, interfaces, and the practical constraints that come with real hardware.",
     metrics: [
-      { value: "42%", label: "faster incident triage" },
-      { value: "5", label: "dashboards merged into one workflow" },
-      { value: "99.95%", label: "service uptime after rollout" }
+      { value: "FEA", label: "static and modal analysis on structural parts" },
+      { value: "CAD", label: "interface-aware design support" },
+      { value: "Fit", label: "integration thinking alongside analysis" }
     ],
-    tags: ["React", "TypeScript", "Node", "Observability"],
+    tags: ["SolidWorks", "ANSYS", "Altium", "Structures"],
     image: "assets/images/project-atlas.svg"
   },
-  pulse: {
-    title: "Pulse Forecast Engine",
+  impact: {
+    title: "Micrometeoroid and Ice Impact Mitigation",
     copy:
-      "A demand-planning tool that turned noisy sales and support signals into weekly inventory recommendations. I owned the user-facing flows, the data storytelling, and the internal tooling that helped operators trust the model output.",
+      "A lunar impact mitigation study grounded in scaling, damage, mass tradeoffs, and engineering feasibility instead of one-dimensional comparisons.",
     metrics: [
-      { value: "28%", label: "drop in stockouts during pilot" },
-      { value: "11", label: "regional teams onboarded" },
-      { value: "3x", label: "faster reporting cycle" }
+      { value: "Impact", label: "damage and scaling reasoning" },
+      { value: "Tradeoffs", label: "mass versus protection framing" },
+      { value: "Visuals", label: "technical results made easier to explain" }
     ],
-    tags: ["Python", "Forecasting", "Data UX", "APIs"],
+    tags: ["Materials", "Simulation", "Lunar Systems", "Engineering Analysis"],
     image: "assets/images/project-pulse.svg"
   },
-  orbit: {
-    title: "Orbit Commerce Studio",
+  photons: {
+    title: "Photon Paths Near a Black Hole",
     copy:
-      "A merchandiser toolkit for launching landing pages, bundles, and campaigns without waiting on engineering. I led the component system, the experiment surfaces, and the performance work that kept the editor snappy under heavy usage.",
+      "An interactive MATLAB project for visualizing photon scattering near a black hole, using the Paczynski-Wiita potential to make a difficult physics topic more readable.",
     metrics: [
-      { value: "65%", label: "faster campaign launches" },
-      { value: "18%", label: "higher conversion on refreshed pages" },
-      { value: "4", label: "product teams sharing one design system" }
+      { value: "MATLAB", label: "interactive scientific visualization" },
+      { value: "Physics", label: "approximate relativity model" },
+      { value: "Clarity", label: "complex theory translated into a tool" }
     ],
-    tags: ["Frontend", "Design Systems", "Experimentation", "Performance"],
+    tags: ["MATLAB", "Computational Physics", "Visualization", "Numerical Modeling"],
     image: "assets/images/project-orbit.svg"
   }
 };
@@ -147,7 +147,7 @@ function initSpotlight() {
     title.textContent = item.title;
     copy.textContent = item.copy;
     image.src = item.image;
-    image.alt = `${item.title} placeholder project image`;
+    image.alt = `${item.title} project image`;
 
     tags.innerHTML = item.tags
       .map((tag) => `<span class="chip">${tag}</span>`)
@@ -173,7 +173,7 @@ function initSpotlight() {
     button.addEventListener("click", () => renderSpotlight(button.dataset.key));
   });
 
-  renderSpotlight("atlas");
+  renderSpotlight("cubesat");
 }
 
 function initProjectFilters() {
@@ -256,7 +256,7 @@ function initContactForm() {
     event.preventDefault();
     const formData = new FormData(form);
     const name = formData.get("name") || "there";
-    message.textContent = `Thanks, ${name}. This demo form is front-end only, but the portfolio is ready for a real form endpoint whenever you are.`;
+    message.textContent = `Thanks, ${name}. This demo form is front-end only for now, but the site is ready to connect to a real form endpoint whenever you are.`;
     form.reset();
   });
 }
