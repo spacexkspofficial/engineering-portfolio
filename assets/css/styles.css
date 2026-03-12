@@ -1200,3 +1200,103 @@ video {
   color: var(--muted);
   line-height: 1.7;
 }
+
+.media-fit {
+  object-fit: contain !important;
+  background: linear-gradient(180deg, rgba(5, 16, 25, 0.92), rgba(7, 19, 29, 0.72));
+  padding: 0.75rem;
+}
+
+.project-card > img,
+.contact-visual .media-fit,
+.image-stack .media-fit,
+.hero-collage .media-fit,
+.gallery-grid .media-fit {
+  object-fit: contain !important;
+  background: linear-gradient(180deg, rgba(5, 16, 25, 0.92), rgba(7, 19, 29, 0.72));
+  padding: 0.75rem;
+}
+
+.media-frame-fit {
+  display: grid;
+  place-items: center;
+  padding: 0.75rem;
+}
+
+.media-frame-fit img,
+.media-frame-fit video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  background: linear-gradient(180deg, rgba(5, 16, 25, 0.92), rgba(7, 19, 29, 0.72));
+  border-radius: calc(var(--radius-lg) - 8px);
+}
+
+.project-card > img {
+  aspect-ratio: 16 / 10;
+}
+
+video {
+  background: linear-gradient(180deg, rgba(5, 16, 25, 0.92), rgba(7, 19, 29, 0.72));
+}
+
+video:fullscreen,
+video:-webkit-full-screen,
+video:-ms-fullscreen {
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  background: #000;
+  padding: 0;
+  border-radius: 0;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.skill-block {
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.skill-block h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.05rem;
+}
+
+.skill-block p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.link-stack {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.link-stack .button {
+  justify-content: flex-start;
+}
+
+@media (max-width: 760px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .media-frame-fit,
+  .hero-collage .media-fit,
+  .project-card > img,
+  .contact-visual .media-fit,
+  .image-stack .media-fit,
+  .gallery-grid .media-fit {
+    padding: 0.55rem;
+  }
+}
