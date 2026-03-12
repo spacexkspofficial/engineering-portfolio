@@ -1,0 +1,15 @@
+﻿<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" rx="36" fill="#07131D"/>
+  <rect x="40" y="40" width="1200" height="640" rx="28" fill="#091C2B" stroke="rgba(255,255,255,0.08)"/>
+  <circle cx="1068" cy="154" r="88" fill="#FF9C52" fill-opacity="0.14"/>
+  <text x="96" y="154" fill="#8FF2E0" font-family="Aptos, Segoe UI, sans-serif" font-size="26" letter-spacing="4">VIDEO</text>
+  <text x="96" y="246" fill="#EEF6F6" font-family="Bahnschrift, Aptos, sans-serif" font-size="70" font-weight="700">Hands-On Mechanical Work</text>
+  <text x="96" y="306" fill="#ABC0CB" font-family="Aptos, Segoe UI, sans-serif" font-size="30">Install and upgrade clip</text>
+  <rect x="96" y="382" width="420" height="190" rx="28" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)"/>
+  <path d="M172 496L244 448V544L172 496Z" fill="#EEF6F6"/>
+  <circle cx="738" cy="488" r="78" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="16"/>
+  <circle cx="942" cy="488" r="78" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="16"/>
+  <path d="M734 430L810 352L868 410L792 488" stroke="#FF9C52" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M922 408H1008" stroke="#8FF2E0" stroke-width="18" stroke-linecap="round"/>
+  <path d="M964 366V450" stroke="#8FF2E0" stroke-width="18" stroke-linecap="round"/>
+</svg>
