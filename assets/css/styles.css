@@ -1134,3 +1134,69 @@ body[data-page="home"] .hero-copy h1 {
     max-width: none;
   }
 }
+
+video {
+  display: block;
+  max-width: 100%;
+}
+
+.media-frame {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.project-card .media-frame img,
+.project-card .media-frame video,
+.media-card .media-frame img,
+.media-card .media-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.project-actions {
+  margin-top: 1rem;
+}
+
+.compact-card .card-body h2 {
+  margin: 0.2rem 0 1rem;
+  font-size: 1.55rem;
+}
+
+.compact-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.compact-list li {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.compact-list strong {
+  color: var(--text);
+}
+
+.compact-note {
+  margin: 1rem 0 0;
+  font-size: 0.98rem;
+}
+
+.media-card {
+  margin: 0;
+  padding: 0;
+}
+
+.media-card figcaption {
+  padding: 1rem 1.2rem 1.2rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
