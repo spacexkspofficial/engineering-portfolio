@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects | Alexander Amadeo-Ranch</title>
-  <meta name="description" content="Selected engineering projects by Alexander Amadeo-Ranch across aerospace structures, simulation, coding, technical writing, and hands-on mechanical work." />
+  <meta name="description" content="Project archive for Alexander Amadeo-Ranch across spacecraft structures, mission analysis, controls, simulation, technical writing, and hands-on engineering work." />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <script defer src="assets/js/site.js"></script>
 </head>
@@ -32,37 +32,38 @@
         </nav>
       </div>
     </header>
-
     <main id="main">
-      <section class="section project-page-hero">
-        <div class="container split-grid">
+      <section class="section page-hero">
+        <div class="container page-hero-grid">
           <div class="hero-copy" data-reveal>
-            <p class="kicker">Selected Work</p>
-            <h1>Projects in structures, simulation, code, writing, and hands-on work.</h1>
-            <p class="lead">A selection of coursework, team projects, and personal work.</p>
+            <p class="eyebrow">Project Archive</p>
+            <h1>A cleaner archive of projects, media, and source material.</h1>
+            <p class="lead">Each entry is organized around what the project was, what evidence on the page supports it, and what skill it actually demonstrates.</p>
             <div class="button-row">
               <a class="button primary" href="assets/downloads/resume/alexander-amadeo-ranch-resume.pdf" download>Download resume</a>
-              <a class="button secondary" href="https://linkedin.com/in/alexamadeoranch" target="_blank" rel="noreferrer">Connect on LinkedIn</a>
+              <a class="button secondary" href="https://linkedin.com/in/alexamadeoranch" target="_blank" rel="noreferrer">LinkedIn</a>
             </div>
-            <p class="scroll-note">Scroll for project cards, clips, and source material.</p>
           </div>
-          <div class="image-stack" data-reveal>
-            <img class="media-fit" src="assets/media/photons/photon-blackhole-simulation.png" alt="MATLAB black hole photon simulation" />
-            <video class="media-fit" controls muted playsinline preload="metadata" poster="assets/images/poster-cubesat-frequency.png">
-              <source src="assets/media/cubesat/hinge-plate-frequency-analysis.mp4" type="video/mp4" />
-            </video>
-          </div>
+          <aside class="reading-panel" data-reveal>
+            <p class="small-label">How To Read This Page</p>
+            <strong>Think of each section as a case-study excerpt.</strong>
+            <ul class="compact-list">
+              <li><strong>Summary:</strong> the problem or project scope.</li>
+              <li><strong>Evidence:</strong> the clip, report, image, or source file that best supports it.</li>
+              <li><strong>Takeaway:</strong> the capability the project demonstrates.</li>
+            </ul>
+          </aside>
         </div>
       </section>
 
       <section class="section section-tight">
         <div class="container" data-reveal>
-          <div class="section-head">
+          <div class="section-intro">
             <div>
               <p class="eyebrow">Filter</p>
               <h2>Browse by skill area.</h2>
             </div>
-            <p>The work spans analysis, communication, coding, and hands-on execution.</p>
+            <p>The filters narrow the page, but a lot of these projects naturally overlap structures, software, analysis, writing, and hands-on execution.</p>
           </div>
           <div class="filter-row">
             <button class="filter-button active" type="button" data-filter="all">All</button>
@@ -77,240 +78,493 @@
 
       <section class="section section-tight">
         <div class="container">
-          <div class="project-grid">
-            <article class="card project-card" data-project-card data-category="aerospace analysis" data-reveal>
-              <div class="media-frame media-frame-fit">
-                <video controls playsinline preload="metadata" poster="assets/images/poster-cubesat-static.png">
-                  <source src="assets/media/cubesat/hinge-plate-static-analysis.mp4" type="video/mp4" />
-                </video>
+          <div class="archive-shell">
+            <article class="project-entry" id="cubesat-structures" data-project-card data-category="aerospace analysis" data-reveal>
+              <div class="entry-head">
+                <p class="meta">Team spacecraft | Structural analysis</p>
+                <h2>UCI CubeSat Structures</h2>
+                <p>Structural analysis work for a student spacecraft team, approached with the mindset that simulation should stay tied to interfaces, part behavior, and integration reality.</p>
+                <div class="chip-list">
+                  <span class="chip">ANSYS</span>
+                  <span class="chip">Structures</span>
+                  <span class="chip">Modal analysis</span>
+                  <span class="chip">Hardware context</span>
+                </div>
               </div>
-              <div class="card-body">
-                <p class="meta">Aerospace | Student spacecraft</p>
-                <h3>UCI CubeSat Structures</h3>
-                <p>Structural analysis work that reflects how I like to approach engineering problems: understand the part, check the behavior, and keep the design tied to real hardware constraints.</p>
-                <ul class="impact-list">
-                  <li><strong>Applied:</strong> static and frequency analysis on a structural component</li>
-                  <li><strong>Supported:</strong> interface-aware design thinking around part integration</li>
-                  <li><strong>Tools shown:</strong> FEA workflow, engineering judgment, and technical communication</li>
-                </ul>
-                <div class="button-row project-actions">
-                  <a class="button ghost" href="assets/media/cubesat/hinge-plate-static-analysis.mp4">Static clip</a>
-                  <a class="button ghost" href="assets/media/cubesat/hinge-plate-frequency-analysis.mp4">Frequency clip</a>
-                  <a class="button ghost" href="assets/downloads/projects/extrakpak/what-is-uci-cubesat.pdf">Overview PDF</a>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What I Worked On</p><p>Static and frequency analysis on a CubeSat structural component.</p></article>
+                    <article class="insight-card"><p class="small-label">What The Media Shows</p><p>Two clips that make stiffness and dynamic behavior easier to read than a single still image.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Matters</p><p>This is the clearest example in the archive of analysis staying grounded in a real hardware story.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/media/cubesat/hinge-plate-static-analysis.mp4">Static clip</a>
+                    <a class="button secondary" href="assets/media/cubesat/hinge-plate-frequency-analysis.mp4">Frequency clip</a>
+                    <a class="button ghost" href="assets/downloads/projects/extrakpak/what-is-uci-cubesat.pdf">Overview PDF</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <figure class="media-panel">
+                    <video controls playsinline preload="metadata" poster="assets/images/poster-cubesat-static.png">
+                      <source src="assets/media/cubesat/hinge-plate-static-analysis.mp4" type="video/mp4" />
+                    </video>
+                    <figcaption>Static simulation artifact for the hinge-plate component.</figcaption>
+                  </figure>
+                  <figure class="media-panel">
+                    <video controls playsinline preload="metadata" poster="assets/images/poster-cubesat-frequency.png">
+                      <source src="assets/media/cubesat/hinge-plate-frequency-analysis.mp4" type="video/mp4" />
+                    </video>
+                    <figcaption>Frequency-view clip for the same part, useful for discussing dynamic behavior.</figcaption>
+                  </figure>
                 </div>
               </div>
             </article>
 
-            <article class="card project-card" data-project-card data-category="software analysis" data-reveal>
-              <div class="media-frame media-frame-fit">
-                <img src="assets/media/photons/photon-blackhole-simulation.png" alt="Photon path simulation output from MATLAB" />
+            <article class="project-entry" id="mae-146-didymos" data-project-card data-category="aerospace software analysis" data-reveal>
+              <div class="entry-head">
+                <p class="meta">MAE 146 | Mission analysis with MATLAB</p>
+                <h2>Mission to Didymos</h2>
+                <p>A preliminary Earth-to-Didymos mission analysis built in MATLAB. The project propagates planetary states, solves Lambert transfers, computes total delta-v, and maps candidate windows with a porkchop plot.</p>
+                <div class="chip-list">
+                  <span class="chip">MATLAB</span>
+                  <span class="chip">Astrodynamics</span>
+                  <span class="chip">Lambert solver</span>
+                  <span class="chip">Porkchop plot</span>
+                </div>
               </div>
-              <div class="card-body">
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What I Built</p><p>Orbital propagation and transfer-planning code built around Earth and Didymos reference elements.</p></article>
+                    <article class="insight-card"><p class="small-label">What The Deliverables Show</p><p>A full report plus reusable helper functions for propagation, state conversion, Stumpff functions, and Lambert solving.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Matters</p><p>This project adds clear astrodynamics depth to the portfolio and shows that the computational work goes beyond plotting alone.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/downloads/projects/mae-146-didymos/mae-146-mission-to-didymos-final-report.pdf">Final report</a>
+                    <a class="button secondary" href="assets/downloads/projects/mae-146-didymos/problem4_didymos.m">Main script</a>
+                    <a class="button ghost" href="assets/downloads/projects/mae-146-didymos/lambert_universal.m">Lambert solver</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <article class="document-panel">
+                    <p class="small-label">Artifacts</p>
+                    <h3>Report plus code archive</h3>
+                    <p>The strongest evidence here is the pairing of a written mission-analysis report with code that exposes the actual transfer workflow.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/mae-146-didymos/mae-146-mission-to-didymos-final-report.pdf">MAE 146 final report</a>
+                      <a class="document-link" href="assets/downloads/projects/mae-146-didymos/mae-146-didymos-project-4.pdf">Project 4 PDF</a>
+                      <a class="document-link" href="assets/downloads/projects/mae-146-didymos/problem4_didymos.m">Mission script</a>
+                    </div>
+                  </article>
+                  <pre class="code-panel"><code>% Preliminary mission analysis for Earth to Didymos transfer
+t_earth = 12 * day2sec;
+t_didymos = 412 * day2sec;
+rv_earth_dep = propagate_elliptical(rv_earth_ref, t_earth, MU);
+rv_didymos_arr = propagate_elliptical(rv_didymos_ref, t_didymos, MU);
+
+[v1_trans, v2_trans, ~] = lambert_universal( ...
+    r1_nom, r2_nom, tof_nom, MU, 0, 1e-8, 1e-8);
+dV_tot_nom = norm(v1_trans - v1_earth) + norm(v2_trans - v2_didymos);</code></pre>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-entry" id="photon-paths" data-project-card data-category="software analysis" data-reveal>
+              <div class="entry-head">
                 <p class="meta">Simulation | MATLAB</p>
-                <h3>Photon Paths Near a Black Hole</h3>
-                <p>A computational physics project that models a difficult concept through simulation and visualization.</p>
-                <ul class="impact-list">
-                  <li><strong>Built:</strong> a MATLAB model for photon capture, escape, and the critical path</li>
-                  <li><strong>Used:</strong> the Paczynski-Wiita potential and a clear plotted output</li>
-                  <li><strong>Focus:</strong> numerical thinking, scientific communication, and readable visual presentation</li>
-                </ul>
-                <div class="button-row project-actions">
-                  <a class="button ghost" href="assets/downloads/projects/thermo/photon-blackhole-simulation.m">MATLAB script</a>
-                  <a class="button ghost" href="assets/media/photons/photon-blackhole-simulation.png">Image</a>
+                <h2>Photon Paths Near a Black Hole</h2>
+                <p>A computational physics project that models photon capture, escape, and critical trajectories and presents the result as a readable visual output.</p>
+                <div class="chip-list">
+                  <span class="chip">MATLAB</span>
+                  <span class="chip">Computational physics</span>
+                  <span class="chip">Visualization</span>
+                  <span class="chip">Numerical reasoning</span>
+                </div>
+              </div>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What I Built</p><p>A simulation that separates escape paths, captured paths, and the critical trajectory in a single plotted view.</p></article>
+                    <article class="insight-card"><p class="small-label">What The Still Gives You</p><p>A fast visual explanation of a difficult concept without needing to read the script first.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Matters</p><p>It demonstrates that I care about the presentation layer of technical work, not only the computation behind it.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/downloads/projects/thermo/photon-blackhole-simulation.m">MATLAB script</a>
+                    <a class="button ghost" href="assets/media/photons/photon-blackhole-simulation.png">Image</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <figure class="media-panel">
+                    <img src="assets/media/photons/photon-blackhole-simulation.png" alt="Photon path simulation output from MATLAB" loading="lazy" />
+                    <figcaption>The final image is the project's strongest artifact because it makes the behavior interpretable immediately.</figcaption>
+                  </figure>
+                  <article class="document-panel">
+                    <p class="small-label">Use Case</p>
+                    <h3>Numerical work made easier to explain</h3>
+                    <p>The plot is useful as both a technical output and a communication tool, which is exactly the overlap I want more of across the portfolio.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/thermo/photon-blackhole-simulation.m">Source code</a>
+                    </div>
+                  </article>
                 </div>
               </div>
             </article>
 
-            <article class="card project-card" data-project-card data-category="aerospace analysis policy" data-reveal>
-              <div class="card-body">
-                <p class="meta">Design | Technical proposal</p>
-                <h3>ExtrakPak SAR Drone Concept</h3>
-                <p>A technical proposal for a heavy-lift recovery drone shaped around system requirements, risk, and operational practicality.</p>
-                <ul class="impact-list">
-                  <li><strong>Covered:</strong> airframe layout, grappling system, remote command unit, and compliance considerations</li>
-                  <li><strong>Framed:</strong> payload targets, environment limits, and user-risk management</li>
-                  <li><strong>Focus:</strong> concept development, structured thinking, and engineering writing</li>
-                </ul>
-                <div class="button-row project-actions">
-                  <a class="button ghost" href="assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal.docx">Proposal</a>
-                  <a class="button ghost" href="assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal-presentation.pptx">Presentation</a>
+            <article class="project-entry" id="mae-106-autonomous" data-project-card data-category="software analysis" data-reveal>
+              <div class="entry-head">
+                <p class="meta">MAE 106 | Team robotics project</p>
+                <h2>Autonomous Robot</h2>
+                <p>A multi-deliverable robotics project represented through the final report and experimental verification documents. It shows engineering process and testing cadence rather than only a final polished result.</p>
+                <div class="chip-list">
+                  <span class="chip">Robotics</span>
+                  <span class="chip">Experimental verification</span>
+                  <span class="chip">Team project</span>
+                  <span class="chip">Iteration</span>
+                </div>
+              </div>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What The Archive Shows</p><p>The final deliverable plus verification artifacts, which together say more than a one-line course label ever could.</p></article>
+                    <article class="insight-card"><p class="small-label">What It Demonstrates</p><p>Iteration, testing discipline, and the ability to document how a system was checked rather than only how it was designed.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Belongs Here</p><p>This entry rounds out the controls and robotics side of the portfolio with something evidence-driven.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-final-report.pdf">Final report</a>
+                    <a class="button ghost" href="assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-experimental-verification-1.pdf">Verification 1</a>
+                    <a class="button ghost" href="assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-experimental-verification-2.pdf">Verification 2</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <article class="document-panel">
+                    <p class="small-label">Primary Artifact</p>
+                    <h3>Final report</h3>
+                    <p>The main report is the best single artifact for understanding scope, decisions, and system-level framing.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-final-report.pdf">Open final report</a>
+                    </div>
+                  </article>
+                  <article class="document-panel">
+                    <p class="small-label">Verification Trail</p>
+                    <h3>Experimental checks</h3>
+                    <p>The verification PDFs make this entry valuable because they show measured checking, not just presentation polish.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-experimental-verification-1.pdf">Experimental verification 1</a>
+                      <a class="document-link" href="assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-experimental-verification-2.pdf">Experimental verification 2</a>
+                    </div>
+                  </article>
                 </div>
               </div>
             </article>
 
-            <article class="card project-card" data-project-card data-category="aerospace analysis" data-reveal>
-              <div class="card-body">
-                <p class="meta">Materials + impact analysis</p>
-                <h3>Lunar Micrometeoroid Protection</h3>
-                <p>A project that combined experimental thinking with quick-impact modeling to evaluate reinforced ice concepts for lunar protection.</p>
-                <ul class="impact-list">
-                  <li><strong>Compared:</strong> different reinforcement approaches and damage behavior</li>
-                  <li><strong>Estimated:</strong> the scale challenge involved in stopping a high-speed iron micrometeoroid</li>
-                  <li><strong>Focus:</strong> tradeoff analysis, experiment framing, and technical presentation</li>
-                </ul>
-                <div class="button-row project-actions">
-                  <a class="button ghost" href="assets/downloads/projects/lunar-impact/lunar-micrometeoroid-impact-projection-analysis.pptx">Presentation</a>
+            <article class="project-entry" id="mae-106-pid" data-project-card data-category="software analysis" data-reveal>
+              <div class="entry-head">
+                <p class="meta">MAE 106 | Controls</p>
+                <h2>PID Controller Design</h2>
+                <p>A controls-focused report centered on PID design and response reasoning. It represents a distinct skill: explaining tuning tradeoffs and closed-loop behavior clearly.</p>
+                <div class="chip-list">
+                  <span class="chip">Controls</span>
+                  <span class="chip">PID</span>
+                  <span class="chip">Closed-loop behavior</span>
+                  <span class="chip">Design reasoning</span>
+                </div>
+              </div>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What The Report Captures</p><p>Controller design choices, tuning logic, and the tradeoffs behind how a response is judged.</p></article>
+                    <article class="insight-card"><p class="small-label">What It Adds</p><p>A cleaner controls-specific example than burying PID work inside a broader robotics entry.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Matters</p><p>It strengthens the story that I can move between simulation, control logic, and explainable engineering decisions.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/downloads/projects/mae-106-pid/mae-106-pid-controller-design-report.pdf">Open report</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <article class="document-panel">
+                    <p class="small-label">Primary Artifact</p>
+                    <h3>Controller design report</h3>
+                    <p>The value here is the reasoning around response quality and tuning, which is exactly what makes controls work convincing in a portfolio.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/mae-106-pid/mae-106-pid-controller-design-report.pdf">PID controller design report</a>
+                    </div>
+                  </article>
+                  <article class="document-panel">
+                    <p class="small-label">Best Read Alongside</p>
+                    <h3>Autonomous Robot</h3>
+                    <p>Together, the MAE 106 entries show both sides of the story: standalone controls reasoning and a broader team system that needed verification.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="#mae-106-autonomous">Jump to autonomous robot</a>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </article>
+            <article class="project-entry" id="extrakpak-drone" data-project-card data-category="aerospace policy" data-reveal>
+              <div class="entry-head">
+                <p class="meta">ENGR 190W | Technical proposal</p>
+                <h2>ExtrakPak SAR Drone Concept</h2>
+                <p>A heavy-lift search-and-recovery drone proposal framed around system requirements, operational practicality, and risk rather than only concept sketches.</p>
+                <div class="chip-list">
+                  <span class="chip">Aerospace systems</span>
+                  <span class="chip">Technical writing</span>
+                  <span class="chip">Concept development</span>
+                  <span class="chip">Risk framing</span>
+                </div>
+              </div>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What I Covered</p><p>Airframe layout, grappling concept, remote command unit, payload framing, and risk considerations.</p></article>
+                    <article class="insight-card"><p class="small-label">What The Artifacts Are</p><p>A proposal document and presentation deck that show structured engineering communication.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Matters</p><p>This is one of the best writing-heavy examples in the archive for showing how I organize technical arguments.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal.docx">Proposal</a>
+                    <a class="button ghost" href="assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal-presentation.pptx">Presentation</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <article class="document-panel">
+                    <p class="small-label">Primary Artifact</p>
+                    <h3>Technical proposal</h3>
+                    <p>The written proposal is the strongest item here because it carries the systems framing and operational tradeoffs.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal.docx">Technical proposal</a>
+                    </div>
+                  </article>
+                  <article class="document-panel">
+                    <p class="small-label">Supporting Artifact</p>
+                    <h3>Presentation deck</h3>
+                    <p>The deck shows how the same project was translated into a shorter, audience-friendly technical format.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal-presentation.pptx">Presentation deck</a>
+                    </div>
+                  </article>
                 </div>
               </div>
             </article>
 
-            <article class="card project-card" data-project-card data-category="software" data-reveal>
-              <div class="card-body">
-                <p class="meta">MATLAB | Data and visualization</p>
-                <h3>Periodic Table Database</h3>
-                <p>A MATLAB project that combines element lookup with periodic trend plots.</p>
-                <ul class="impact-list">
-                  <li><strong>Built:</strong> a tool that graphs core periodic trends and returns element details by symbol</li>
-                  <li><strong>Displayed:</strong> mass, electronegativity, ionization energy, radius, and electron affinity</li>
-                  <li><strong>Focus:</strong> data handling, plotting, and user-oriented MATLAB scripting</li>
-                </ul>
-                <div class="button-row project-actions">
-                  <a class="button ghost" href="assets/downloads/projects/matlab-db/matlab-periodic-table-database-report.docx">Project report</a>
+            <article class="project-entry" id="lunar-impact" data-project-card data-category="aerospace analysis" data-reveal>
+              <div class="entry-head">
+                <p class="meta">ENGR 54 | Materials and impact analysis</p>
+                <h2>Lunar Micrometeoroid Protection</h2>
+                <p>A project exploring reinforced ice concepts for lunar protection, combining experimental framing with fast impact and feasibility reasoning.</p>
+                <div class="chip-list">
+                  <span class="chip">Materials</span>
+                  <span class="chip">Impact reasoning</span>
+                  <span class="chip">Tradeoff analysis</span>
+                  <span class="chip">Presentation</span>
+                </div>
+              </div>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What The Project Focused On</p><p>Damage behavior, reinforcement concepts, and the scale challenge involved in stopping high-speed impacts.</p></article>
+                    <article class="insight-card"><p class="small-label">What The Artifact Is</p><p>A presentation that captures the reasoning and makes the project easier to evaluate quickly.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Matters</p><p>It shows comfort doing quick analytical framing on unfamiliar aerospace problems.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/downloads/projects/lunar-impact/lunar-micrometeoroid-impact-projection-analysis.pptx">Presentation</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <article class="document-panel">
+                    <p class="small-label">Primary Artifact</p>
+                    <h3>Impact-analysis presentation</h3>
+                    <p>The deck is the best available artifact and captures idea generation, comparison, and feasibility framing.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/lunar-impact/lunar-micrometeoroid-impact-projection-analysis.pptx">Open presentation</a>
+                    </div>
+                  </article>
+                  <article class="document-panel">
+                    <p class="small-label">Best Takeaway</p>
+                    <h3>Analytical speed on a new problem</h3>
+                    <p>The project is worth keeping in the archive because it shows rapid engineering reasoning, not because it has flashy visuals.</p>
+                  </article>
                 </div>
               </div>
             </article>
 
-            <article class="card project-card" data-project-card data-category="software analysis" data-reveal>
-              <div class="card-body">
-                <p class="meta">Python notebooks | Thermodynamics</p>
-                <h3>Thermodynamics Notebook Set</h3>
-                <p>Three Python notebooks focused on state-property calculations, plotted sweeps, and cycle behavior.</p>
-                <ul class="impact-list">
-                  <li><strong>Modeled:</strong> adiabatic mixing, Rankine cycle behavior, turbine power, and isothermal expansion</li>
-                  <li><strong>Used:</strong> CoolProp, NumPy, and Matplotlib for engineering calculations and plots</li>
-                  <li><strong>Focus:</strong> Python workflow, plotting, and thermodynamics problem solving</li>
-                </ul>
-                <div class="button-row project-actions">
-                  <a class="button ghost" href="assets/downloads/projects/thermo/adiabatic-mixing-and-rankine-cycle.ipynb">Mixing + Rankine</a>
-                  <a class="button ghost" href="assets/downloads/projects/thermo/polytropic-ideal-gas-and-turbine-plots.ipynb">Gas + turbine</a>
-                  <a class="button ghost" href="assets/downloads/projects/thermo/temperature-conversion-and-isothermal-expansion.ipynb">Isothermal plots</a>
+            <article class="project-entry" id="periodic-table-db" data-project-card data-category="software" data-reveal>
+              <div class="entry-head">
+                <p class="meta">MAE 10 | MATLAB data tool</p>
+                <h2>Periodic Table Database</h2>
+                <p>A MATLAB project that combines element lookup with trend plotting, built to return both direct values and a visual read on periodic behavior.</p>
+                <div class="chip-list">
+                  <span class="chip">MATLAB</span>
+                  <span class="chip">Data handling</span>
+                  <span class="chip">Visualization</span>
+                  <span class="chip">User-oriented scripting</span>
+                </div>
+              </div>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What It Does</p><p>Returns element information by symbol and graphs periodic trends such as mass, electronegativity, and ionization energy.</p></article>
+                    <article class="insight-card"><p class="small-label">What It Adds</p><p>A smaller software example that shows database thinking and plotting without needing a large project wrapper.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Matters</p><p>It rounds out the archive with a practical MATLAB utility rather than another purely theoretical assignment.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/downloads/projects/matlab-db/matlab-periodic-table-database-report.docx">Project report</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <article class="document-panel">
+                    <p class="small-label">Primary Artifact</p>
+                    <h3>Project report</h3>
+                    <p>The report explains the structure and outcome of the tool more clearly than a short portfolio caption ever could.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/matlab-db/matlab-periodic-table-database-report.docx">Open report</a>
+                    </div>
+                  </article>
+                  <article class="document-panel">
+                    <p class="small-label">Portfolio Role</p>
+                    <h3>Readable utility work</h3>
+                    <p>This is the sort of smaller project that proves comfort with scripting, data lookup, and visualization in a compact package.</p>
+                  </article>
                 </div>
               </div>
             </article>
 
-            <article class="card project-card" data-project-card data-category="policy analysis" data-reveal>
-              <div class="card-body">
-                <p class="meta">Technical writing | Policy analysis</p>
-                <h3>Internet Policy Writing</h3>
-                <p>Policy work that shows I can analyze technical issues, frame tradeoffs, and write clear recommendations for different audiences.</p>
-                <ul class="impact-list">
-                  <li><strong>Topics:</strong> data caps, throttling, net neutrality, H.R. 1870, and BEAD</li>
-                  <li><strong>Formats:</strong> memos, presentations, stakeholder positioning, and recommendation writing</li>
-                  <li><strong>Focus:</strong> research synthesis, argument structure, and technical communication</li>
-                </ul>
-                <div class="button-row project-actions">
-                  <a class="button ghost" href="assets/downloads/projects/policy/hr-1870-analysis.docx">H.R. 1870 memo</a>
-                  <a class="button ghost" href="assets/downloads/projects/policy/hr-1870-presentation.pptx">H.R. 1870 deck</a>
-                  <a class="button ghost" href="assets/downloads/projects/policy/fcc-data-throttling-and-data-caps-analysis.pptx">Data caps deck</a>
+            <article class="project-entry" id="thermo-notebooks" data-project-card data-category="software analysis" data-reveal>
+              <div class="entry-head">
+                <p class="meta">MAE 91 | Python notebooks</p>
+                <h2>Thermodynamics Notebook Set</h2>
+                <p>A set of Python notebooks focused on state-property calculations, plotted sweeps, and cycle behavior across adiabatic mixing, Rankine analysis, turbine power, and isothermal expansion.</p>
+                <div class="chip-list">
+                  <span class="chip">Python</span>
+                  <span class="chip">CoolProp</span>
+                  <span class="chip">NumPy</span>
+                  <span class="chip">Matplotlib</span>
+                </div>
+              </div>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What Is Covered</p><p>Cycle analysis, state-property work, plotted parameter sweeps, and engineering calculation workflows in notebook form.</p></article>
+                    <article class="insight-card"><p class="small-label">What The Artifacts Are</p><p>Three notebooks that can be opened directly, which makes the computational work inspectable instead of summarized vaguely.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Matters</p><p>The notebook set shows a practical Python workflow for engineering problems, not just class notes.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/downloads/projects/thermo/adiabatic-mixing-and-rankine-cycle.ipynb">Mixing + Rankine</a>
+                    <a class="button ghost" href="assets/downloads/projects/thermo/polytropic-ideal-gas-and-turbine-plots.ipynb">Gas + turbine</a>
+                    <a class="button ghost" href="assets/downloads/projects/thermo/temperature-conversion-and-isothermal-expansion.ipynb">Isothermal plots</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <article class="document-panel">
+                    <p class="small-label">Notebook Set</p>
+                    <h3>Three direct-open artifacts</h3>
+                    <p>The notebooks are the evidence here, and that makes the section stronger than a generic "Python skills" claim.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/thermo/adiabatic-mixing-and-rankine-cycle.ipynb">Adiabatic mixing and Rankine</a>
+                      <a class="document-link" href="assets/downloads/projects/thermo/polytropic-ideal-gas-and-turbine-plots.ipynb">Polytropic gas and turbine plots</a>
+                      <a class="document-link" href="assets/downloads/projects/thermo/temperature-conversion-and-isothermal-expansion.ipynb">Temperature conversion and isothermal expansion</a>
+                    </div>
+                  </article>
+                  <article class="document-panel">
+                    <p class="small-label">Best Takeaway</p>
+                    <h3>Engineering computation with readable outputs</h3>
+                    <p>The notebooks reinforce the same theme that runs through the rest of the site: calculations are more useful when they stay easy to inspect.</p>
+                  </article>
                 </div>
               </div>
             </article>
 
-            <article class="card project-card" data-project-card data-category="hands-on" data-reveal>
-              <div class="media-frame media-frame-fit">
-                <video controls playsinline preload="metadata" poster="assets/images/poster-hands-on.png">
-                  <source src="assets/media/mustang/mustang-tail-light-upgrade.mp4" type="video/mp4" />
-                </video>
+            <article class="project-entry" id="policy-writing" data-project-card data-category="policy analysis" data-reveal>
+              <div class="entry-head">
+                <p class="meta">ICS 11 | Technical writing and policy analysis</p>
+                <h2>Internet Policy Writing</h2>
+                <p>Policy work on data caps, throttling, net neutrality, H.R. 1870, and BEAD. It is here to show that I can analyze technical issues, frame tradeoffs, and write clearly for mixed audiences.</p>
+                <div class="chip-list">
+                  <span class="chip">Research synthesis</span>
+                  <span class="chip">Policy writing</span>
+                  <span class="chip">Recommendations</span>
+                  <span class="chip">Audience-aware communication</span>
+                </div>
               </div>
-              <div class="card-body">
-                <p class="meta">Hands-on engineering</p>
-                <h3>Hands-On Mechanical Project Logs</h3>
-                <p>Documented work across two personal vehicle platforms that shows practical troubleshooting, installation discipline, and follow-through on physical engineering tasks.</p>
-                <ul class="impact-list">
-                  <li><strong>Covered:</strong> suspension, braking, lighting, trim, exhaust, tuning, and intake-related upgrades</li>
-                  <li><strong>Documented:</strong> the work with short clips and stills that show real execution rather than theory only</li>
-                  <li><strong>Focus:</strong> mechanical comfort, problem solving, and consistency working directly with parts and tools</li>
-                </ul>
-                <div class="button-row project-actions">
-                  <a class="button ghost" href="assets/media/charger/charger-coilover-upgrade.mp4">Coilover clip</a>
-                  <a class="button ghost" href="assets/media/mustang/mustang-tail-light-upgrade.mp4">Tail light clip</a>
-                  <a class="button ghost" href="assets/images/poster-hands-on.png">Overview</a>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What The Work Covers</p><p>Technical issues with policy implications, written as memos, presentations, and recommendation-focused analysis.</p></article>
+                    <article class="insight-card"><p class="small-label">What The Artifacts Show</p><p>Clear structure, stakeholder framing, and the ability to translate technical tradeoffs into readable positions.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Matters</p><p>It proves that communication is part of the engineering skill set here, not a separate side activity.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/downloads/projects/policy/hr-1870-analysis.docx">H.R. 1870 memo</a>
+                    <a class="button ghost" href="assets/downloads/projects/policy/hr-1870-presentation.pptx">H.R. 1870 deck</a>
+                    <a class="button ghost" href="assets/downloads/projects/policy/fcc-data-throttling-and-data-caps-analysis.pptx">Data caps deck</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <article class="document-panel">
+                    <p class="small-label">Primary Artifact</p>
+                    <h3>H.R. 1870 memo</h3>
+                    <p>The memo is the strongest single example because it shows how technical reading gets turned into an actionable recommendation.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/policy/hr-1870-analysis.docx">Open memo</a>
+                    </div>
+                  </article>
+                  <article class="document-panel">
+                    <p class="small-label">Supporting Artifacts</p>
+                    <h3>Presentation and policy deck work</h3>
+                    <p>The decks show the same issues being adapted for presentation, which makes this a communication entry rather than only a document dump.</p>
+                    <div class="link-stack">
+                      <a class="document-link" href="assets/downloads/projects/policy/hr-1870-presentation.pptx">H.R. 1870 deck</a>
+                      <a class="document-link" href="assets/downloads/projects/policy/fcc-data-throttling-and-data-caps-analysis.pptx">Data caps deck</a>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-entry" id="mechanical-logs" data-project-card data-category="hands-on" data-reveal>
+              <div class="entry-head">
+                <p class="meta">Hands-on engineering | Vehicle project archive</p>
+                <h2>Mechanical Project Logs</h2>
+                <p>Documented work across two personal vehicle platforms, covering suspension, braking, lighting, exhaust, tuning, trim, and supporting upgrade tasks. The goal here is proof of execution.</p>
+                <div class="chip-list">
+                  <span class="chip">Diagnostics</span>
+                  <span class="chip">Installation</span>
+                  <span class="chip">Mechanical troubleshooting</span>
+                  <span class="chip">Real-world follow-through</span>
+                </div>
+              </div>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">What Is Included</p><p>Coilover work, braking upgrades, lighting projects, muffler changes, tuning, and visual trim updates.</p></article>
+                    <article class="insight-card"><p class="small-label">What The Media Is Doing</p><p>Showing evidence of install and post-install work rather than acting as filler around a resume bullet.</p></article>
+                    <article class="insight-card"><p class="small-label">Why It Matters</p><p>This section keeps the portfolio grounded in physical execution, not only analysis and coursework.</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/media/charger/charger-coilover-upgrade.mp4">Coilover clip</a>
+                    <a class="button ghost" href="assets/media/mustang/mustang-tail-light-upgrade.mp4">Tail-light clip</a>
+                    <a class="button ghost" href="assets/media/charger/charger-rotor-pad-upgrade.jpg">Brake still</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <figure class="media-panel">
+                    <video controls playsinline preload="metadata" poster="assets/images/poster-hands-on.png">
+                      <source src="assets/media/charger/charger-coilover-upgrade.mp4" type="video/mp4" />
+                    </video>
+                    <figcaption>Coilover installation clip from the Charger project set.</figcaption>
+                  </figure>
+                  <figure class="media-panel">
+                    <img src="assets/media/charger/charger-rotor-pad-upgrade.jpg" alt="Rotor and pad upgrade work on a Dodge Charger" loading="lazy" />
+                    <figcaption>Brake upgrade still showing the kind of mechanical work documented in the archive.</figcaption>
+                  </figure>
+                  <figure class="media-panel">
+                    <img src="assets/media/charger/charger-airbag-upgrade.jpg" alt="Airbag and trim upgrade on a Dodge Charger" loading="lazy" />
+                    <figcaption>Interior and supporting modification work broaden the hands-on section beyond one subsystem.</figcaption>
+                  </figure>
                 </div>
               </div>
             </article>
           </div>
           <p class="empty-state" data-empty-state hidden>No projects match that filter yet.</p>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="section-head" data-reveal>
-            <div>
-              <p class="eyebrow">Selected Visuals</p>
-              <h2>Project media that adds context fast.</h2>
-            </div>
-            <p>Clips and stills are here to support the work, not replace the explanation.</p>
-          </div>
-          <div class="gallery-grid">
-            <figure class="card media-card" data-reveal>
-              <div class="media-frame media-frame-fit">
-                <img src="assets/media/photons/photon-blackhole-simulation.png" alt="Photon simulation still" />
-              </div>
-              <figcaption>MATLAB output from the photon path simulation.</figcaption>
-            </figure>
-            <figure class="card media-card" data-reveal>
-              <div class="media-frame media-frame-fit">
-                <video controls playsinline preload="metadata" poster="assets/images/poster-cubesat-static.png">
-                  <source src="assets/media/cubesat/hinge-plate-static-analysis.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <figcaption>CubeSat structural analysis clip.</figcaption>
-            </figure>
-            <figure class="card media-card" data-reveal>
-              <div class="media-frame media-frame-fit">
-                <video controls playsinline preload="metadata" poster="assets/images/poster-cubesat-frequency.png">
-                  <source src="assets/media/cubesat/hinge-plate-frequency-analysis.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <figcaption>Frequency response view for the same component.</figcaption>
-            </figure>
-            <figure class="card media-card" data-reveal>
-              <div class="media-frame media-frame-fit">
-                <video controls playsinline preload="metadata" poster="assets/images/poster-hands-on.png">
-                  <source src="assets/media/mustang/mustang-tail-light-upgrade.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <figcaption>One clip from the hands-on build logs showing install-focused mechanical work.</figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container split-grid case-study">
-          <div data-reveal>
-            <div class="section-head">
-              <div>
-                <p class="eyebrow">Portfolio Strengths</p>
-                <h2>The work stays fairly balanced across analysis and execution.</h2>
-              </div>
-            </div>
-            <ul class="detail-list">
-              <li><strong>Analytical first.</strong> The work consistently starts from behavior, constraints, and tradeoffs rather than surface-level polish.</li>
-              <li><strong>Clear communication.</strong> Proposals, reports, decks, and memos show the ability to explain technical decisions to different audiences.</li>
-              <li><strong>Software plus hardware.</strong> Simulation and coding work sit next to direct mechanical execution instead of living in separate silos.</li>
-              <li><strong>Direct format.</strong> Each project includes a short summary and source material.</li>
-            </ul>
-          </div>
-          <div class="card-grid" data-reveal>
-            <article class="card faq-card">
-              <h3>Structures</h3>
-              <p>Student spacecraft work with analysis tied to real part behavior.</p>
-            </article>
-            <article class="card faq-card">
-              <h3>Simulation</h3>
-              <p>MATLAB and engineering modeling used for readable, decision-useful outputs.</p>
-            </article>
-            <article class="card faq-card">
-              <h3>Technical writing</h3>
-              <p>Proposal work, reports, and policy memos with clear recommendations.</p>
-            </article>
-            <article class="card faq-card">
-              <h3>Hands-on execution</h3>
-              <p>Mechanical projects that show practical comfort with tools, parts, and implementation.</p>
-            </article>
-          </div>
         </div>
       </section>
     </main>
@@ -325,7 +579,7 @@
               <span>Aerospace Engineering Student</span>
             </span>
           </a>
-          <p>Coursework, team projects, and hands-on engineering work.</p>
+          <p>Project archive across structures, controls, mission analysis, software, writing, and hands-on execution.</p>
         </div>
         <div>
           <ul class="footer-links">
@@ -337,6 +591,7 @@
         </div>
         <div class="footer-note">
           <p><a href="https://linkedin.com/in/alexamadeoranch" target="_blank" rel="noreferrer">linkedin.com/in/alexamadeoranch</a></p>
+          <p>Includes MAE 106 robotics and controls work plus MAE 146 mission analysis.</p>
         </div>
       </div>
       <p class="footer-copyright">Copyright 2026 Alexander Amadeo-Ranch. All rights reserved.</p>
@@ -344,35 +599,3 @@
   </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
