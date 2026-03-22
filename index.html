@@ -6,7 +6,7 @@
   <title>Alexander Amadeo-Ranch | Engineering Portfolio</title>
   <meta
     name="description"
-    content="Engineering portfolio for Alexander Amadeo-Ranch, a UC Irvine aerospace engineering student focused on spacecraft structures, simulation, controls, technical writing, and hands-on project execution."
+    content="Engineering portfolio for Alexander Amadeo-Ranch featuring spacecraft structures, controls, mission analysis, simulation, technical writing, and hands-on engineering work."
   />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <script defer src="assets/js/site.js"></script>
@@ -19,8 +19,8 @@
         <a class="brand" href="index.html">
           <span class="brand-mark">A</span>
           <span class="brand-copy">
-            <strong>Alexander</strong>
-            <span>Aerospace Engineering Student</span>
+            <strong>Alexander Amadeo-Ranch</strong>
+            <span>Aerospace Engineering</span>
           </span>
         </a>
         <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">
@@ -37,14 +37,14 @@
     </header>
 
     <main id="main">
-      <section class="section hero">
-        <div class="container hero-layout">
-          <div class="hero-copy" data-reveal>
-            <p class="eyebrow">Engineering Portfolio | Alexander Amadeo-Ranch</p>
-            <h1>Aerospace engineering projects in structures, controls, simulation, and hands-on builds.</h1>
+      <section class="section hero home-hero">
+        <div class="container home-hero-shell">
+          <div class="hero-copy hero-copy-wide" data-reveal>
+            <p class="eyebrow">UC Irvine | Aerospace Engineering Student</p>
+            <h1>Alexander Amadeo-Ranch</h1>
             <p class="lead">
-              UC Irvine aerospace engineering student with project work in spacecraft structures, mission analysis, controls,
-              MATLAB and Python modeling, technical writing, and mechanical installation work.
+              Aerospace engineering projects in spacecraft structures, mission analysis, controls, simulation,
+              MATLAB and Python work, and hands-on mechanical execution.
             </p>
             <div class="cta-row">
               <a class="button primary" href="projects.html">View projects</a>
@@ -53,51 +53,79 @@
             </div>
           </div>
 
-          <div class="hero-notes" data-reveal>
-            <article class="note-card">
-              <strong>Structures</strong>
-              <p>Student spacecraft analysis with attention to stiffness, interfaces, and integration constraints.</p>
+          <div class="hero-quick-grid" data-reveal>
+            <article class="quick-panel">
+              <p class="small-label">Featured Aerospace</p>
+              <h3>UCI CubeSat Structures</h3>
+              <p>Student spacecraft structural analysis with static and modal simulation deliverables.</p>
+              <div class="chip-list">
+                <span class="chip">ANSYS</span>
+                <span class="chip">Structures</span>
+                <span class="chip">Modal analysis</span>
+              </div>
+              <a class="button ghost" href="projects.html#cubesat-structures">Open project</a>
             </article>
-            <article class="note-card">
-              <strong>Controls + Simulation</strong>
-              <p>MATLAB and Python work across mission analysis, computational physics, thermodynamics, and control design.</p>
+            <article class="quick-panel">
+              <p class="small-label">Featured Mission Analysis</p>
+              <h3>MAE 146 Mission to Didymos</h3>
+              <p>Earth-to-Didymos transfer analysis with orbital propagation, Lambert solving, and porkchop plotting.</p>
+              <div class="chip-list">
+                <span class="chip">MATLAB</span>
+                <span class="chip">Astrodynamics</span>
+                <span class="chip">Lambert solver</span>
+              </div>
+              <a class="button ghost" href="projects.html#mae-146-didymos">Open project</a>
             </article>
-            <article class="note-card">
-              <strong>Hands-On Execution</strong>
-              <p>Mechanical project documentation covering installation, troubleshooting, and real-world follow-through.</p>
+            <article class="quick-panel">
+              <p class="small-label">Featured Controls</p>
+              <h3>MAE 106 Projects</h3>
+              <p>PID controller design and robotics verification work from MAE 106.</p>
+              <div class="chip-list">
+                <span class="chip">PID</span>
+                <span class="chip">Robotics</span>
+                <span class="chip">Testing</span>
+              </div>
+              <a class="button ghost" href="projects.html#mae-106-pid">Open project</a>
             </article>
           </div>
         </div>
+      </section>
 
-        <div class="container hero-stage" data-reveal>
-          <figure class="stage-primary">
-            <img
-              src="assets/media/photons/photon-blackhole-simulation.png"
-              alt="Photon trajectories near a black hole plotted in MATLAB"
-              loading="lazy"
-            />
-            <figcaption>
-              MATLAB output from the photon-path simulation.
-            </figcaption>
-          </figure>
+      <section class="section section-tight">
+        <div class="container">
+          <div class="section-intro" data-reveal>
+            <div>
+              <p class="eyebrow">Fast Links</p>
+              <h2>Open the right file fast.</h2>
+            </div>
+            <p>Resume, project archive, and direct links to core technical work.</p>
+          </div>
 
-          <div class="stage-stack">
-            <figure class="stage-tile">
-              <video controls muted playsinline preload="metadata" poster="assets/images/poster-cubesat-frequency.png">
-                <source src="assets/media/cubesat/hinge-plate-frequency-analysis.mp4" type="video/mp4" />
-              </video>
-              <figcaption>
-                Modal behavior for a CubeSat structural component.
-              </figcaption>
-            </figure>
-            <figure class="stage-tile">
-              <video controls muted playsinline preload="metadata" poster="assets/images/poster-hands-on.png">
-                <source src="assets/media/mustang/mustang-tail-light-upgrade.mp4" type="video/mp4" />
-              </video>
-              <figcaption>
-                Tail-light installation from the mechanical project logs.
-              </figcaption>
-            </figure>
+          <div class="quick-links" data-reveal>
+            <article class="fit-card">
+              <p class="meta">Resume</p>
+              <h3>Current resume PDF</h3>
+              <p>Overview of coursework, experience, and project direction.</p>
+              <a class="button ghost" href="assets/downloads/resume/alexander-amadeo-ranch-resume.pdf" download>Open resume</a>
+            </article>
+            <article class="fit-card">
+              <p class="meta">Projects</p>
+              <h3>Full project archive</h3>
+              <p>All project entries, reports, videos, notebooks, and source files.</p>
+              <a class="button ghost" href="projects.html">Open archive</a>
+            </article>
+            <article class="fit-card">
+              <p class="meta">Mission Analysis</p>
+              <h3>MAE 146 final report</h3>
+              <p>Direct link to the Didymos mission-analysis report.</p>
+              <a class="button ghost" href="assets/downloads/projects/mae-146-didymos/mae-146-mission-to-didymos-final-report.pdf">Open report</a>
+            </article>
+            <article class="fit-card">
+              <p class="meta">Contact</p>
+              <h3>LinkedIn</h3>
+              <p>Primary contact point for internships, research, and engineering roles.</p>
+              <a class="button ghost" href="https://linkedin.com/in/alexamadeoranch" target="_blank" rel="noreferrer">Open LinkedIn</a>
+            </article>
           </div>
         </div>
       </section>
@@ -106,229 +134,116 @@
         <div class="container">
           <div class="section-intro" data-reveal>
             <div>
-              <p class="eyebrow">Featured Projects</p>
-              <h2>Selected work across analysis, simulation, and hands-on execution.</h2>
+              <p class="eyebrow">Project Previews</p>
+              <h2>Project media with context, skills, and direct links.</h2>
             </div>
-            <p>Highlighted projects from the broader portfolio.</p>
+            <p>Short previews for the projects most likely to matter during a recruiter or hiring-manager pass.</p>
           </div>
 
-          <div class="story-list">
-            <article class="case-block" data-reveal>
-              <div class="case-heading">
-                <p class="meta">Team spacecraft | Structural analysis</p>
-                <h3>UCI CubeSat Structures</h3>
+          <div class="project-preview-grid">
+            <article class="project-preview-card" data-reveal>
+              <div class="project-preview-card__media">
+                <video controls playsinline preload="metadata" poster="assets/images/poster-cubesat-frequency.png">
+                  <source src="assets/media/cubesat/hinge-plate-frequency-analysis.mp4" type="video/mp4" />
+                </video>
               </div>
-              <div class="case-layout">
-                <div class="case-copy">
-                  <p>
-                    CubeSat structural analysis focused on part behavior, stiffness, and integration context within a student spacecraft environment.
-                  </p>
-                  <ul class="detail-list">
-                    <li>
-                      <strong>Scope</strong>
-                      Static and frequency analysis on a structural component for a student spacecraft team.
-                    </li>
-                    <li>
-                      <strong>Deliverables</strong>
-                      Static and modal simulation clips plus a supporting CubeSat overview document.
-                    </li>
-                    <li>
-                      <strong>Tools</strong>
-                      FEA workflow, design review support, and hardware-aware analysis.
-                    </li>
-                  </ul>
-                  <div class="chip-list">
-                    <span class="chip">ANSYS</span>
-                    <span class="chip">Structures</span>
-                    <span class="chip">Modal analysis</span>
-                    <span class="chip">Hardware context</span>
-                  </div>
-                  <div class="button-row">
-                    <a class="button primary" href="projects.html#cubesat-structures">Open project entry</a>
-                    <a class="button ghost" href="assets/media/cubesat/hinge-plate-static-analysis.mp4">Static clip</a>
-                    <a class="button ghost" href="assets/media/cubesat/hinge-plate-frequency-analysis.mp4">Frequency clip</a>
-                  </div>
+              <div class="project-preview-card__body">
+                <p class="meta">Aerospace | Structural analysis</p>
+                <h3>UCI CubeSat Structures</h3>
+                <p><strong>Project:</strong> Structural analysis on a student spacecraft component with static and modal simulation outputs.</p>
+                <p><strong>Files:</strong> Frequency and static clips plus a CubeSat overview PDF.</p>
+                <div class="chip-list">
+                  <span class="chip">ANSYS</span>
+                  <span class="chip">Structures</span>
+                  <span class="chip">Modal analysis</span>
+                  <span class="chip">Design review</span>
                 </div>
-
-                <div class="entry-media">
-                  <figure class="figure-card">
-                    <video controls playsinline preload="metadata" poster="assets/images/poster-cubesat-static.png">
-                      <source src="assets/media/cubesat/hinge-plate-static-analysis.mp4" type="video/mp4" />
-                    </video>
-                    <figcaption>Static structural response for the hinge-plate component.</figcaption>
-                  </figure>
-                  <figure class="figure-card">
-                    <video controls playsinline preload="metadata" poster="assets/images/poster-cubesat-frequency.png">
-                      <source src="assets/media/cubesat/hinge-plate-frequency-analysis.mp4" type="video/mp4" />
-                    </video>
-                    <figcaption>Frequency-view artifact showing how the same part behaves dynamically.</figcaption>
-                  </figure>
+                <div class="button-row">
+                  <a class="button primary" href="projects.html#cubesat-structures">View project</a>
+                  <a class="button ghost" href="assets/downloads/projects/extrakpak/what-is-uci-cubesat.pdf">CubeSat PDF</a>
                 </div>
               </div>
             </article>
 
-            <article class="case-block" data-reveal>
-              <div class="case-heading">
+            <article class="project-preview-card" data-reveal>
+              <div class="project-preview-card__media">
+                <pre class="code-panel"><code>% Mission to Didymos
+rv_earth_dep = propagate_elliptical(rv_earth_ref, t_earth, MU);
+rv_didymos_arr = propagate_elliptical(rv_didymos_ref, t_didymos, MU);
+
+[v1_trans, v2_trans, ~] = lambert_universal( ...
+  r1_nom, r2_nom, tof_nom, MU, 0, 1e-8, 1e-8);
+
+dV_tot_nom = norm(v1_trans - v1_earth) ...
+  + norm(v2_trans - v2_didymos);</code></pre>
+              </div>
+              <div class="project-preview-card__body">
+                <p class="meta">MAE 146 | Mission analysis</p>
+                <h3>Mission to Didymos</h3>
+                <p><strong>Project:</strong> Earth-to-Didymos transfer analysis using orbital propagation, Lambert solving, and porkchop plots.</p>
+                <p><strong>Files:</strong> Final report, mission script, and supporting MATLAB functions.</p>
+                <div class="chip-list">
+                  <span class="chip">MATLAB</span>
+                  <span class="chip">Astrodynamics</span>
+                  <span class="chip">Transfer analysis</span>
+                  <span class="chip">Delta-v</span>
+                </div>
+                <div class="button-row">
+                  <a class="button primary" href="projects.html#mae-146-didymos">View project</a>
+                  <a class="button ghost" href="assets/downloads/projects/mae-146-didymos/mae-146-mission-to-didymos-final-report.pdf">Open report</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-preview-card" data-reveal>
+              <div class="project-preview-card__media">
+                <img
+                  src="assets/media/photons/photon-blackhole-simulation.png"
+                  alt="Photon path simulation output from MATLAB"
+                  loading="lazy"
+                />
+              </div>
+              <div class="project-preview-card__body">
                 <p class="meta">Simulation | MATLAB</p>
                 <h3>Photon Paths Near a Black Hole</h3>
-              </div>
-              <div class="case-layout">
-                <div class="case-copy">
-                  <p>
-                    MATLAB simulation of photon capture, escape, and critical trajectory behavior near a black hole.
-                  </p>
-                  <ul class="detail-list">
-                    <li>
-                      <strong>Project</strong>
-                      A MATLAB model for photon-path behavior using the Paczynski-Wiita potential.
-                    </li>
-                    <li>
-                      <strong>Output</strong>
-                      A plotted result that shows multiple path families in a single frame.
-                    </li>
-                    <li>
-                      <strong>Skills</strong>
-                      Numerical modeling, visualization, and technical communication.
-                    </li>
-                  </ul>
-                  <div class="chip-list">
-                    <span class="chip">MATLAB</span>
-                    <span class="chip">Computational physics</span>
-                    <span class="chip">Visualization</span>
-                    <span class="chip">Scientific communication</span>
-                  </div>
-                  <div class="button-row">
-                    <a class="button primary" href="projects.html#photon-paths">Open project entry</a>
-                    <a class="button ghost" href="assets/downloads/projects/thermo/photon-blackhole-simulation.m">MATLAB script</a>
-                    <a class="button ghost" href="assets/media/photons/photon-blackhole-simulation.png">Open still</a>
-                  </div>
+                <p><strong>Project:</strong> Computational physics model showing photon capture, escape, and critical trajectories near a black hole.</p>
+                <p><strong>Files:</strong> MATLAB source plus the final simulation image.</p>
+                <div class="chip-list">
+                  <span class="chip">MATLAB</span>
+                  <span class="chip">Computational physics</span>
+                  <span class="chip">Visualization</span>
+                  <span class="chip">Scientific modeling</span>
                 </div>
-
-                <div class="entry-media">
-                  <figure class="figure-card">
-                    <img
-                      src="assets/media/photons/photon-blackhole-simulation.png"
-                      alt="Photon path simulation output from MATLAB"
-                      loading="lazy"
-                    />
-                    <figcaption>The final plot is the artifact that makes the whole simulation useful to someone else.</figcaption>
-                  </figure>
-                  <article class="document-panel">
-                    <p class="small-label">Files</p>
-                    <h3>Simulation Source</h3>
-                    <p>MATLAB source file for the photon-path model.</p>
-                    <div class="link-stack">
-                      <a class="document-link" href="assets/downloads/projects/thermo/photon-blackhole-simulation.m">Simulation source</a>
-                      <a class="document-link" href="projects.html#mae-146-didymos">MAE 146 mission analysis</a>
-                    </div>
-                  </article>
+                <div class="button-row">
+                  <a class="button primary" href="projects.html#photon-paths">View project</a>
+                  <a class="button ghost" href="assets/downloads/projects/thermo/photon-blackhole-simulation.m">Open code</a>
                 </div>
               </div>
             </article>
 
-            <article class="case-block" data-reveal>
-              <div class="case-heading">
-                <p class="meta">Hands-on engineering | Mechanical logs</p>
-                <h3>Build documentation from personal vehicle projects</h3>
+            <article class="project-preview-card" data-reveal>
+              <div class="project-preview-card__media">
+                <video controls playsinline preload="metadata" poster="assets/images/poster-hands-on.png">
+                  <source src="assets/media/charger/charger-coilover-upgrade.mp4" type="video/mp4" />
+                </video>
               </div>
-              <div class="case-layout">
-                <div class="case-copy">
-                  <p>
-                    Mechanical project documentation across two vehicle platforms, covering installation work, upgrades, and troubleshooting.
-                  </p>
-                  <ul class="detail-list">
-                    <li>
-                      <strong>Scope</strong>
-                      Suspension, braking, lighting, exhaust, trim, tuning, and related upgrade work across two vehicle platforms.
-                    </li>
-                    <li>
-                      <strong>Media</strong>
-                      Install clips and stills from completed mechanical projects.
-                    </li>
-                    <li>
-                      <strong>Skills</strong>
-                      Diagnostics, installation, documentation, and follow-through.
-                    </li>
-                  </ul>
-                  <div class="chip-list">
-                    <span class="chip">Diagnostics</span>
-                    <span class="chip">Install work</span>
-                    <span class="chip">Documentation</span>
-                    <span class="chip">Follow-through</span>
-                  </div>
-                  <div class="button-row">
-                    <a class="button primary" href="projects.html#mechanical-logs">Open project entry</a>
-                    <a class="button ghost" href="assets/media/charger/charger-coilover-upgrade.mp4">Coilover clip</a>
-                    <a class="button ghost" href="assets/media/mustang/mustang-tail-light-upgrade.mp4">Tail-light clip</a>
-                  </div>
+              <div class="project-preview-card__body">
+                <p class="meta">Hands-on engineering | Mechanical work</p>
+                <h3>Mechanical Project Logs</h3>
+                <p><strong>Project:</strong> Installation and troubleshooting work across suspension, braking, lighting, tuning, and related upgrades.</p>
+                <p><strong>Files:</strong> Video clips and stills from completed mechanical work.</p>
+                <div class="chip-list">
+                  <span class="chip">Installation</span>
+                  <span class="chip">Diagnostics</span>
+                  <span class="chip">Mechanical systems</span>
+                  <span class="chip">Documentation</span>
                 </div>
-
-                <div class="entry-media">
-                  <figure class="figure-card">
-                    <video controls playsinline preload="metadata" poster="assets/images/poster-hands-on.png">
-                      <source src="assets/media/charger/charger-coilover-upgrade.mp4" type="video/mp4" />
-                    </video>
-                    <figcaption>Coilover install clip from the Charger project set.</figcaption>
-                  </figure>
-                  <figure class="figure-card">
-                    <img src="assets/media/charger/charger-rotor-pad-upgrade.jpg" alt="Brake rotor and pad upgrade on a Dodge Charger" loading="lazy" />
-                    <figcaption>Brake work from the mechanical project portfolio.</figcaption>
-                  </figure>
-                  <figure class="figure-card">
-                    <img src="assets/media/mustang/mustang-flash-tune.jpg" alt="Flash tuning setup for a Ford Mustang project" loading="lazy" />
-                    <figcaption>Tuning and supporting modification work broaden the mechanical side beyond one-off installs.</figcaption>
-                  </figure>
+                <div class="button-row">
+                  <a class="button primary" href="projects.html#mechanical-logs">View project</a>
+                  <a class="button ghost" href="assets/media/charger/charger-rotor-pad-upgrade.jpg">Open still</a>
                 </div>
               </div>
             </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="section-intro" data-reveal>
-            <div>
-              <p class="eyebrow">Selected Materials</p>
-              <h2>Reports, code, and project files.</h2>
-            </div>
-            <p>Resume, reports, notebooks, and source files from featured projects.</p>
-          </div>
-
-          <div class="resource-grid">
-            <article class="resource-panel" data-reveal>
-              <p class="eyebrow">Downloads</p>
-              <h2>Open project documents and source files.</h2>
-              <p>Selected files from featured projects.</p>
-              <ul class="resource-list">
-                <li><a href="assets/downloads/resume/alexander-amadeo-ranch-resume.pdf" download>Resume</a></li>
-                <li><a href="assets/downloads/projects/extrakpak/what-is-uci-cubesat.pdf">CubeSat overview PDF</a></li>
-                <li><a href="assets/downloads/projects/mae-146-didymos/mae-146-mission-to-didymos-final-report.pdf">MAE 146 final report</a></li>
-                <li><a href="assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-final-report.pdf">MAE 106 autonomous robot report</a></li>
-                <li><a href="assets/downloads/projects/thermo/adiabatic-mixing-and-rankine-cycle.ipynb">Thermodynamics notebook</a></li>
-              </ul>
-            </article>
-
-            <div class="archive-grid" data-reveal>
-              <article class="archive-card">
-                <p class="meta">MAE 146 | Mission analysis</p>
-                <h3>Mission to Didymos with MATLAB</h3>
-                <p>Earth-to-Didymos transfer analysis with orbital propagation, Lambert solving, and porkchop plotting.</p>
-                <a class="button ghost" href="projects.html#mae-146-didymos">View project</a>
-              </article>
-              <article class="archive-card">
-                <p class="meta">MAE 106 | Robotics</p>
-                <h3>Autonomous Robot</h3>
-                <p>Team robotics project with final report and experimental verification files.</p>
-                <a class="button ghost" href="projects.html#mae-106-autonomous">View project</a>
-              </article>
-              <article class="archive-card">
-                <p class="meta">MAE 106 | Controls</p>
-                <h3>PID Controller Design</h3>
-                <p>Controls-focused report covering PID design, tuning, and closed-loop response.</p>
-                <a class="button ghost" href="projects.html#mae-106-pid">View project</a>
-              </article>
-            </div>
           </div>
         </div>
       </section>
@@ -338,7 +253,7 @@
           <div class="cta-copy">
             <p class="eyebrow">Contact</p>
             <h2>Open to internships, research, and engineering roles.</h2>
-            <p>LinkedIn is the primary contact point.</p>
+            <p>LinkedIn is the primary contact point for portfolio follow-up, project questions, and recruiting outreach.</p>
             <div class="button-row">
               <a class="button primary" href="https://linkedin.com/in/alexamadeoranch" target="_blank" rel="noreferrer">Connect on LinkedIn</a>
               <a class="button secondary" href="contact.html">Contact page</a>
@@ -347,12 +262,12 @@
 
           <div class="cta-notes">
             <article class="note-card">
-              <strong>Focus Areas</strong>
-              <p>Structures, simulation, controls, mission analysis, technical communication, and hardware-aware engineering support.</p>
+              <strong>Relevant areas</strong>
+              <p>Spacecraft structures, controls, mission analysis, simulation, technical writing, and hands-on engineering support.</p>
             </article>
             <article class="note-card">
-              <strong>Key Links</strong>
-              <p>Resume, CubeSat structures, MAE 146 mission analysis, and MAE 106 controls and robotics projects.</p>
+              <strong>Recommended first reads</strong>
+              <p>CubeSat Structures, MAE 146 Mission to Didymos, MAE 106 PID Controller Design, and the resume PDF.</p>
             </article>
           </div>
         </div>
@@ -365,11 +280,11 @@
           <a class="brand" href="index.html">
             <span class="brand-mark">A</span>
             <span class="brand-copy">
-              <strong>Alexander</strong>
-              <span>Aerospace Engineering Student</span>
+              <strong>Alexander Amadeo-Ranch</strong>
+              <span>Aerospace Engineering</span>
             </span>
           </a>
-          <p>Coursework, team projects, computational work, and hands-on engineering documentation.</p>
+          <p>Recruiter-ready project archive covering structures, controls, mission analysis, simulation, technical writing, and hands-on engineering work.</p>
         </div>
         <div>
           <ul class="footer-links">
