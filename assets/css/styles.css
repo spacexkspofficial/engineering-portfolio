@@ -602,6 +602,51 @@ figcaption {
   box-shadow: 0 0 0 3px rgba(91, 141, 255, 0.08), 0 4px 12px rgba(91, 141, 255, 0.16);
 }
 
+/* ---------- Home charger background (scroll-blended) ---------- */
+.page-bg-charger {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1) translate3d(0, 0, 0);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  will-change: opacity, transform;
+}
+
+.page-bg-charger::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../media/obd-scanner/obd-scanner-infographic.png");
+  background-repeat: no-repeat;
+  background-position: center 62%;
+  background-size: cover;
+  filter: saturate(0.9) contrast(1.05);
+}
+
+.page-bg-charger::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 60%, rgba(91, 141, 255, 0.18), transparent 70%),
+    linear-gradient(180deg,
+      rgba(3, 5, 11, 0.85) 0%,
+      rgba(3, 5, 11, 0.45) 35%,
+      rgba(3, 5, 11, 0.35) 60%,
+      rgba(3, 5, 11, 0.82) 100%
+    );
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-bg-charger {
+    transition: opacity 0.2s linear;
+    transform: none;
+  }
+}
+
 /* ---------- Hero (home) ---------- */
 .home-hero {
   position: relative;
@@ -676,7 +721,7 @@ body[data-page="home"] .hero-copy-wide .lead {
 /* ---------- Hero quick grid (home) ---------- */
 .hero-quick-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 1rem;
 }
 
@@ -1520,7 +1565,7 @@ figcaption {
   }
 
   .hero-quick-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 }
 

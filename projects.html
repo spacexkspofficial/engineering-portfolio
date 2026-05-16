@@ -126,6 +126,82 @@
               </div>
             </article>
 
+            <article class="project-entry" id="obd-scanner" data-project-card data-category="software hands-on analysis" data-reveal>
+              <div class="entry-head">
+                <p class="meta">Personal project | Embedded diagnostics + web app</p>
+                <h2>OBD-II Read-Only Diagnostic Dashboard</h2>
+                <p>A local web application that streams a vehicle&apos;s diagnostic bus in real time over USB, built around a hard-coded read-only safety contract. The app cannot &mdash; by design &mdash; send any command, write, or control frame to the vehicle. FastAPI + WebSocket backend, single-page JS frontend, drag-and-drop JSON vehicle profiles, and a passive capture/replay layer for unknown manufacturer identifiers.</p>
+                <div class="chip-list">
+                  <span class="chip">Python</span>
+                  <span class="chip">FastAPI</span>
+                  <span class="chip">WebSocket</span>
+                  <span class="chip">ISO 15765-4 CAN</span>
+                  <span class="chip">UDS</span>
+                  <span class="chip">SAE J1979</span>
+                  <span class="chip">FTDI / STN2120</span>
+                  <span class="chip">Read-only safety</span>
+                </div>
+              </div>
+              <div class="entry-layout">
+                <div class="entry-copy">
+                  <div class="insight-grid">
+                    <article class="insight-card"><p class="small-label">Scope</p><p>Real-time live PID streaming, stored / pending / permanent DTC reads, UDS Mode $22 DID lookup, MIL state banner, supported-PID discovery, and per-vehicle technical reference (specs, fluids, fuses, warning lights).</p></article>
+                    <article class="insight-card"><p class="small-label">Safety</p><p>Every outbound frame is funneled through a single hard-coded allowlist of read-only service IDs ($01, $02, $03, $07, $09, $0A, $22, $19, $3E). Writes, resets, security access, routine control, code clears, and flashing are rejected at the lowest serial layer. A regression test suite guards the contract.</p></article>
+                    <article class="insight-card"><p class="small-label">Adapters</p><p>OBDLink EX (STN2120, FCA-aware) as the primary cable with FTDI VID/PID auto-detect; generic ELM327 fallback for any compatible USB adapter; a mock adapter generates plausible telemetry so the UI runs without hardware. All adapters share one transmit whitelist &mdash; no bypass paths.</p></article>
+                    <article class="insight-card"><p class="small-label">Capture &amp; replay</p><p>A passive NDJSON recorder logs every observed ECU response, including negative responses and unknown DIDs. A slow Mode $22 range sweep probes manufacturer DID space at a configurable rate so undocumented identifiers surface in the log without ever issuing a write.</p></article>
+                    <article class="insight-card"><p class="small-label">Extensibility</p><p>Vehicles are plain JSON files describing protocol, PID groups + poll rates, UDS DIDs, diagram callouts, and threshold overrides. Adding a new car is drag-and-drop &mdash; no code changes &mdash; with the SVG/PNG diagram becoming the overlay surface for live data.</p></article>
+                    <article class="insight-card"><p class="small-label">Data depth</p><p>2,100+ DTC entries spanning the full P / B / C / U range, including generic SAE J2012 codes and manufacturer-specific FCA / Dodge codes, with categories derived from SAE structure (engine, fuel, ignition, emissions, transmission, body, chassis, network, etc.).</p></article>
+                  </div>
+                  <div class="button-row">
+                    <a class="button secondary" href="assets/media/obd-scanner/obd-scanner-hero.png">Concept hero</a>
+                    <a class="button secondary" href="assets/media/obd-scanner/obd-scanner-blueprint.png">Technical blueprint</a>
+                    <a class="button ghost" href="assets/media/obd-scanner/obd-scanner-infographic.png">Source infographic</a>
+                  </div>
+                </div>
+                <div class="entry-media">
+                  <figure class="media-panel">
+                    <img src="assets/media/obd-scanner/obd-scanner-hero.png" alt="Concept-study hero banner used on the OBD scanner welcome screen" loading="lazy" />
+                    <figcaption>Concept-study hero banner used on the application&apos;s welcome screen.</figcaption>
+                  </figure>
+                  <figure class="media-panel">
+                    <img src="assets/media/obd-scanner/obd-scanner-blueprint.png" alt="Technical blueprint overlay used as the dashboard surface for live telemetry callouts" loading="lazy" />
+                    <figcaption>Technical-blueprint overlay used as the dashboard surface for anchored live telemetry callouts.</figcaption>
+                  </figure>
+                  <article class="document-panel">
+                    <p class="small-label">Architecture</p>
+                    <h3>Module Layout</h3>
+                    <p>Read-only safety core, adapter abstraction, sampler, capture/sweep, and a single-page UI. The whitelist is the only path to the serial line.</p>
+                    <div class="link-stack">
+                      <a class="document-link">backend/safety.py &mdash; transmit whitelist (safety core)</a>
+                      <a class="document-link">backend/app.py &mdash; FastAPI app, WebSocket stream, capture + reference endpoints</a>
+                      <a class="document-link">backend/serial_io.py &mdash; adapter abstraction, registry, capture-hook plumbing</a>
+                      <a class="document-link">backend/adapters/ &mdash; OBDLink EX, generic ELM327, mock (and a deliberately-failing Ross-Tech stub)</a>
+                      <a class="document-link">backend/sampler.py &mdash; background polling worker (per-group poll rates)</a>
+                      <a class="document-link">backend/capture_log.py + capture_sweep.py &mdash; passive NDJSON recorder and slow $22 sweep</a>
+                      <a class="document-link">backend/obd_pids.py + uds_client.py &mdash; SAE J1979 decoders, read-only $22 / $19 / $3E</a>
+                      <a class="document-link">backend/vehicles/*.json &mdash; vehicle profiles (PID groups, callouts, DIDs, thresholds)</a>
+                      <a class="document-link">backend/vehicle_reference/*.json &mdash; static reference (specs, fluids, fuses, warning lights)</a>
+                      <a class="document-link">backend/dtc_database.json &mdash; 2,100+ P / B / C / U code lookup table</a>
+                      <a class="document-link">frontend/ &mdash; single-page UI, blueprint overlay, capture controls, reference screen</a>
+                      <a class="document-link">tests/test_whitelist.py &mdash; regression tests guarding the read-only contract</a>
+                    </div>
+                  </article>
+                  <article class="document-panel">
+                    <p class="small-label">What it deliberately does not do</p>
+                    <h3>Out of Scope by Design</h3>
+                    <p>Source code is not published; the application enforces these boundaries at the protocol layer.</p>
+                    <div class="link-stack">
+                      <a class="document-link">No DTC clearing &mdash; the UI has no Clear Codes button</a>
+                      <a class="document-link">No ECU resets, idle adjustments, actuator tests, or routine control</a>
+                      <a class="document-link">No flashing, reprogramming, or module coding</a>
+                      <a class="document-link">No security access, key / PATS programming, or feature unlocking</a>
+                      <a class="document-link">No third-party telemetry &mdash; everything stays on the local machine</a>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </article>
+
             <article class="project-entry" id="mae-146-didymos" data-project-card data-category="aerospace software analysis" data-reveal>
               <div class="entry-head">
                 <p class="meta">MAE 146 | Mission analysis with MATLAB</p>

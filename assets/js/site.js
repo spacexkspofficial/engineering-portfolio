@@ -142,6 +142,64 @@ function initSmoothAnchorOffset() {
   }
 }
 
+function initHomeChargerBackground() {
+  const bg = document.querySelector(".page-bg-charger");
+  if (!bg) return;
+
+  const hero = document.querySelector(".home-hero");
+  if (!hero) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const maxOpacity = 0.55;
+  const maxShift = reducedMotion ? 0 : 32; // px of subtle drift
+  const maxScale = reducedMotion ? 1 : 1.08;
+
+  let ticking = false;
+
+  const update = () => {
+    const heroHeight = hero.offsetHeight;
+    const heroTop = hero.offsetTop;
+    const heroBottom = heroTop + heroHeight;
+
+    const scroll = window.scrollY;
+    const viewport = window.innerHeight;
+    const docMax = Math.max(1, document.documentElement.scrollHeight - viewport);
+
+    // Fade in begins when the hero has scrolled half out, completes shortly after the hero exits.
+    const fadeStart = heroTop + heroHeight * 0.35;
+    const fadeEnd = heroBottom + viewport * 0.15;
+    const t = Math.max(0, Math.min(1, (scroll - fadeStart) / Math.max(1, fadeEnd - fadeStart)));
+
+    // Deep-scroll progress for the subtle parallax / breathing.
+    const deep = Math.max(0, Math.min(1, scroll / docMax));
+
+    bg.style.opacity = String(t * maxOpacity);
+    bg.style.transform = `scale(${1 + deep * (maxScale - 1)}) translate3d(0, ${-deep * maxShift}px, 0)`;
+
+    ticking = false;
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("resize", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(update);
+      ticking = true;
+    }
+  });
+
+  update();
+}
+
 function initVideoLazyHover() {
   // Pause off-screen videos to keep things calm.
   const videos = document.querySelectorAll("video");
@@ -169,4 +227,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initProjectFilters();
   initSmoothAnchorOffset();
   initVideoLazyHover();
+  initHomeChargerBackground();
 });
