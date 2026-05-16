@@ -3,11 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alexander Amadeo-Ranch | Engineering Portfolio</title>
-  <meta
-    name="description"
-    content="Engineering portfolio for Alexander Amadeo-Ranch featuring spacecraft structures, controls, mission analysis, simulation, technical writing, and hands-on engineering work."
-  />
+  <title>Alexander Amadeo-Ranch | Aerospace Engineering Portfolio</title>
+  <meta name="description" content="Engineering portfolio for Alexander Amadeo-Ranch featuring spacecraft structures, controls, mission analysis, simulation, technical writing, and hands-on engineering work." />
+  <meta name="theme-color" content="#05070d" />
+  <meta property="og:title" content="Alexander Amadeo-Ranch | Aerospace Engineering" />
+  <meta property="og:description" content="Spacecraft structures, mission analysis, controls, simulation, and hands-on engineering work." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23050810'/%3E%3Ctext x='32' y='44' font-family='Space Grotesk, Inter, sans-serif' font-weight='700' font-size='36' text-anchor='middle' fill='%238fb3ff'%3EA%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <script defer src="assets/js/site.js"></script>
 </head>
@@ -41,19 +45,18 @@
         <div class="container home-hero-shell">
           <div class="hero-copy hero-copy-wide" data-reveal>
             <p class="eyebrow">UC Irvine | Aerospace Engineering Student</p>
-            <h1>Alexander Amadeo-Ranch</h1>
+            <h1>Aerospace projects, built with engineering rigor.</h1>
             <p class="lead">
-              Aerospace engineering projects in spacecraft structures, mission analysis, controls, simulation,
-              MATLAB and Python work, and hands-on mechanical execution.
+              Spacecraft structures, mission analysis, controls, simulation, MATLAB and Python work, and hands-on mechanical execution &mdash; all gathered here as a recruiter-ready portfolio.
             </p>
             <div class="cta-row">
               <a class="button primary" href="projects.html">View projects</a>
               <a class="button secondary" href="assets/downloads/resume/alexander-amadeo-ranch-resume.pdf" download>Download resume</a>
-              <a class="button secondary" href="https://linkedin.com/in/alexamadeoranch" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a class="button ghost" href="https://linkedin.com/in/alexamadeoranch" target="_blank" rel="noreferrer">LinkedIn</a>
             </div>
           </div>
 
-          <div class="hero-quick-grid" data-reveal>
+          <div class="hero-quick-grid" data-reveal data-reveal-stagger>
             <article class="quick-panel">
               <p class="small-label">Featured Aerospace</p>
               <h3>UCI CubeSat Structures</h3>
@@ -61,18 +64,18 @@
               <div class="chip-list">
                 <span class="chip">ANSYS</span>
                 <span class="chip">Structures</span>
-                <span class="chip">Modal analysis</span>
+                <span class="chip">Modal</span>
               </div>
               <a class="button ghost" href="projects.html#cubesat-structures">Open project</a>
             </article>
             <article class="quick-panel">
               <p class="small-label">Featured Mission Analysis</p>
-              <h3>MAE 146 Mission to Didymos</h3>
+              <h3>MAE 146 Didymos</h3>
               <p>Earth-to-Didymos transfer analysis with orbital propagation, Lambert solving, and porkchop plotting.</p>
               <div class="chip-list">
                 <span class="chip">MATLAB</span>
                 <span class="chip">Astrodynamics</span>
-                <span class="chip">Lambert solver</span>
+                <span class="chip">Lambert</span>
               </div>
               <a class="button ghost" href="projects.html#mae-146-didymos">Open project</a>
             </article>
@@ -101,7 +104,7 @@
             <p>Resume, project archive, and direct links to core technical work.</p>
           </div>
 
-          <div class="quick-links" data-reveal>
+          <div class="quick-links" data-reveal data-reveal-stagger>
             <article class="fit-card">
               <p class="meta">Resume</p>
               <h3>Current resume PDF</h3>
@@ -135,13 +138,13 @@
           <div class="section-intro" data-reveal>
             <div>
               <p class="eyebrow">Project Previews</p>
-              <h2>Project media with context, skills, and direct links.</h2>
+              <h2>Selected work with media and context.</h2>
             </div>
             <p>Short previews for the projects most likely to matter during a recruiter or hiring-manager pass.</p>
           </div>
 
-          <div class="project-preview-grid">
-            <article class="project-preview-card" data-reveal>
+          <div class="project-preview-grid" data-reveal data-reveal-stagger>
+            <article class="project-preview-card">
               <div class="project-preview-card__media">
                 <video controls playsinline preload="metadata" poster="assets/images/poster-cubesat-frequency.png">
                   <source src="assets/media/cubesat/hinge-plate-frequency-analysis.mp4" type="video/mp4" />
@@ -150,8 +153,7 @@
               <div class="project-preview-card__body">
                 <p class="meta">Aerospace | Structural analysis</p>
                 <h3>UCI CubeSat Structures</h3>
-                <p><strong>Project:</strong> Structural analysis on a student spacecraft component with static and modal simulation outputs.</p>
-                <p><strong>Files:</strong> Frequency and static clips plus a CubeSat overview PDF.</p>
+                <p>Structural analysis on a student spacecraft component with static and modal simulation outputs.</p>
                 <div class="chip-list">
                   <span class="chip">ANSYS</span>
                   <span class="chip">Structures</span>
@@ -165,7 +167,7 @@
               </div>
             </article>
 
-            <article class="project-preview-card" data-reveal>
+            <article class="project-preview-card">
               <div class="project-preview-card__media">
                 <pre class="code-panel"><code>% Mission to Didymos
 rv_earth_dep = propagate_elliptical(rv_earth_ref, t_earth, MU);
@@ -180,8 +182,7 @@ dV_tot_nom = norm(v1_trans - v1_earth) ...
               <div class="project-preview-card__body">
                 <p class="meta">MAE 146 | Mission analysis</p>
                 <h3>Mission to Didymos</h3>
-                <p><strong>Project:</strong> Earth-to-Didymos transfer analysis using orbital propagation, Lambert solving, and porkchop plots.</p>
-                <p><strong>Files:</strong> Final report, mission script, and supporting MATLAB functions.</p>
+                <p>Earth-to-Didymos transfer analysis using orbital propagation, Lambert solving, and porkchop plots.</p>
                 <div class="chip-list">
                   <span class="chip">MATLAB</span>
                   <span class="chip">Astrodynamics</span>
@@ -195,19 +196,14 @@ dV_tot_nom = norm(v1_trans - v1_earth) ...
               </div>
             </article>
 
-            <article class="project-preview-card" data-reveal>
+            <article class="project-preview-card">
               <div class="project-preview-card__media">
-                <img
-                  src="assets/media/photons/photon-blackhole-simulation.png"
-                  alt="Photon path simulation output from MATLAB"
-                  loading="lazy"
-                />
+                <img src="assets/media/photons/photon-blackhole-simulation.png" alt="Photon path simulation output from MATLAB" loading="lazy" />
               </div>
               <div class="project-preview-card__body">
                 <p class="meta">Simulation | MATLAB</p>
                 <h3>Photon Paths Near a Black Hole</h3>
-                <p><strong>Project:</strong> Computational physics model showing photon capture, escape, and critical trajectories near a black hole.</p>
-                <p><strong>Files:</strong> MATLAB source plus the final simulation image.</p>
+                <p>Computational physics model showing photon capture, escape, and critical trajectories near a black hole.</p>
                 <div class="chip-list">
                   <span class="chip">MATLAB</span>
                   <span class="chip">Computational physics</span>
@@ -221,17 +217,16 @@ dV_tot_nom = norm(v1_trans - v1_earth) ...
               </div>
             </article>
 
-            <article class="project-preview-card" data-reveal>
+            <article class="project-preview-card">
               <div class="project-preview-card__media">
                 <video controls playsinline preload="metadata" poster="assets/images/poster-hands-on.png">
                   <source src="assets/media/charger/charger-coilover-upgrade.mp4" type="video/mp4" />
                 </video>
               </div>
               <div class="project-preview-card__body">
-                <p class="meta">Hands-on engineering | Mechanical work</p>
+                <p class="meta">Hands-on engineering | Mechanical</p>
                 <h3>Mechanical Project Logs</h3>
-                <p><strong>Project:</strong> Installation and troubleshooting work across suspension, braking, lighting, tuning, and related upgrades.</p>
-                <p><strong>Files:</strong> Video clips and stills from completed mechanical work.</p>
+                <p>Installation and troubleshooting work across suspension, braking, lighting, tuning, and related upgrades.</p>
                 <div class="chip-list">
                   <span class="chip">Installation</span>
                   <span class="chip">Diagnostics</span>
@@ -249,26 +244,28 @@ dV_tot_nom = norm(v1_trans - v1_earth) ...
       </section>
 
       <section class="section">
-        <div class="container cta-panel" data-reveal>
-          <div class="cta-copy">
-            <p class="eyebrow">Contact</p>
-            <h2>Open to internships, research, and engineering roles.</h2>
-            <p>LinkedIn is the primary contact point for portfolio follow-up, project questions, and recruiting outreach.</p>
-            <div class="button-row">
-              <a class="button primary" href="https://linkedin.com/in/alexamadeoranch" target="_blank" rel="noreferrer">Connect on LinkedIn</a>
-              <a class="button secondary" href="contact.html">Contact page</a>
+        <div class="container">
+          <div class="cta-panel" data-reveal>
+            <div class="cta-copy">
+              <p class="eyebrow">Contact</p>
+              <h2>Open to internships, research, and engineering roles.</h2>
+              <p>LinkedIn is the primary contact point for portfolio follow-up, project questions, and recruiting outreach.</p>
+              <div class="button-row">
+                <a class="button primary" href="https://linkedin.com/in/alexamadeoranch" target="_blank" rel="noreferrer">Connect on LinkedIn</a>
+                <a class="button secondary" href="contact.html">Contact page</a>
+              </div>
             </div>
-          </div>
 
-          <div class="cta-notes">
-            <article class="note-card">
-              <strong>Relevant areas</strong>
-              <p>Spacecraft structures, controls, mission analysis, simulation, technical writing, and hands-on engineering support.</p>
-            </article>
-            <article class="note-card">
-              <strong>Recommended first reads</strong>
-              <p>CubeSat Structures, MAE 146 Mission to Didymos, MAE 106 PID Controller Design, and the resume PDF.</p>
-            </article>
+            <div class="cta-notes">
+              <article class="note-card">
+                <strong>Relevant areas</strong>
+                <p>Spacecraft structures, controls, mission analysis, simulation, technical writing, and hands-on engineering support.</p>
+              </article>
+              <article class="note-card">
+                <strong>Recommended first reads</strong>
+                <p>CubeSat Structures, MAE 146 Mission to Didymos, MAE 106 PID Controller Design, and the resume PDF.</p>
+              </article>
+            </div>
           </div>
         </div>
       </section>
@@ -299,7 +296,7 @@ dV_tot_nom = norm(v1_trans - v1_earth) ...
           <p>Resume and project files available.</p>
         </div>
       </div>
-      <p class="footer-copyright">Copyright 2026 Alexander Amadeo-Ranch. All rights reserved.</p>
+      <p class="footer-copyright">&copy; 2026 Alexander Amadeo-Ranch. All rights reserved.</p>
     </footer>
   </div>
 </body>

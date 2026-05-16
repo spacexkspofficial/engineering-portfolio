@@ -1,17 +1,69 @@
-﻿<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1600" height="1200" fill="#07131D"/>
-  <rect x="92" y="92" width="1416" height="1016" rx="48" fill="#0B1B29" stroke="rgba(255,255,255,0.12)"/>
-  <circle cx="1288" cy="236" r="156" fill="#63D6CB" fill-opacity="0.12"/>
-  <circle cx="312" cy="964" r="188" fill="#FF9C52" fill-opacity="0.1"/>
-  <rect x="236" y="220" width="612" height="760" rx="40" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)"/>
-  <path d="M378 362H706" stroke="#EEF6F6" stroke-opacity="0.82" stroke-width="24" stroke-linecap="round"/>
-  <path d="M378 438H706" stroke="#EEF6F6" stroke-opacity="0.18" stroke-width="20" stroke-linecap="round"/>
-  <path d="M378 514H706" stroke="#EEF6F6" stroke-opacity="0.18" stroke-width="20" stroke-linecap="round"/>
-  <path d="M378 590H628" stroke="#EEF6F6" stroke-opacity="0.18" stroke-width="20" stroke-linecap="round"/>
-  <path d="M1098 430C1184 430 1254 500 1254 586V738C1254 824 1184 894 1098 894C1012 894 942 824 942 738V586C942 500 1012 430 1098 430Z" fill="rgba(99,214,203,0.16)" stroke="rgba(99,214,203,0.52)" stroke-width="18"/>
-  <path d="M1004 554V506C1004 454 1046 412 1098 412C1150 412 1192 454 1192 506V554" stroke="#8FF2E0" stroke-width="22" stroke-linecap="round"/>
-  <circle cx="1098" cy="650" r="28" fill="#EEF6F6"/>
-  <path d="M1098 678V752" stroke="#EEF6F6" stroke-width="18" stroke-linecap="round"/>
-  <text x="940" y="316" fill="#EEF6F6" font-family="Bahnschrift, Aptos, sans-serif" font-size="92" font-weight="700">Privacy</text>
-  <text x="940" y="378" fill="#ABC0CB" font-family="Aptos, Segoe UI, sans-serif" font-size="30">Personal information and basic website usage</text>
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-priv" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06091a"/>
+      <stop offset="1" stop-color="#0a1530"/>
+    </linearGradient>
+    <linearGradient id="card-priv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#101a35"/>
+      <stop offset="1" stop-color="#0a1326"/>
+    </linearGradient>
+    <radialGradient id="glow-priv" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#5b8dff" stop-opacity="0.36"/>
+      <stop offset="1" stop-color="#5b8dff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2-priv" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#58e1ff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#58e1ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#bg-priv)"/>
+
+  <!-- Ambient glows -->
+  <circle cx="1320" cy="240" r="320" fill="url(#glow-priv)"/>
+  <circle cx="280" cy="980" r="320" fill="url(#glow2-priv)"/>
+
+  <!-- Grid pattern -->
+  <g stroke="rgba(146, 173, 222, 0.06)" stroke-width="1">
+    <path d="M0 200H1600M0 400H1600M0 600H1600M0 800H1600M0 1000H1600"/>
+    <path d="M200 0V1200M400 0V1200M600 0V1200M800 0V1200M1000 0V1200M1200 0V1200M1400 0V1200"/>
+  </g>
+
+  <!-- Outer card -->
+  <rect x="92" y="92" width="1416" height="1016" rx="40" fill="url(#card-priv)" stroke="rgba(146, 173, 222, 0.18)" stroke-width="2"/>
+
+  <!-- Document panel (left) -->
+  <rect x="220" y="220" width="640" height="760" rx="32" fill="rgba(255,255,255,0.025)" stroke="rgba(146, 173, 222, 0.18)" stroke-width="2"/>
+
+  <!-- Document title bar (accent) -->
+  <rect x="280" y="288" width="80" height="6" rx="3" fill="#8fb3ff"/>
+  <text x="280" y="356" fill="#f4f7fc" font-family="Space Grotesk, Inter, sans-serif" font-size="44" font-weight="600" letter-spacing="-1">Visitor data</text>
+
+  <!-- Lines of text -->
+  <rect x="280" y="408" width="500" height="14" rx="7" fill="rgba(244,247,252,0.65)"/>
+  <rect x="280" y="448" width="440" height="14" rx="7" fill="rgba(244,247,252,0.16)"/>
+  <rect x="280" y="488" width="500" height="14" rx="7" fill="rgba(244,247,252,0.16)"/>
+  <rect x="280" y="528" width="380" height="14" rx="7" fill="rgba(244,247,252,0.16)"/>
+
+  <rect x="280" y="600" width="80" height="6" rx="3" fill="#58e1ff"/>
+  <text x="280" y="668" fill="#f4f7fc" font-family="Space Grotesk, Inter, sans-serif" font-size="44" font-weight="600" letter-spacing="-1">Your control</text>
+  <rect x="280" y="720" width="500" height="14" rx="7" fill="rgba(244,247,252,0.16)"/>
+  <rect x="280" y="760" width="500" height="14" rx="7" fill="rgba(244,247,252,0.16)"/>
+  <rect x="280" y="800" width="320" height="14" rx="7" fill="rgba(244,247,252,0.16)"/>
+
+  <!-- Lock icon panel (right) -->
+  <rect x="940" y="320" width="380" height="500" rx="36" fill="rgba(91, 141, 255, 0.06)" stroke="rgba(91, 141, 255, 0.4)" stroke-width="2"/>
+
+  <!-- Lock body -->
+  <rect x="1042" y="540" width="176" height="200" rx="20" fill="rgba(143, 179, 255, 0.16)" stroke="#8fb3ff" stroke-width="6"/>
+
+  <!-- Lock shackle -->
+  <path d="M1080 540V488C1080 458 1100 438 1130 438C1160 438 1180 458 1180 488V540" stroke="#8fb3ff" stroke-width="14" stroke-linecap="round" fill="none"/>
+
+  <!-- Lock keyhole -->
+  <circle cx="1130" cy="620" r="16" fill="#8fb3ff"/>
+  <rect x="1124" y="630" width="12" height="40" rx="4" fill="#8fb3ff"/>
+
+  <!-- Status dot -->
+  <circle cx="1130" cy="780" r="6" fill="#58e1ff"/>
 </svg>

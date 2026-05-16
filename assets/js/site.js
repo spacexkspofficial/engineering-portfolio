@@ -1,10 +1,10 @@
+/* Alexander Amadeo-Ranch | Portfolio interactions */
+
 function initNavigation() {
   const toggle = document.querySelector(".menu-toggle");
   const nav = document.querySelector(".site-nav");
 
-  if (!toggle || !nav) {
-    return;
-  }
+  if (!toggle || !nav) return;
 
   const closeNav = () => {
     toggle.setAttribute("aria-expanded", "false");
@@ -27,19 +27,42 @@ function initNavigation() {
     }
   });
 
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 760) {
-      closeNav();
-    }
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeNav();
   });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 760) closeNav();
+  });
+}
+
+function initHeaderScroll() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+
+  let ticking = false;
+  const update = () => {
+    header.classList.toggle("is-scrolled", window.scrollY > 16);
+    ticking = false;
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+
+  update();
 }
 
 function initReveal() {
   const revealItems = document.querySelectorAll("[data-reveal]");
-
-  if (!revealItems.length) {
-    return;
-  }
+  if (!revealItems.length) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -58,8 +81,8 @@ function initReveal() {
       });
     },
     {
-      threshold: 0.14,
-      rootMargin: "0px 0px -8% 0px"
+      threshold: 0.12,
+      rootMargin: "0px 0px -6% 0px"
     }
   );
 
@@ -71,9 +94,7 @@ function initProjectFilters() {
   const projectCards = document.querySelectorAll("[data-project-card]");
   const emptyState = document.querySelector("[data-empty-state]");
 
-  if (!filterButtons.length || !projectCards.length) {
-    return;
-  }
+  if (!filterButtons.length || !projectCards.length) return;
 
   const applyFilter = (filter) => {
     let visibleCount = 0;
@@ -82,18 +103,15 @@ function initProjectFilters() {
       const categories = (card.dataset.category || "").split(" ");
       const visible = filter === "all" || categories.includes(filter);
       card.classList.toggle("is-hidden", !visible);
-
-      if (visible) {
-        visibleCount += 1;
-      }
+      if (visible) visibleCount += 1;
     });
 
-    if (emptyState) {
-      emptyState.hidden = visibleCount !== 0;
-    }
+    if (emptyState) emptyState.hidden = visibleCount !== 0;
 
     filterButtons.forEach((button) => {
-      button.classList.toggle("active", button.dataset.filter === filter);
+      const isActive = button.dataset.filter === filter;
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
     });
   };
 
@@ -101,11 +119,54 @@ function initProjectFilters() {
     button.addEventListener("click", () => applyFilter(button.dataset.filter));
   });
 
+  // Honor URL hash if it points to a project entry inside a category
   applyFilter("all");
+}
+
+function initSmoothAnchorOffset() {
+  // When a hash links to an in-page project, account for sticky header height.
+  const adjustForHash = () => {
+    if (!window.location.hash) return;
+    const target = document.querySelector(window.location.hash);
+    if (!target) return;
+    requestAnimationFrame(() => {
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    });
+  };
+
+  window.addEventListener("hashchange", adjustForHash);
+  if (window.location.hash) {
+    setTimeout(adjustForHash, 60);
+  }
+}
+
+function initVideoLazyHover() {
+  // Pause off-screen videos to keep things calm.
+  const videos = document.querySelectorAll("video");
+  if (!videos.length || !("IntersectionObserver" in window)) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (!entry.isIntersecting && !video.paused) {
+          video.pause();
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  videos.forEach((video) => observer.observe(video));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   initNavigation();
+  initHeaderScroll();
   initReveal();
   initProjectFilters();
+  initSmoothAnchorOffset();
+  initVideoLazyHover();
 });
