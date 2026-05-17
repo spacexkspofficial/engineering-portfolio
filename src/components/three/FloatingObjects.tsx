@@ -473,9 +473,9 @@ export function FloatingObjects({ mouseRef, scrollRef, reducedMotion }: ScenePro
 
   const parts = useMemo<ProcessedPart[]>(() => makePartMeshes(gltf.scene), [gltf.scene]);
 
-  const explodeReach = isPhone ? 0.15 : isCompact ? 0.17 : 0.18;
-  const assembledScale = isPhone ? 8.4 : isCompact ? 7.4 : 12;
-  const explodedScale = isPhone ? 11.2 : isCompact ? 10 : 15.8;
+  const explodeReach = isPhone ? 0.23 : isCompact ? 0.2 : 0.18;
+  const assembledScale = isPhone ? 10.8 : isCompact ? 9.4 : 12;
+  const explodedScale = isPhone ? 16.6 : isCompact ? 13.8 : 15.8;
 
   useFrame((state, delta) => {
     if (!containerRef.current) return;
@@ -490,12 +490,12 @@ export function FloatingObjects({ mouseRef, scrollRef, reducedMotion }: ScenePro
       containerRef.current.rotation.y += (desiredY - containerRef.current.rotation.y) * ease;
       containerRef.current.rotation.x += (desiredX - containerRef.current.rotation.x) * ease;
       const targetX = isCompact ? m.x * 0.03 : 0.85 + m.x * 0.045;
-      const targetY = (isCompact ? 0.76 : -0.32) + Math.sin(time * 0.42) * 0.04;
+      const targetY = (isPhone ? 0.3 : isCompact ? 0.45 : -0.32) + Math.sin(time * 0.42) * 0.04;
       containerRef.current.position.x += (targetX - containerRef.current.position.x) * ease;
       containerRef.current.position.y += (targetY - containerRef.current.position.y) * ease;
     } else {
       containerRef.current.rotation.set(-0.16, -0.58 + t * Math.PI * 0.3, 0);
-      containerRef.current.position.set(isCompact ? 0 : 0.85, isCompact ? 0.76 : -0.32, 0);
+      containerRef.current.position.set(isCompact ? 0 : 0.85, isPhone ? 0.3 : isCompact ? 0.45 : -0.32, 0);
     }
 
     const explodeT = Math.min(1, t / 0.62);
@@ -505,6 +505,11 @@ export function FloatingObjects({ mouseRef, scrollRef, reducedMotion }: ScenePro
       if (!group) continue;
       const spec = parts[i].spec;
       const offset = spec.direction.clone().multiplyScalar(eased * explodeReach * spec.distanceScale);
+      if (isCompact) {
+        offset.x *= isPhone ? 0.58 : 0.7;
+        offset.y *= isPhone ? 1.72 : 1.45;
+        offset.z *= 0.86;
+      }
       group.position.copy(offset);
       if (spec.spin) {
         group.rotation.set(spec.spin[0] * eased, spec.spin[1] * eased, spec.spin[2] * eased);

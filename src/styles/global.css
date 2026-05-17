@@ -1128,13 +1128,13 @@ main { padding-top: 0; }
   .nav-cta { margin-left: 0; }
 
   .scene-bg {
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: min(58svh, 31rem);
-    min-height: 22rem;
+    position: fixed;
+    inset: 0;
+    height: 100svh;
+    min-height: 100svh;
     opacity: 0.98;
-    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 68%, transparent 100%);
-    mask-image: linear-gradient(180deg, #000 0%, #000 68%, transparent 100%);
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .hero {
@@ -1143,9 +1143,9 @@ main { padding-top: 0; }
     overflow: visible;
   }
   .hero--full {
-    min-height: auto;
+    min-height: 116svh;
     padding-top: 5.35rem;
-    padding-bottom: 2.25rem;
+    padding-bottom: 3rem;
     isolation: isolate;
   }
   .hero--full::before {
@@ -1154,13 +1154,13 @@ main { padding-top: 0; }
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: linear-gradient(180deg, rgba(5, 6, 8, 0.02) 0%, rgba(5, 6, 8, 0.18) 35%, rgba(5, 6, 8, 0.9) 63%, #050608 100%);
+    background: linear-gradient(180deg, rgba(5, 6, 8, 0.02) 0%, rgba(5, 6, 8, 0.1) 30%, rgba(5, 6, 8, 0.78) 62%, #050608 100%);
   }
   .hero--full .container { gap: 1rem; }
   .hero-narrative {
     max-width: none;
-    padding-top: clamp(10.5rem, 33svh, 17rem);
-    background: linear-gradient(180deg, transparent 0%, rgba(5, 6, 8, 0.72) 42%, rgba(5, 6, 8, 0.95) 100%);
+    padding-top: clamp(18rem, 58svh, 31rem);
+    background: linear-gradient(180deg, transparent 0%, rgba(5, 6, 8, 0.72) 34%, rgba(5, 6, 8, 0.96) 100%);
   }
   .hero h1 .accent {
     background: none;
@@ -1284,13 +1284,13 @@ main { padding-top: 0; }
   .brand-copy strong { max-width: 11.5rem; font-size: 0.82rem; }
   .brand-copy span { display: none; }
   .hero--full { padding-top: 5rem; }
-  .hero-narrative { padding-top: clamp(9rem, 30svh, 14rem); }
+  .hero-narrative { padding-top: clamp(16rem, 55svh, 28rem); }
   .hero-meta { grid-template-columns: minmax(0, 1fr); }
   .project-card .project-card__media,
   .figure-card video,
   .figure-card img { aspect-ratio: 4 / 3; }
-  .cubesat-label { font-size: 0.52rem; letter-spacing: 0.08em; }
-  .cubesat-label__dot { width: 8px; }
+  .cubesat-label { font-size: 0.6rem; letter-spacing: 0.08em; }
+  .cubesat-label__dot { width: 10px; }
 }
 
 @media (hover: none), (pointer: coarse) {

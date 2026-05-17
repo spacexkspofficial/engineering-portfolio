@@ -53,17 +53,17 @@ export function Scene() {
 
   return (
     <Canvas
-      dpr={compact ? [1, 1.25] : [1, 1.6]}
+      dpr={compact ? [1, 1.2] : [1, 1.6]}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       style={{ background: "transparent" }}
-      camera={{ position: [0, 0, 30], fov: compact ? 46 : 50 }}
+      camera={{ position: [0, 0, 30], fov: compact ? 43 : 50 }}
     >
       <Suspense fallback={null}>
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />
-        <PerspectiveCamera makeDefault position={[0, 0, 30]} fov={compact ? 46 : 50} />
+        <PerspectiveCamera makeDefault position={[0, 0, 30]} fov={compact ? 43 : 50} />
         <FloatingObjects mouseRef={mouseRef} scrollRef={scrollRef} reducedMotion={reducedMotion} />
-        <ParticleField count={compact ? 180 : 500} reducedMotion={reducedMotion} />
+        <ParticleField count={compact ? 220 : 500} reducedMotion={reducedMotion} />
         <Preload all />
       </Suspense>
     </Canvas>
