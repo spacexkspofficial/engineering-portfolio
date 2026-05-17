@@ -468,13 +468,14 @@ export function FloatingObjects({ mouseRef, scrollRef, reducedMotion }: ScenePro
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const gltf = useGLTF(CUBESAT_MODEL_URL) as unknown as CubeSatGltf;
   const { size } = useThree();
+  const isPhone = size.width < 520;
   const isCompact = size.width < 720;
 
   const parts = useMemo<ProcessedPart[]>(() => makePartMeshes(gltf.scene), [gltf.scene]);
 
-  const explodeReach = isCompact ? 0.16 : 0.18;
-  const assembledScale = isCompact ? 4.8 : 12;
-  const explodedScale = isCompact ? 6.6 : 15.8;
+  const explodeReach = isPhone ? 0.15 : isCompact ? 0.17 : 0.18;
+  const assembledScale = isPhone ? 8.4 : isCompact ? 7.4 : 12;
+  const explodedScale = isPhone ? 11.2 : isCompact ? 10 : 15.8;
 
   useFrame((state, delta) => {
     if (!containerRef.current) return;
@@ -488,13 +489,13 @@ export function FloatingObjects({ mouseRef, scrollRef, reducedMotion }: ScenePro
       const ease = Math.min(1, delta * 1.35);
       containerRef.current.rotation.y += (desiredY - containerRef.current.rotation.y) * ease;
       containerRef.current.rotation.x += (desiredX - containerRef.current.rotation.x) * ease;
-      const targetX = isCompact ? 0 : 0.85 + m.x * 0.045;
-      const targetY = (isCompact ? -0.26 : -0.32) + Math.sin(time * 0.42) * 0.04;
+      const targetX = isCompact ? m.x * 0.03 : 0.85 + m.x * 0.045;
+      const targetY = (isCompact ? 0.76 : -0.32) + Math.sin(time * 0.42) * 0.04;
       containerRef.current.position.x += (targetX - containerRef.current.position.x) * ease;
       containerRef.current.position.y += (targetY - containerRef.current.position.y) * ease;
     } else {
       containerRef.current.rotation.set(-0.16, -0.58 + t * Math.PI * 0.3, 0);
-      containerRef.current.position.set(isCompact ? 0 : 0.85, isCompact ? -0.26 : -0.32, 0);
+      containerRef.current.position.set(isCompact ? 0 : 0.85, isCompact ? 0.76 : -0.32, 0);
     }
 
     const explodeT = Math.min(1, t / 0.62);

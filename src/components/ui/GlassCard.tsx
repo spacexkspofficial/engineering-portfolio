@@ -25,7 +25,7 @@ export function GlassCard({
 
   const onMouseMove = (e: MouseEvent<HTMLElement>) => {
     const el = ref.current;
-    if (!el || reduced) return;
+    if (!el || reduced || window.matchMedia("(pointer: coarse)").matches) return;
     const rect = el.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;

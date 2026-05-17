@@ -21,19 +21,6 @@ function useGsapReveals() {
     if (reduce) return;
     const id = setTimeout(() => ScrollTrigger.refresh(), 100);
     return () => clearTimeout(id);
-  });
-}
-
-function useScrollProgress() {
-  useEffect(() => {
-    const onScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const ratio = max > 0 ? Math.min(1, window.scrollY / max) : 0;
-      document.documentElement.style.setProperty("--scroll-progress", String(ratio));
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 }
 
@@ -58,7 +45,6 @@ function RouteOutlet() {
 
 export default function App() {
   useGsapReveals();
-  useScrollProgress();
 
   const route = useRoute();
   useEffect(() => {

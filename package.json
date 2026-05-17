@@ -5,8 +5,8 @@
   "type": "module",
   "description": "Immersive 3D engineering portfolio for Alexander Amadeo-Ranch.",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "node scripts/dev.mjs",
+    "build": "tsc -b && node scripts/build.mjs",
     "typecheck": "tsc -b --noEmit",
     "preview": "vite preview"
   },
