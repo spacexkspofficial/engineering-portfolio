@@ -1,0 +1,54 @@
+import { Suspense, useEffect, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { AdaptiveDpr, AdaptiveEvents, PerspectiveCamera, Preload } from "@react-three/drei";
+import { FloatingObjects } from "./FloatingObjects";
+import { ParticleField } from "./ParticleField";
+import { useMousePositionRef, useReducedMotion, useScrollProgressRef } from "../../utils/motion";
+
+function CanvasFallback() {
+  return <div className="scene-loader" aria-hidden="true" />;
+}
+
+function WebGLFallback() {
+  return <div className="scene-fallback" aria-hidden="true" />;
+}
+
+function detectWebGL(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    const c = document.createElement("canvas");
+    return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl")));
+  } catch {
+    return false;
+  }
+}
+
+export function Scene() {
+  const mouseRef = useMousePositionRef();
+  const scrollRef = useScrollProgressRef();
+  const reducedMotion = useReducedMotion();
+  const [hasWebGL, setHasWebGL] = useState<boolean | null>(null);
+
+  useEffect(() => setHasWebGL(detectWebGL()), []);
+
+  if (hasWebGL === false) return <WebGLFallback />;
+  if (hasWebGL === null) return <CanvasFallback />;
+
+  return (
+    <Canvas
+      dpr={[1, 1.6]}
+      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      style={{ background: "transparent" }}
+      camera={{ position: [0, 0, 30], fov: 50 }}
+    >
+      <Suspense fallback={null}>
+        <AdaptiveDpr pixelated />
+        <AdaptiveEvents />
+        <PerspectiveCamera makeDefault position={[0, 0, 30]} fov={50} />
+        <FloatingObjects mouseRef={mouseRef} scrollRef={scrollRef} reducedMotion={reducedMotion} />
+        <ParticleField count={500} reducedMotion={reducedMotion} />
+        <Preload all />
+      </Suspense>
+    </Canvas>
+  );
+}
