@@ -8,6 +8,10 @@ interface SceneProps {
   mouseRef: MutableRefObject<{ x: number; y: number }>;
   scrollRef: MutableRefObject<number>;
   reducedMotion: boolean;
+  earthCenter?: THREE.Vector3;
+  orbitRadius?: number;
+  anchor?: THREE.Vector3;
+  showLabels?: boolean;
 }
 
 type CubeSatGltf = { scene: THREE.Group };
@@ -25,6 +29,7 @@ type PartId =
   | "solarNX"
   | "solarPZ"
   | "solarNZ"
+  | "antenna"
   | "fastenerPX"
   | "fastenerNX"
   | "fastenerPZ"
@@ -77,6 +82,7 @@ const PART_ORDER: PartId[] = [
   "solarNX",
   "solarPZ",
   "solarNZ",
+  "antenna",
   "fastenerPX",
   "fastenerNX",
   "fastenerPZ",
@@ -85,35 +91,55 @@ const PART_ORDER: PartId[] = [
   "fastenerBottom",
 ];
 
-const PART_SPECS: Record<PartId, PartSpec> = {
+interface MaterialSpec {
+  color: string;
+  metalness: number;
+  roughness: number;
+  emissive?: string;
+  emissiveIntensity?: number;
+  opacity?: number;
+}
+
+const PART_SPECS: Record<PartId, PartSpec & MaterialSpec> = {
   core: {
     id: "core",
-    label: "Core bus",
-    color: "#f4f6fb",
-    direction: new THREE.Vector3(0, 0, -0.05),
-    distanceScale: 0.2,
+    label: "Avionics core",
+    color: "#445169",
+    metalness: 0.38,
+    roughness: 0.58,
+    emissive: "#172844",
+    emissiveIntensity: 0.22,
+    opacity: 0.88,
+    direction: new THREE.Vector3(0, 0.32, -0.05),
+    distanceScale: 0.22,
     spin: [0, 0.04, 0],
   },
   topPlate: {
     id: "topPlate",
     label: "Top wall",
-    color: "#ffffff",
+    color: "#d8b070",
+    metalness: 0.95,
+    roughness: 0.28,
     direction: new THREE.Vector3(0, 1, 0),
-    distanceScale: 1.05,
+    distanceScale: 1.15,
     spin: [0.05, 0, 0],
   },
   bottomPlate: {
     id: "bottomPlate",
     label: "Bottom wall",
-    color: "#c6ccd6",
+    color: "#b89860",
+    metalness: 0.95,
+    roughness: 0.32,
     direction: new THREE.Vector3(0, -1, 0),
-    distanceScale: 1.05,
+    distanceScale: 1.0,
     spin: [-0.05, 0, 0],
   },
   wallPX: {
     id: "wallPX",
     label: "Right wall",
-    color: "#d9dde5",
+    color: "#e4ba70",
+    metalness: 0.92,
+    roughness: 0.34,
     direction: new THREE.Vector3(1, 0.16, 0),
     distanceScale: 0.9,
     spin: [0, 0.18, 0],
@@ -121,7 +147,9 @@ const PART_SPECS: Record<PartId, PartSpec> = {
   wallNX: {
     id: "wallNX",
     label: "Left wall",
-    color: "#cdd2dc",
+    color: "#d6a958",
+    metalness: 0.92,
+    roughness: 0.36,
     direction: new THREE.Vector3(-1, 0.16, 0),
     distanceScale: 0.9,
     spin: [0, -0.18, 0],
@@ -129,7 +157,9 @@ const PART_SPECS: Record<PartId, PartSpec> = {
   wallPZ: {
     id: "wallPZ",
     label: "Front wall",
-    color: "#e6e9ef",
+    color: "#e8c075",
+    metalness: 0.92,
+    roughness: 0.3,
     direction: new THREE.Vector3(0, 0.18, 0.55),
     distanceScale: 0.9,
     spin: [-0.16, 0, 0],
@@ -137,7 +167,9 @@ const PART_SPECS: Record<PartId, PartSpec> = {
   wallNZ: {
     id: "wallNZ",
     label: "Rear wall",
-    color: "#b8beca",
+    color: "#c8a050",
+    metalness: 0.92,
+    roughness: 0.38,
     direction: new THREE.Vector3(0, 0.18, -0.55),
     distanceScale: 0.9,
     spin: [0.16, 0, 0],
@@ -145,73 +177,111 @@ const PART_SPECS: Record<PartId, PartSpec> = {
   solarPX: {
     id: "solarPX",
     label: "Solar wing",
-    color: "#747b87",
+    color: "#16285e",
+    metalness: 0.85,
+    roughness: 0.18,
+    emissive: "#1a2a55",
+    emissiveIntensity: 0.18,
     direction: new THREE.Vector3(1, 0.55, 0),
     distanceScale: 1.25,
     spin: [0, 0.16, 0],
   },
   solarNX: {
     id: "solarNX",
-    color: "#68707d",
+    color: "#11214d",
+    metalness: 0.85,
+    roughness: 0.2,
+    emissive: "#1a2a55",
+    emissiveIntensity: 0.14,
     direction: new THREE.Vector3(-1, 0.55, 0),
     distanceScale: 1.25,
     spin: [0, -0.16, 0],
   },
   solarPZ: {
     id: "solarPZ",
-    color: "#7d8490",
+    color: "#142557",
+    metalness: 0.85,
+    roughness: 0.2,
+    emissive: "#1a2a55",
+    emissiveIntensity: 0.16,
     direction: new THREE.Vector3(0, 0.65, 0.45),
     distanceScale: 1.25,
     spin: [-0.14, 0, 0],
   },
   solarNZ: {
     id: "solarNZ",
-    color: "#626a77",
+    color: "#0e1d44",
+    metalness: 0.85,
+    roughness: 0.22,
+    emissive: "#1a2a55",
+    emissiveIntensity: 0.12,
     direction: new THREE.Vector3(0, 0.65, -0.45),
     distanceScale: 1.25,
     spin: [0.14, 0, 0],
   },
+  antenna: {
+    id: "antenna",
+    label: "Antenna",
+    color: "#dfe8f8",
+    metalness: 0.9,
+    roughness: 0.2,
+    direction: new THREE.Vector3(-0.55, 0.75, 0.15),
+    distanceScale: 1.35,
+    spin: [0.04, -0.08, 0],
+  },
   fastenerPX: {
     id: "fastenerPX",
     label: "Fasteners",
-    color: "#ffffff",
+    color: "#f0f2f6",
+    metalness: 0.95,
+    roughness: 0.18,
     direction: new THREE.Vector3(1, 0.34, 0),
-    distanceScale: 1.35,
+    distanceScale: 1.4,
     spin: [0.1, 0.26, 0],
   },
   fastenerNX: {
     id: "fastenerNX",
-    color: "#eef1f6",
+    color: "#e6e8ec",
+    metalness: 0.95,
+    roughness: 0.2,
     direction: new THREE.Vector3(-1, 0.34, 0),
-    distanceScale: 1.35,
+    distanceScale: 1.4,
     spin: [0.1, -0.26, 0],
   },
   fastenerPZ: {
     id: "fastenerPZ",
-    color: "#ffffff",
+    color: "#f0f2f6",
+    metalness: 0.95,
+    roughness: 0.18,
     direction: new THREE.Vector3(0, 0.45, 0.45),
-    distanceScale: 1.35,
+    distanceScale: 1.4,
     spin: [-0.24, 0.08, 0],
   },
   fastenerNZ: {
     id: "fastenerNZ",
-    color: "#eef1f6",
+    color: "#e6e8ec",
+    metalness: 0.95,
+    roughness: 0.2,
     direction: new THREE.Vector3(0, 0.45, -0.45),
-    distanceScale: 1.35,
+    distanceScale: 1.4,
     spin: [0.24, -0.08, 0],
   },
   fastenerTop: {
     id: "fastenerTop",
-    color: "#ffffff",
+    color: "#f0f2f6",
+    metalness: 0.95,
+    roughness: 0.18,
     direction: new THREE.Vector3(0, 1, 0),
-    distanceScale: 1.35,
+    distanceScale: 1.4,
     spin: [0.22, 0.05, 0],
   },
   fastenerBottom: {
     id: "fastenerBottom",
-    color: "#e6eaf1",
+    color: "#dcdee4",
+    metalness: 0.95,
+    roughness: 0.22,
     direction: new THREE.Vector3(0, -1, 0),
-    distanceScale: 1.35,
+    distanceScale: 1.4,
     spin: [-0.22, 0.05, 0],
   },
 };
@@ -249,6 +319,10 @@ function classifyComponent(component: ComponentInfo): PartId {
   const ax = Math.abs(center.x);
   const ay = Math.abs(center.y);
   const az = Math.abs(center.z);
+
+  const isAntennaLike =
+    size.y > 0.18 && size.x < 0.01 && size.z < 0.01 && ax > 0.08 && ax < 0.14 && az < 0.14;
+  if (isAntennaLike) return "antenna";
 
   const isFastenerLike = triangles <= 24 || maxDim < 0.012 || volume < 2.5e-7;
   if (isFastenerLike) return sideFastenerId(center);
@@ -443,11 +517,17 @@ function makePartMeshes(scene: THREE.Group): ProcessedPart[] {
     geometry.computeBoundingBox();
     geometry.computeBoundingSphere();
 
+    const spec = bucket.spec as PartSpec & MaterialSpec;
     const material = new THREE.MeshStandardMaterial({
-      color: bucket.spec.color,
-      metalness: 0.4,
-      roughness: 0.52,
-      envMapIntensity: 0.85,
+      color: spec.color,
+      metalness: spec.metalness ?? 0.6,
+      roughness: spec.roughness ?? 0.35,
+      emissive: spec.emissive ? new THREE.Color(spec.emissive) : new THREE.Color("#000000"),
+      emissiveIntensity: spec.emissiveIntensity ?? 0,
+      envMapIntensity: 1.4,
+      opacity: spec.opacity ?? 1,
+      transparent: spec.opacity !== undefined && spec.opacity < 1,
+      depthWrite: spec.opacity === undefined || spec.opacity >= 1,
       side: THREE.DoubleSide,
     });
 
@@ -462,7 +542,20 @@ function makePartMeshes(scene: THREE.Group): ProcessedPart[] {
   });
 }
 
-export function FloatingObjects({ mouseRef, scrollRef, reducedMotion }: SceneProps) {
+// Orbit motion is intentionally small — satellite stays roughly fixed in view (LEO companion shot).
+// A subtle scroll-driven drift across a narrow arc; no aggressive sweep.
+const ORBIT_DRIFT_DEG = 8;
+
+export function FloatingObjects({
+  mouseRef,
+  scrollRef,
+  reducedMotion,
+  earthCenter = new THREE.Vector3(0, 0, 0),
+  orbitRadius = 22,
+  anchor,
+  showLabels = false,
+}: SceneProps) {
+  const orbitRef = useRef<THREE.Group>(null);
   const containerRef = useRef<THREE.Group>(null);
   const partGroupRefs = useRef<(THREE.Group | null)[]>([]);
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -473,31 +566,48 @@ export function FloatingObjects({ mouseRef, scrollRef, reducedMotion }: ScenePro
 
   const parts = useMemo<ProcessedPart[]>(() => makePartMeshes(gltf.scene), [gltf.scene]);
 
-  const explodeReach = isPhone ? 0.23 : isCompact ? 0.2 : 0.18;
-  const assembledScale = isPhone ? 10.8 : isCompact ? 9.4 : 12;
-  const explodedScale = isPhone ? 16.6 : isCompact ? 13.8 : 15.8;
+  // Explosion reach kept similar to the original — preserves the same animation feel
+  const explodeReach = isPhone ? 0.18 : isCompact ? 0.19 : 0.19;
+  const satScale = isPhone ? 4.35 : isCompact ? 5 : 6;
 
   useFrame((state, delta) => {
-    if (!containerRef.current) return;
+    if (!orbitRef.current || !containerRef.current) return;
     const t = scrollRef.current;
     const time = state.clock.getElapsedTime();
 
+    // === Anchor: satellite holds station against the Earth horizon.
+    // Subtle scroll drift + slow continuous bob to suggest orbital motion.
+    const drift = THREE.MathUtils.degToRad(ORBIT_DRIFT_DEG) * (t - 0.5) * 2;
+    const base = anchor ?? earthCenter;
+    const driftX = Math.sin(drift) * orbitRadius * 0.6;
+    const driftY = Math.cos(drift) * orbitRadius * 0.15;
+    const bobX = reducedMotion ? 0 : Math.sin(time * 0.18) * 0.25;
+    const bobY = reducedMotion ? 0 : Math.cos(time * 0.13) * 0.22;
+    const targetPos = new THREE.Vector3(
+      base.x + driftX + bobX,
+      base.y + driftY + bobY,
+      base.z,
+    );
+
+    const m = mouseRef.current;
     if (!reducedMotion) {
-      const m = mouseRef.current;
-      const desiredY = -0.58 + t * Math.PI * 0.34 + m.x * 0.12;
-      const desiredX = -0.16 + m.y * -0.08 + Math.sin(time * 0.25) * 0.025;
-      const ease = Math.min(1, delta * 1.35);
-      containerRef.current.rotation.y += (desiredY - containerRef.current.rotation.y) * ease;
-      containerRef.current.rotation.x += (desiredX - containerRef.current.rotation.x) * ease;
-      const targetX = isCompact ? m.x * 0.03 : 0.85 + m.x * 0.045;
-      const targetY = (isPhone ? 0.3 : isCompact ? 0.45 : -0.32) + Math.sin(time * 0.42) * 0.04;
-      containerRef.current.position.x += (targetX - containerRef.current.position.x) * ease;
-      containerRef.current.position.y += (targetY - containerRef.current.position.y) * ease;
-    } else {
-      containerRef.current.rotation.set(-0.16, -0.58 + t * Math.PI * 0.3, 0);
-      containerRef.current.position.set(isCompact ? 0 : 0.85, isPhone ? 0.3 : isCompact ? 0.45 : -0.32, 0);
+      targetPos.x += m.x * 0.35;
+      targetPos.y += -m.y * 0.2;
     }
 
+    const ease = Math.min(1, delta * 1.6);
+    orbitRef.current.position.lerp(targetPos, ease);
+
+    // Slow continuous yaw — gives the orbital impression without looking chaotic.
+    // Pitch is held with subtle mouse parallax. No roll, no tumble.
+    const baseYaw = reducedMotion ? -0.7 : -0.7 + time * 0.045;
+    const yawTarget = baseYaw + drift * 0.3 + (reducedMotion ? 0 : m.x * 0.05);
+    const pitchTarget = -0.24 + (reducedMotion ? 0 : m.y * -0.04 + Math.sin(time * 0.21) * 0.02);
+    containerRef.current.rotation.y = yawTarget;
+    containerRef.current.rotation.x += (pitchTarget - containerRef.current.rotation.x) * ease;
+    containerRef.current.rotation.z += ((reducedMotion ? 0.08 : 0.08 + m.x * 0.018) - containerRef.current.rotation.z) * ease;
+
+    // === Explosion: clean radial-with-vertical-bias separation. No time-driven tumbling. ===
     const explodeT = Math.min(1, t / 0.62);
     const eased = easeInOutCubic(explodeT);
     for (let i = 0; i < parts.length; i++) {
@@ -505,19 +615,17 @@ export function FloatingObjects({ mouseRef, scrollRef, reducedMotion }: ScenePro
       if (!group) continue;
       const spec = parts[i].spec;
       const offset = spec.direction.clone().multiplyScalar(eased * explodeReach * spec.distanceScale);
-      if (isCompact) {
-        offset.x *= isPhone ? 0.58 : 0.7;
-        offset.y *= isPhone ? 1.72 : 1.45;
-        offset.z *= 0.86;
-      }
+      // Vertical bias — pieces fly UP more than sideways/forward, but bounded so debris stays in frame
+      offset.x *= isPhone ? 0.45 : 0.55;
+      offset.y *= isPhone ? 1.28 : 1.5;
+      offset.z *= isPhone ? 0.45 : 0.55;
       group.position.copy(offset);
-      if (spec.spin) {
-        group.rotation.set(spec.spin[0] * eased, spec.spin[1] * eased, spec.spin[2] * eased);
-      }
+      // Hold each piece at its assembled rotation — no spin during explosion.
+      group.rotation.set(0, 0, 0);
     }
 
     const LABEL_MAX = 0.8;
-    const labelAlpha = smoothstep(0.58, 0.8, t) * LABEL_MAX;
+    const labelAlpha = showLabels ? smoothstep(0.58, 0.8, t) * LABEL_MAX : 0;
     for (let i = 0; i < labelRefs.current.length; i++) {
       const el = labelRefs.current[i];
       if (!el) continue;
@@ -525,42 +633,38 @@ export function FloatingObjects({ mouseRef, scrollRef, reducedMotion }: ScenePro
       el.style.transform = `translate(-50%, -50%) translateY(${(1 - labelAlpha / LABEL_MAX) * 5}px)`;
     }
 
-    const lateFade = 1 - smoothstep(0.92, 1.0, t) * 0.28;
-    const scaleT = smoothstep(0.12, 0.62, t);
-    containerRef.current.scale.setScalar((assembledScale + (explodedScale - assembledScale) * scaleT) * lateFade);
+    // Steady scale — no flex during explosion
+    containerRef.current.scale.setScalar(satScale);
   });
 
   return (
-    <group ref={containerRef} scale={assembledScale} dispose={null}>
-      <ambientLight intensity={1.05} />
-      <directionalLight position={[6, 7, 5]} intensity={1.65} color="#ffffff" />
-      <directionalLight position={[-5, -2, -3]} intensity={0.9} color="#ffffff" />
-      <pointLight position={[0, 0, 8]} intensity={0.75} color="#ffffff" />
-
-      {parts.map((part, index) => (
-        <group
-          key={part.spec.id}
-          ref={(element) => {
-            partGroupRefs.current[index] = element;
-          }}
-        >
-          <primitive object={part.mesh} />
-          {part.spec.label && (
-            <Html position={part.labelPosition.toArray()} center distanceFactor={9} zIndexRange={[10, 0]} occlude={false}>
-              <div
-                ref={(element) => {
-                  labelRefs.current[index] = element;
-                }}
-                className="cubesat-label"
-                style={{ opacity: 0 }}
-              >
-                <span className="cubesat-label__dot" />
-                <span className="cubesat-label__text">{part.spec.label}</span>
-              </div>
-            </Html>
-          )}
-        </group>
-      ))}
+    <group ref={orbitRef} dispose={null}>
+      <group ref={containerRef} scale={satScale}>
+        {parts.map((part, index) => (
+          <group
+            key={part.spec.id}
+            ref={(element) => {
+              partGroupRefs.current[index] = element;
+            }}
+          >
+            <primitive object={part.mesh} />
+            {showLabels && part.spec.label && (
+              <Html position={part.labelPosition.toArray()} center distanceFactor={9} zIndexRange={[10, 0]} occlude={false}>
+                <div
+                  ref={(element) => {
+                    labelRefs.current[index] = element;
+                  }}
+                  className="cubesat-label"
+                  style={{ opacity: 0 }}
+                >
+                  <span className="cubesat-label__dot" />
+                  <span className="cubesat-label__text">{part.spec.label}</span>
+                </div>
+              </Html>
+            )}
+          </group>
+        ))}
+      </group>
     </group>
   );
 }

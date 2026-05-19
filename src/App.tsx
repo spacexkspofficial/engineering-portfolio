@@ -10,6 +10,7 @@ import { ContactPage } from "./pages/Contact";
 import { Privacy } from "./pages/Privacy";
 import { Terms } from "./pages/Terms";
 import { NotFound } from "./pages/NotFound";
+import { asset } from "./utils/assets";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -73,6 +74,17 @@ export default function App() {
 
       {showScene && (
         <div className="scene-bg" aria-hidden="true">
+          <video
+            className="scene-bg-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={asset("assets/media/earth-orbit-poster.jpg")}
+          >
+            <source src={asset("assets/media/earth-orbit.webm")} type="video/webm" />
+            <source src={asset("assets/media/earth-orbit.mp4")} type="video/mp4" />
+          </video>
           <Suspense fallback={null}>
             <BackgroundScene />
           </Suspense>
