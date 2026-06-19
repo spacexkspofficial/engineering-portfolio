@@ -47,13 +47,14 @@ export const PROJECTS: Project[] = [
     title: "UCI CubeSat Structures",
     meta: "Team spacecraft - Structural analysis",
     summary:
-      "Structural analysis work for a student spacecraft team, tied to component behavior, interface constraints, and integration context.",
+      "Structural analysis work for a student spacecraft team, tied to component behavior, interface constraints, and integration context. Also includes FlatSat V1 - a modular bench-test platform built as systems engineer to integrate and test the satellite's hardware stack.",
     categories: ["aerospace", "analysis"],
-    chips: ["ANSYS", "Structures", "Modal analysis", "Hardware context"],
+    chips: ["ANSYS", "Structures", "Modal analysis", "Hardware context", "Systems engineering", "FlatSat"],
     insights: [
       { label: "Scope", body: "Static and frequency analysis on a CubeSat structural component." },
       { label: "Deliverables", body: "Static and frequency clips showing structural response and modal behavior." },
       { label: "Skills", body: "FEA workflow, design review support, and hardware-aware analysis." },
+      { label: "FlatSat V1", body: "As systems engineer (since April 2026), designed and built FlatSat V1 - a modular, fully serviceable platform that holds the satellite's PCB stack (up to 12 boards) so subteams can integrate and bench-test hardware together before flight." },
     ],
     primaryActions: [
       { label: "Static clip", href: "assets/media/cubesat/hinge-plate-static-analysis.mp4" },
@@ -72,6 +73,18 @@ export const PROJECTS: Project[] = [
         src: "assets/media/cubesat/hinge-plate-frequency-analysis.mp4",
         poster: "assets/images/poster-cubesat-frequency.png",
         caption: "Frequency-view clip for the same part, useful for discussing dynamic behavior.",
+      },
+      {
+        kind: "image",
+        src: "assets/media/cubesat/flatsat-v1-cad.jpg",
+        alt: "SolidWorks CAD render of the FlatSat V1 modular extrusion frame",
+        caption: "FlatSat V1 (CAD) - the modular extrusion frame that carries the satellite's PCB stack for bench testing.",
+      },
+      {
+        kind: "image",
+        src: "assets/media/cubesat/flatsat-v1-assembly.jpg",
+        alt: "Assembled FlatSat V1 aluminum extrusion frame in the lab",
+        caption: "FlatSat V1 assembled in the lab from 1010 aluminum extrusion and custom mounts.",
       },
     ],
   },
