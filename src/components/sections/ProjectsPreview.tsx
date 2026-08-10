@@ -47,6 +47,7 @@ export function ProjectsPreview() {
                       src={asset(cover.src)}
                       alt={cover.alt ?? p.title}
                       loading="lazy"
+                      decoding="async"
                     />
                   )}
                   {!cover && (

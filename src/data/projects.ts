@@ -43,6 +43,51 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
+    id: "aerolab-suite",
+    title: "AeroLab Interactive Aerodynamics Suite",
+    meta: "Personal project - Browser-based aerospace simulation",
+    summary:
+      "Two self-contained engineering laboratories built for the browser: a 2D NACA airfoil flow lab and a 3D aircraft, rocket, and atmospheric re-entry lab. Both combine interactive visualization with live coefficients, diagnostics, plots, and device-aware performance controls.",
+    categories: ["aerospace", "software", "analysis"],
+    chips: ["WebGL 2", "Aerodynamics", "Numerical methods", "Aircraft stability", "Rocket analysis", "Re-entry"],
+    insights: [
+      {
+        label: "AeroLab 2D",
+        body: "Pairs a GPU D2Q9 lattice-Boltzmann flow solver with a Hess-Smith panel method and integral boundary-layer model for NACA airfoil exploration, pressure distributions, force history, transition, and separation diagnostics.",
+      },
+      {
+        label: "AeroLab 3D",
+        body: "Combines vortex-lattice aircraft analysis, viscous performance estimates, Barrowman rocket stability and drag methods, and an atmospheric re-entry model in one interactive 3D workspace.",
+      },
+      {
+        label: "Engineering UX",
+        body: "Responsive control drawers, touch-friendly inputs, keyboard shortcuts, accessible states, automatic mobile-safe rendering profiles, and graceful WebGL fallbacks keep the labs usable across devices.",
+      },
+      {
+        label: "Delivery",
+        body: "Runs entirely client-side with no account, install, backend, or data collection. Each laboratory is a portable standalone application that launches directly from this portfolio.",
+      },
+    ],
+    primaryActions: [
+      { label: "Launch AeroLab 2D", href: "aerolab/index.html", primary: true, external: true },
+      { label: "Launch AeroLab 3D", href: "aerolab-3d/index.html", external: true },
+    ],
+    media: [
+      {
+        kind: "image",
+        src: "assets/media/aerolab/aerolab-2d-airfoil-wake.png",
+        alt: "AeroLab 2D visualization of flow separating around an airfoil and forming a vortex wake",
+        caption: "AeroLab 2D: resolved airfoil flow field with separated shear layers and a downstream vortex street.",
+      },
+      {
+        kind: "image",
+        src: "assets/media/aerolab/aerolab-3d-rocket-stability.png",
+        alt: "AeroLab 3D rocket analysis showing flow tracers, static aerodynamics, center of pressure, center of gravity, and drag breakdown",
+        caption: "AeroLab 3D: rocket flow-tracer view with live static-stability and drag-build-up results.",
+      },
+    ],
+  },
+  {
     id: "cubesat-structures",
     title: "UCI CubeSat Structures",
     meta: "Team spacecraft - Structural analysis",
@@ -558,6 +603,7 @@ dV_tot_nom = norm(v1_trans - v1_earth) + norm(v2_trans - v2_didymos);`,
 ];
 
 export const FEATURED_PROJECT_IDS = [
+  "aerolab-suite",
   "cubesat-structures",
   "obd-scanner",
   "photon-paths",

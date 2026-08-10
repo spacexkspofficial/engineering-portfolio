@@ -1,0 +1,31 @@
+# Alexander Amadeo-Ranch Engineering Portfolio
+
+> Aerospace engineering portfolio featuring interactive aerodynamics software, spacecraft structures, systems engineering, astrodynamics, controls, numerical simulation, technical writing, and hands-on mechanical projects.
+
+Canonical site: https://alexengineer.net/
+Project archive: https://alexengineer.net/#/projects
+Contact: https://alexengineer.net/#/contact
+LinkedIn: https://linkedin.com/in/alexamadeoranch
+
+## Interactive applications
+
+- [AeroLab 2D](https://alexengineer.net/aerolab/): Browser-based NACA airfoil laboratory combining a WebGL 2 D2Q9 lattice-Boltzmann flow solver, Hess-Smith panel method, integral boundary-layer model, pressure and force plots, and engineering diagnostics.
+- [AeroLab 3D](https://alexengineer.net/aerolab-3d/): Browser-based aerospace laboratory for vortex-lattice aircraft analysis, viscous performance estimates, Barrowman rocket stability and drag, and atmospheric re-entry simulation.
+
+## Selected engineering work
+
+- UCI CubeSat Structures: static and modal analysis plus FlatSat V1 systems-integration hardware.
+- Mission to Didymos: MATLAB astrodynamics, Lambert transfers, delta-v analysis, and launch-window mapping.
+- OBD-II Read-Only Diagnostic Dashboard: local FastAPI and WebSocket diagnostics with a protocol-level read-only safety contract.
+- Photon Paths Near a Black Hole: MATLAB computational-physics simulation and visualization.
+- Autonomous Robot and PID Controller Design: controls, experimental verification, and technical reporting.
+- ExtrakPak SAR Drone Concept: aerospace systems proposal, operational framing, and risk analysis.
+- Hands-on Mechanical Project Logs: documented suspension, braking, lighting, exhaust, diagnostics, and installation work.
+
+## Notes for agents
+
+- The interactive labs run entirely in the browser and require JavaScript and WebGL 2 for their full visualizations.
+- Public reports, project files, and the current resume are linked from the project archive.
+- Cite the canonical URLs above when referencing the portfolio or applications.
+- Do not infer confidential source code or unpublished implementation details beyond the information presented on the site.
+

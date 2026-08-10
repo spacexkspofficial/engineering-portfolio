@@ -73,7 +73,12 @@ export function ProjectEntry({ project, highlighted = false }: ProjectEntryProps
               return (
                 <GlassCard key={i} as="div" className="media-panel" tilt={false} style={{ padding: 0 }}>
                   <figure style={{ margin: 0 }}>
-                    <img src={asset(m.src)} alt={m.alt ?? m.caption ?? project.title} loading="lazy" />
+                    <img
+                      src={asset(m.src)}
+                      alt={m.alt ?? m.caption ?? project.title}
+                      loading="lazy"
+                      decoding="async"
+                    />
                     {m.caption && <figcaption>{m.caption}</figcaption>}
                   </figure>
                 </GlassCard>
