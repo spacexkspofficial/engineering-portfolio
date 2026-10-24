@@ -32,6 +32,7 @@ interface SceneProps {
 function SceneContent({ progressRef, reducedMotion, layout }: Omit<SceneProps, "active">) {
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
   const mouseRef = useMousePositionRef();
+  const mobile = layout === "mobile";
   const compact = layout === "compact" || layout === "mobile";
   const { size } = useThree();
   const config = layout === "mobile" && size.width > size.height
@@ -60,13 +61,15 @@ function SceneContent({ progressRef, reducedMotion, layout }: Omit<SceneProps, "
       <PerspectiveCamera ref={cameraRef} makeDefault fov={config.fov} near={0.1} far={500} position={[0, 0, config.cameraZ]} />
 
       {/* Soft fill so the satellite's shaded side isn't pure black */}
-      <ambientLight intensity={0.58} color="#92a7cf" />
+      <ambientLight intensity={mobile ? 0.95 : 0.58} color={mobile ? "#c2d2ec" : "#92a7cf"} />
       {/* Key light from the upper right, matching the lit limb in the footage */}
-      <directionalLight position={[14, 8, 6]} intensity={3.4} color="#fff4df" />
+      <directionalLight position={[14, 8, 6]} intensity={mobile ? 4.2 : 3.4} color="#fff4df" />
       {/* Cool rim light from below: Earth's reflected blue */}
-      <directionalLight position={[-4, -10, 4]} intensity={1.25} color="#6da0ea" />
+      <directionalLight position={[-4, -10, 4]} intensity={mobile ? 1.6 : 1.25} color="#6da0ea" />
       {/* Back light to separate the silhouette from the sky */}
-      <directionalLight position={[-6, 4, -8]} intensity={0.85} color="#b6ccf0" />
+      <directionalLight position={[-6, 4, -8]} intensity={mobile ? 1.1 : 0.85} color="#b6ccf0" />
+      {/* Front fill keeps the mobile model's panels and hardware readable. */}
+      {mobile && <directionalLight position={[0, 2, 10]} intensity={2.2} color="#dae7ff" />}
 
       <FloatingObjects
         mouseRef={mouseRef}
@@ -87,18 +90,19 @@ export function Scene({ progressRef, active, reducedMotion, layout }: SceneProps
       // Stop rendering entirely once the hero has scrolled away; with reduced
       // motion, render only when something changes.
       frameloop={!active ? "never" : reducedMotion || layout === "mobile" ? "demand" : "always"}
-      dpr={layout === "mobile" ? [1, 1] : layout === "compact" ? [1, 1.25] : [1, 1.6]}
-      gl={{ antialias: layout !== "mobile", alpha: true, powerPreference: layout === "mobile" ? "low-power" : "high-performance" }}
+      // Render sharp edges on high-density phones, with a 2x cap for GPU cost.
+      dpr={layout === "mobile" ? [1, 2] : layout === "compact" ? [1, 1.25] : [1, 1.6]}
+      gl={{ antialias: true, alpha: true, powerPreference: layout === "mobile" ? "low-power" : "high-performance" }}
       style={{ background: "transparent" }}
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping;
-        gl.toneMappingExposure = 1.32;
+        gl.toneMappingExposure = layout === "mobile" ? 1.65 : 1.32;
         gl.outputColorSpace = THREE.SRGBColorSpace;
       }}
     >
       <Suspense fallback={null}>
         <MobileFrameLoop active={active && !reducedMotion && layout === "mobile"} />
-        <AdaptiveDpr pixelated />
+        <AdaptiveDpr pixelated={layout !== "mobile"} />
         <SceneContent progressRef={progressRef} reducedMotion={reducedMotion} layout={layout} />
       </Suspense>
     </Canvas>

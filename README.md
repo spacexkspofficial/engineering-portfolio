@@ -90,7 +90,7 @@ position and a no-WebGL mode.
 `src/components/three/`:
 
 - `SceneBackground.tsx`: fixed layer behind the hero. Poster image first, then the
-  Earth video (an 854 px version on small screens), then the WebGL model. Skips
+  Earth video (1280 × 720, including on phones), then the WebGL model. Skips
   video and model when the browser asks to save data, pauses everything once the
   hero has scrolled away, and keeps the model still with reduced motion.
 - `Scene.tsx`: camera, lights and where the satellite sits for wide, medium and
@@ -110,8 +110,10 @@ to zero as the introduction enters. Scrolling back restores them. Short landscap
 viewports put the model beside the name. The opening uses stable viewport units
 to avoid jumps when mobile browser chrome changes height.
 
-Mobile uses the smaller Earth video, a 1× canvas, no multisample antialiasing,
-and demand rendering paced at 30 fps. Video and model stop when the scene is
+Mobile uses the full-resolution Earth video, an antialiased canvas capped at 2×
+pixel density, and demand rendering paced at 30 fps. Brighter lighting, exposure
+and footage grading lift the model and background; a lighter shade and text
+shadow keep the opening readable. Video and model stop when the scene is
 invisible or the tab is hidden. Reduced motion keeps a still model and poster,
 without downloading video; Save-Data skips both video and WebGL. Deep links into
 home sections avoid starting the scene until the opening becomes visible.

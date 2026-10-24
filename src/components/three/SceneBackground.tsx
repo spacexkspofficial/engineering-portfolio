@@ -24,7 +24,6 @@ export function SceneBackground({ mobile = false }: { mobile?: boolean }) {
   const reducedMotion = useReducedMotion();
   // Phones and portrait tablets share the "satellite above, text below" layout.
   const compact = useMediaQuery("(max-width: 720px), (orientation: portrait)");
-  const smallVideo = useMediaQuery("(max-width: 720px)");
   const medium = useMediaQuery("(max-width: 1100px)");
   const layout: SceneLayout = mobile ? "mobile" : compact ? "compact" : medium ? "medium" : "wide";
   const { progressRef, sceneRef, visible } = useHeroScroll(mobile);
@@ -52,15 +51,13 @@ export function SceneBackground({ mobile = false }: { mobile?: boolean }) {
     if (!video) return;
     if (visible && foreground && !reducedMotion) void video.play().catch(() => {});
     else video.pause();
-  }, [visible, foreground, reducedMotion, ready, smallVideo, mobile]);
+  }, [visible, foreground, reducedMotion, ready]);
 
-  const videoSize = mobile || smallVideo ? "-480" : "";
   return (
     <div ref={sceneRef} className={`scene${mobile ? " scene--mobile" : ""}${visible ? "" : " is-offscreen"}`} aria-hidden="true">
       <img className="scene__layer scene__poster" src={asset("assets/media/earth-orbit-poster.jpg")} alt="" {...{ fetchpriority: "high" }} decoding="async" />
       {ready && !saveData && !reducedMotion && (
         <video
-          key={videoSize}
           ref={videoRef}
           className="scene__layer scene__video"
           muted
@@ -69,8 +66,8 @@ export function SceneBackground({ mobile = false }: { mobile?: boolean }) {
           preload="none"
           poster={asset("assets/media/earth-orbit-poster.jpg")}
         >
-          <source src={asset(`assets/media/earth-orbit${videoSize}.webm`)} type="video/webm" />
-          <source src={asset(`assets/media/earth-orbit${videoSize}.mp4`)} type="video/mp4" />
+          <source src={asset("assets/media/earth-orbit.webm")} type="video/webm" />
+          <source src={asset("assets/media/earth-orbit.mp4")} type="video/mp4" />
         </video>
       )}
       {ready && webgl && !saveData && (

@@ -545,10 +545,11 @@ figure {
   .scene--mobile .scene__poster,
   .scene--mobile .scene__video {
     object-position: 58% center;
+    filter: brightness(1.35) saturate(1.08);
   }
 
   .scene--mobile .scene__shade {
-    background: linear-gradient(180deg, rgba(5, 7, 12, 0.3), transparent 20%, transparent 46%, rgba(7, 9, 13, 0.8) 76%, var(--bg));
+    background: linear-gradient(180deg, rgba(5, 7, 12, 0.12), transparent 20%, transparent 50%, rgba(7, 9, 13, 0.42) 80%, rgba(7, 9, 13, 0.84));
   }
 
   .mobile-hero {
@@ -571,6 +572,7 @@ figure {
 
   .mobile-hero__copy {
     opacity: var(--hero-opacity);
+    text-shadow: 0 2px 4px rgba(5, 7, 12, 0.95), 0 0 18px rgba(5, 7, 12, 0.85);
   }
 
   .mobile-hero__copy > .kicker {
@@ -593,7 +595,7 @@ figure {
 
   .mobile-hero__lede {
     margin-top: 16px;
-    color: var(--ink-2);
+    color: var(--ink);
     font: 400 clamp(1rem, 3.8vw, 1.3rem)/1.45 var(--serif);
   }
 
