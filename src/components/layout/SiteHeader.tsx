@@ -13,7 +13,6 @@ const NAV: { to: string; label: string; active: (path: string) => boolean }[] = 
 
 export function SiteHeader({ overlay }: { overlay: boolean }) {
   const route = useRoute();
-  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -23,31 +22,13 @@ export function SiteHeader({ overlay }: { overlay: boolean }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setOpen(false), [route.path, route.hash]);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
-
-  const solid = !overlay || scrolled || open;
+  const solid = !overlay || scrolled;
   return (
-    <header className={`site-header${solid ? " is-solid" : ""}${open ? " is-open" : ""}`}>
+    <header className={`site-header${solid ? " is-solid" : ""}`}>
       <div className="wrap site-header__inner">
         <RouterLink href="/" className="site-header__name">
           {PERSON.name}
         </RouterLink>
-        <button
-          type="button"
-          className="site-header__toggle"
-          aria-expanded={open}
-          aria-controls="site-nav"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? "Close" : "Menu"}
-        </button>
         <nav id="site-nav" className="site-nav" aria-label="Primary">
           <ul>
             {NAV.map((item) => {

@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState, type MutableRefObject } from "react";
 
+// Width-based layouts also cover narrow desktop windows; coarse pointers include
+// phones in landscape and small tablets. Keep in sync with the mobile CSS.
+export const MOBILE_QUERY = "(max-width: 900px), (max-width: 1100px) and (pointer: coarse)";
+
 export function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(() =>
     typeof window === "undefined" ? false : window.matchMedia(query).matches,
@@ -27,6 +31,7 @@ export function prefersSavedData(): boolean {
 export function useMousePositionRef(): MutableRefObject<{ x: number; y: number }> {
   const ref = useRef({ x: 0, y: 0 });
   useEffect(() => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     let frame = 0;
     const onMove = (e: MouseEvent) => {
       cancelAnimationFrame(frame);
@@ -45,25 +50,55 @@ export function useMousePositionRef(): MutableRefObject<{ x: number; y: number }
 }
 
 /**
- * Scroll progress through the first viewport (0 at the top of the page, 1 once
- * the hero has scrolled away) plus whether the background is still visible.
+ * Shared scene progress. Mobile fades against the measured opening section;
+ * desktop retains the original first-viewport exploded view.
  */
-export function useHeroScroll(): { progressRef: MutableRefObject<number>; visible: boolean } {
+export function useHeroScroll(mobile = false): {
+  progressRef: MutableRefObject<number>;
+  sceneRef: MutableRefObject<HTMLDivElement | null>;
+  visible: boolean;
+} {
   const progressRef = useRef(0);
+  const sceneRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
   useEffect(() => {
+    const hero = document.querySelector<HTMLElement>(mobile ? ".mobile-hero" : ".hero");
+    let frame = 0;
+    let start = 0;
+    let distance = 1;
+    let cutoff = 1;
     const update = () => {
+      frame = 0;
+      const progress = Math.min(1, Math.max(0, (window.scrollY - start) / distance));
+      progressRef.current = progress;
+      const fade = Math.min(1, Math.max(0, (progress - 0.24) / 0.76));
+      const opacity = mobile ? 1 - fade * fade * (3 - 2 * fade) : 1;
+      if (sceneRef.current) sceneRef.current.style.opacity = String(opacity);
+      if (mobile && hero) hero.style.setProperty("--hero-opacity", String(opacity));
+      setVisible(mobile ? opacity > 0 : window.scrollY < cutoff);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const measure = () => {
       const h = Math.max(1, window.innerHeight);
-      progressRef.current = Math.min(1, Math.max(0, window.scrollY / h));
-      setVisible(window.scrollY < h * 1.15);
+      start = hero ? hero.getBoundingClientRect().top + window.scrollY : 0;
+      // Fade out as the shared content enters, using the actual hero dimensions.
+      distance = mobile && hero ? Math.max(1, hero.offsetHeight - h * 0.3) : h;
+      cutoff = h * 1.15;
+      schedule();
     };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update, { passive: true });
+    const observer = new ResizeObserver(measure);
+    if (hero) observer.observe(hero);
+    measure();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", measure, { passive: true });
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", measure);
     };
-  }, []);
-  return { progressRef, visible };
+  }, [mobile]);
+  return { progressRef, sceneRef, visible };
 }

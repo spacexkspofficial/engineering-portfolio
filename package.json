@@ -10,6 +10,7 @@
     "typecheck": "tsc -b --noEmit",
     "preview": "vite preview",
     "resume": "node scripts/build-resume.mjs",
+    "model:mobile": "node scripts/build-mobile-model.mjs",
     "qa:capture": "node scripts/qa-capture.mjs"
   },
   "dependencies": {

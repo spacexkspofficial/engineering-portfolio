@@ -12,42 +12,53 @@ export function Hero() {
           Aerospace engineering student at UC Irvine, working on mechanical design, structures and hardware integration.
         </p>
 
-        <dl className="hero__facts">
-          <div>
-            <dt>Now</dt>
-            <dd>
-              <span>UAV Hardware Engineering Intern, Boundary Remote Subsurface Solutions</span>
-              <span>Systems Engineer, UCI CubeSat</span>
-            </dd>
-          </div>
-          <div>
-            <dt>Study</dt>
-            <dd>
-              <span>B.S. Aerospace Engineering, GPA {EDUCATION.gpa}</span>
-              <span>Coursework ends March 2027</span>
-            </dd>
-          </div>
-          <div>
-            <dt>Available</dt>
-            <dd>
-              <span>Full-time from {PERSON.availableFrom}</span>
-            </dd>
-          </div>
-        </dl>
-
-        <div className="hero__actions">
-          <RouterLink href="/work" className="button button--primary">
-            Selected work
-          </RouterLink>
-          <RouterLink href="/resume" className="button">
-            Resume
-          </RouterLink>
-          <a href={PERSON.linkedin} className="button button--quiet" rel="noreferrer">
-            LinkedIn
-          </a>
-        </div>
+        <HeroFacts />
+        <HeroActions />
       </div>
       <p className="hero__credit wrap">Background: Earth footage and a third-party CubeSat model, for illustration.</p>
     </section>
+  );
+}
+
+export function HeroFacts() {
+  return (
+    <dl className="hero__facts">
+      <div>
+        <dt>Now</dt>
+        <dd>
+          <span>UAV Hardware Engineering Intern, Boundary Remote Subsurface Solutions</span>
+          <span>Systems Engineer, UCI CubeSat</span>
+        </dd>
+      </div>
+      <div>
+        <dt>Study</dt>
+        <dd>
+          <span>B.S. Aerospace Engineering, GPA {EDUCATION.gpa}</span>
+          <span>Coursework ends March 2027</span>
+        </dd>
+      </div>
+      <div>
+        <dt>Available</dt>
+        <dd>
+          <span>Full-time from {PERSON.availableFrom}</span>
+        </dd>
+      </div>
+    </dl>
+  );
+}
+
+export function HeroActions() {
+  return (
+    <div className="hero__actions">
+      <RouterLink href="/work" className="button button--primary">
+        Selected work
+      </RouterLink>
+      <RouterLink href="/resume" className="button">
+        Resume
+      </RouterLink>
+      <a href={PERSON.linkedin} className="button button--quiet" rel="noreferrer">
+        LinkedIn
+      </a>
+    </div>
   );
 }

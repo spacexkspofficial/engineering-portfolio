@@ -100,6 +100,30 @@ position and a no-WebGL mode.
 - `SceneErrorBoundary.tsx`: a WebGL or model failure leaves the poster in place
   instead of breaking the page.
 
+### Mobile opening
+
+`Home.tsx` selects `MobileHero.tsx` at widths up to 900 px, or up to 1100 px with
+a coarse pointer (including landscape phones and small tablets). The desktop
+hero and all portfolio sections use the same content. The mobile opening gives
+the Earth and CubeSat a full viewport, then fades both the scene and opening copy
+to zero as the introduction enters. Scrolling back restores them. Short landscape
+viewports put the model beside the name. The opening uses stable viewport units
+to avoid jumps when mobile browser chrome changes height.
+
+Mobile uses the smaller Earth video, a 1× canvas, no multisample antialiasing,
+and demand rendering paced at 30 fps. Video and model stop when the scene is
+invisible or the tab is hidden. Reduced motion keeps a still model and poster,
+without downloading video; Save-Data skips both video and WebGL. Deep links into
+home sections avoid starting the scene until the opening becomes visible.
+
+`lumid-cubesat-mobile.glb` is a pre-split, indexed and quantized copy of the original
+model, about 53% smaller, so phones skip the connected-component processing.
+Regenerate it after changing the original model or `modelParts.ts`:
+
+```bash
+npm run model:mobile
+```
+
 The CubeSat model (`public/assets/models/lumid-cubesat.glb`) is a free-use
 third-party CAD model; the site credits it as illustration, not Alexander's design.
 
