@@ -1,119 +1,89 @@
-import { Suspense, useEffect, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { AdaptiveDpr, AdaptiveEvents, PerspectiveCamera, Preload } from "@react-three/drei";
+import { Suspense, useRef, type MutableRefObject } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { AdaptiveDpr, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
 import { FloatingObjects } from "./FloatingObjects";
-import { useMousePositionRef, useReducedMotion, useScrollProgressRef } from "../../utils/motion";
+import { useMousePositionRef } from "../../utils/motion";
 
-function CanvasFallback() {
-  return <div className="scene-loader" aria-hidden="true" />;
-}
+export type SceneLayout = "wide" | "medium" | "compact";
 
-function WebGLFallback() {
-  return <div className="scene-fallback" aria-hidden="true" />;
-}
+// Where the satellite sits for each viewport class, as fractions of the visible
+// half-width/half-height so the composition holds across aspect ratios. On
+// landscape screens it holds station above the Earth's limb to the right of
+// the hero text; on phones and portrait tablets it moves into the open sky
+// above the text instead of sitting behind it.
+const LAYOUTS: Record<
+  SceneLayout,
+  { x: number; y: number; scale: [number, number, number]; cameraZ: number; fov: number; orbitRadius: number }
+> = {
+  wide: { x: 0.45, y: -0.3, scale: [4.6, 0.5, 5.4], cameraZ: 18, fov: 42, orbitRadius: 4 },
+  medium: { x: 0.42, y: -0.2, scale: [3.9, 0.46, 4.6], cameraZ: 19, fov: 44, orbitRadius: 3.5 },
+  compact: { x: 0.02, y: 0.44, scale: [3.9, 0.63, 4.8], cameraZ: 21, fov: 50, orbitRadius: 3 },
+};
 
-function useCompactViewport(): boolean {
-  const [compact, setCompact] = useState(() =>
-    typeof window === "undefined" ? false : window.matchMedia("(max-width: 720px)").matches,
-  );
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 720px)");
-    const onChange = (event: MediaQueryListEvent) => setCompact(event.matches);
-    setCompact(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
-  return compact;
-}
-
-function detectWebGL(): boolean {
-  if (typeof window === "undefined") return false;
-  try {
-    const c = document.createElement("canvas");
-    return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl")));
-  } catch {
-    return false;
-  }
-}
-
-interface SceneContentProps {
-  mouseRef: React.MutableRefObject<{ x: number; y: number }>;
-  scrollRef: React.MutableRefObject<number>;
+interface SceneProps {
+  progressRef: MutableRefObject<number>;
+  active: boolean;
   reducedMotion: boolean;
-  compact: boolean;
+  layout: SceneLayout;
 }
 
-function SceneContent({ mouseRef, scrollRef, reducedMotion, compact }: SceneContentProps) {
+function SceneContent({ progressRef, reducedMotion, layout }: Omit<SceneProps, "active">) {
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
-  const satelliteAnchor = compact ? new THREE.Vector3(0, -2.15, 0) : new THREE.Vector3(0, -2.8, 0);
+  const mouseRef = useMousePositionRef();
+  const config = LAYOUTS[layout];
+  const compact = layout === "compact";
+  const { size } = useThree();
+  const halfHeight = Math.tan(THREE.MathUtils.degToRad(config.fov / 2)) * config.cameraZ;
+  const halfWidth = halfHeight * (size.width / Math.max(1, size.height));
+  const [minScale, perHalfWidth, maxScale] = config.scale;
+  const scale = THREE.MathUtils.clamp(halfWidth * perHalfWidth, minScale, maxScale);
+  const anchor = new THREE.Vector3(config.x * halfWidth, config.y * halfHeight, 0);
 
   useFrame((_state, delta) => {
     if (!cameraRef.current) return;
     const m = mouseRef.current;
-
-    const baseZ = compact ? 21 : 18;
-    const targetY = compact ? 0.2 + (reducedMotion ? 0 : m.y * -0.12) : 0 + (reducedMotion ? 0 : m.y * -0.25);
+    const targetY = reducedMotion ? 0 : m.y * (compact ? -0.12 : -0.25);
     const targetX = reducedMotion ? 0 : m.x * (compact ? 0.18 : 0.35);
-    const ease = Math.min(1, delta * 1.6);
+    const ease = reducedMotion ? 1 : Math.min(1, delta * 1.6);
     cameraRef.current.position.x += (targetX - cameraRef.current.position.x) * ease;
     cameraRef.current.position.y += (targetY - cameraRef.current.position.y) * ease;
-    cameraRef.current.position.z += (baseZ - cameraRef.current.position.z) * ease;
-
+    cameraRef.current.position.z += (config.cameraZ - cameraRef.current.position.z) * ease;
     cameraRef.current.lookAt(0, 0, 0);
   });
 
   return (
     <>
-      <PerspectiveCamera
-        ref={cameraRef}
-        makeDefault
-        fov={compact ? 50 : 42}
-        near={0.1}
-        far={500}
-        position={[0, compact ? 0.2 : 0, compact ? 21 : 18]}
-      />
+      <PerspectiveCamera ref={cameraRef} makeDefault fov={config.fov} near={0.1} far={500} position={[0, 0, config.cameraZ]} />
 
-      {/* Soft fill ambient so the satellite isn't pure black on its dark side */}
+      {/* Soft fill so the satellite's shaded side isn't pure black */}
       <ambientLight intensity={0.58} color="#92a7cf" />
-
-      {/* Key sun-like light from upper-right (matches the image's lit horizon) */}
+      {/* Key light from the upper right, matching the lit limb in the footage */}
       <directionalLight position={[14, 8, 6]} intensity={3.4} color="#fff4df" />
-
-      {/* Cool rim light from below — Earth's reflected blue */}
+      {/* Cool rim light from below: Earth's reflected blue */}
       <directionalLight position={[-4, -10, 4]} intensity={1.25} color="#6da0ea" />
-
-      {/* Subtle backlight to separate satellite silhouette from the dark sky */}
+      {/* Back light to separate the silhouette from the sky */}
       <directionalLight position={[-6, 4, -8]} intensity={0.85} color="#b6ccf0" />
 
       <FloatingObjects
         mouseRef={mouseRef}
-        scrollRef={scrollRef}
+        progressRef={progressRef}
         reducedMotion={reducedMotion}
-        anchor={satelliteAnchor}
-        orbitRadius={compact ? 3.25 : 4}
+        anchor={anchor}
+        orbitRadius={config.orbitRadius}
+        scale={scale}
       />
     </>
   );
 }
 
-export function Scene() {
-  const mouseRef = useMousePositionRef();
-  const scrollRef = useScrollProgressRef();
-  const reducedMotion = useReducedMotion();
-  const compact = useCompactViewport();
-  const [hasWebGL, setHasWebGL] = useState<boolean | null>(null);
-
-  useEffect(() => setHasWebGL(detectWebGL()), []);
-
-  if (hasWebGL === false) return <WebGLFallback />;
-  if (hasWebGL === null) return <CanvasFallback />;
-
+export function Scene({ progressRef, active, reducedMotion, layout }: SceneProps) {
   return (
     <Canvas
-      dpr={compact ? [1, 1.2] : [1, 1.6]}
+      // Stop rendering entirely once the hero has scrolled away; with reduced
+      // motion, render only when something changes.
+      frameloop={!active ? "never" : reducedMotion ? "demand" : "always"}
+      dpr={layout === "compact" ? [1, 1.25] : [1, 1.6]}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       style={{ background: "transparent" }}
       onCreated={({ gl }) => {
@@ -124,14 +94,7 @@ export function Scene() {
     >
       <Suspense fallback={null}>
         <AdaptiveDpr pixelated />
-        <AdaptiveEvents />
-        <SceneContent
-          mouseRef={mouseRef}
-          scrollRef={scrollRef}
-          reducedMotion={reducedMotion}
-          compact={compact}
-        />
-        <Preload all />
+        <SceneContent progressRef={progressRef} reducedMotion={reducedMotion} layout={layout} />
       </Suspense>
     </Canvas>
   );

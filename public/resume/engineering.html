@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alexander Amadeo-Ranch | Engineering Resume (one page)</title>
+<meta name="description" content="One-page engineering resume of Alexander Amadeo-Ranch: mechanical design, structures and hardware integration.">
+<meta name="author" content="Alexander Amadeo-Ranch">
+<link rel="canonical" href="https://alexengineer.net/resume/engineering.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>/* Resume document styles. Shared by the #/resume page, the static /resume/
+   pages and the PDF build. Single column, ~11 pt body, navy accent, no layout
+   tables. Everything is scoped to .resume except the print page box. */
+
+@page {
+  size: Letter;
+  margin: 0.55in 0.62in 0.6in;
+}
+
+.resume {
+  --r-ink: #16191d;
+  --r-muted: #4a535c;
+  --r-navy: #1f3d57;
+  --r-rule: #c9d2da;
+  color: var(--r-ink);
+  font-family: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 11pt;
+  line-height: 1.28;
+  text-align: left;
+  /* Ligatures extract as single glyphs ("staﬀ") and trip keyword matching. */
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.resume a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.resume h1,
+.resume h2,
+.resume h3,
+.resume p,
+.resume ul {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: normal;
+  text-wrap: pretty;
+}
+
+.resume .r-header {
+  padding-bottom: 7pt;
+  border-bottom: 1.4pt solid var(--r-navy);
+  margin-bottom: 8pt;
+}
+
+.resume .r-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23pt;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--r-ink);
+}
+
+.resume .r-tagline {
+  margin-top: 3pt;
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: var(--r-navy);
+}
+
+.resume .r-contact {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 3pt;
+  font-size: 10.2pt;
+  color: var(--r-muted);
+}
+
+.resume .r-contact span + span::before {
+  content: "|";
+  margin: 0 0.45em;
+  color: var(--r-rule);
+}
+
+.resume .r-contact a {
+  overflow-wrap: anywhere;
+}
+
+.resume .r-nowrap {
+  white-space: nowrap;
+}
+
+/* Phone screens: stack the contact items instead of wrapping separators. */
+@media screen and (max-width: 640px) {
+  .resume .r-contact {
+    flex-direction: column;
+  }
+
+  .resume .r-contact span + span::before {
+    content: none;
+  }
+}
+
+.resume .r-section {
+  margin-top: 9pt;
+}
+
+.resume .r-section > h2 {
+  font-size: 11.2pt;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--r-navy);
+  padding-bottom: 1.5pt;
+  border-bottom: 0.6pt solid var(--r-rule);
+  margin-bottom: 4pt;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.resume .r-entry {
+  margin-top: 5pt;
+}
+
+.resume .r-entry--compact,
+.resume .r-entry--project {
+  margin-top: 4pt;
+}
+
+.resume .r-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12pt;
+}
+
+/* Keep an organization's name with its first role line. */
+.resume .r-entry > .r-line:first-child {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.resume .r-org {
+  font-size: 11.2pt;
+  font-weight: 700;
+  color: var(--r-ink);
+}
+
+.resume .r-descriptor {
+  font-weight: 400;
+}
+
+.resume .r-title {
+  font-weight: 700;
+  color: var(--r-navy);
+}
+
+.resume .r-title--sub {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--r-muted);
+}
+
+.resume .r-date {
+  flex: none;
+  font-size: 10.2pt;
+  color: var(--r-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.resume .r-role {
+  margin-top: 2pt;
+}
+
+/* Keep a role title with its first bullet when the page breaks. */
+.resume .r-role > .r-line {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.resume .r-entry--project,
+.resume .r-entry--compact {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.resume .r-role + .r-role {
+  margin-top: 2.5pt;
+}
+
+.resume .r-text {
+  margin-top: 1.5pt;
+}
+
+.resume .r-label {
+  font-weight: 700;
+}
+
+.resume .r-bullets {
+  list-style: none;
+  margin-top: 1.5pt;
+}
+
+/* Hanging bullets without positioning: positioned elements are painted after
+   normal text, which scrambles the PDF's text order for resume parsers. */
+.resume .r-bullets li {
+  padding-left: 11pt;
+  margin-top: 1.5pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.resume .r-bullets li::before {
+  content: "•";
+  display: inline-block;
+  width: 11pt;
+  margin-left: -11pt;
+  padding-left: 2pt;
+  box-sizing: border-box;
+  color: var(--r-navy);
+}
+
+/* The one-page engineering variant is slightly tighter; body stays ~11 pt. */
+@page engineering {
+  size: Letter;
+  margin: 0.42in 0.55in 0.4in;
+}
+
+.resume--engineering {
+  page: engineering;
+  font-size: 10.6pt;
+  line-height: 1.2;
+}
+
+.resume--engineering .r-section {
+  margin-top: 6pt;
+}
+
+.resume--engineering .r-entry {
+  margin-top: 3.5pt;
+}
+
+html { background: #e9e7e1; }
+body { margin: 0; padding: 24px 12px 48px; }
+.toolbar { max-width: 8.5in; margin: 0 auto 14px; display: flex; flex-wrap: wrap; gap: 6px 18px;
+  font: 14px/1.4 "Segoe UI", "Helvetica Neue", Arial, sans-serif; color: #3b434b; }
+.toolbar a { color: #1f3d57; text-underline-offset: 3px; }
+.toolbar a:focus-visible { outline: 2px solid #1f3d57; outline-offset: 2px; }
+.sheet { box-sizing: border-box; max-width: 8.5in; margin: 0 auto; background: #fff;
+  padding: 0.55in 0.62in 0.6in; box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 8px 30px rgba(0,0,0,.08); }
+@media (max-width: 640px) { body { padding: 12px 0 32px; } .toolbar { padding: 0 16px; } .sheet { padding: 22px 16px; } }
+@media print {
+  html { background: none; }
+  body { padding: 0; }
+  .toolbar { display: none; }
+  .sheet { max-width: none; padding: 0; box-shadow: none; }
+}
+</style>
+</head>
+<body>
+<nav class="toolbar" aria-label="Resume"><a href="/">alexengineer.net</a><a href="/assets/downloads/resume/alexander-amadeo-ranch-engineering-resume.pdf">Download PDF</a><a href="./">Full resume</a></nav>
+<main class="sheet"><article class="resume resume--engineering" lang="en"><header class="r-header"><h1 class="r-name">Alexander <span class="r-nowrap">Amadeo-Ranch</span></h1><p class="r-tagline">Aerospace Engineering · Mechanical Design, Structures and Hardware Integration</p><p class="r-contact"><span>Los Angeles Metropolitan Area</span><span><a href="https://alexengineer.net">alexengineer.net</a></span><span><a href="https://www.linkedin.com/in/alexamadeoranch/">linkedin.com/in/alexamadeoranch</a></span><span>U.S. citizen</span></p></header><section class="r-section" aria-labelledby="r-education"><h2 id="r-education">Education</h2><article class="r-entry"><div class="r-line"><h3 class="r-org">University of California, Irvine</h3><span class="r-date">Sep 2023 – Present</span></div><div class="r-line"><span class="r-title">B.S. Aerospace Engineering, in progress</span><span class="r-date">GPA 3.759 · Dean&#x27;s Honor List</span></div><p class="r-text">Minor in Management, Paul Merage School of Business. Coursework ends March 23, 2027; available for full-time work from April 2027.</p><p class="r-text"><span class="r-label">Relevant coursework:</span> Mechanics of Structures and Lab, Lightweight Structures, Dynamics, Mechanical Systems Lab, Aerospace Lab, Introduction to Control Systems.</p></article></section><section class="r-section" aria-labelledby="r-eng"><h2 id="r-eng">Engineering Experience</h2><article class="r-entry"><div class="r-line"><h3 class="r-org">Boundary Remote Subsurface Solutions</h3><span class="r-date">Los Angeles Metropolitan Area</span></div><div class="r-role"><div class="r-line"><span class="r-title">UAV Hardware Engineering Intern</span><span class="r-date">Sep 2026 – Present</span></div><ul class="r-bullets"><li>Completed a system-level engineering assessment of the current UAV design covering mass and power budgets, structural load paths, thrust, propeller performance and the flight envelope, using SOLIDWORKS, ANSYS and COMSOL.</li><li>Delivered the assessment two weeks ahead of its deadline; the findings informed a change in the company&#x27;s hardware direction.</li><li>Collaborated across departments and presented technical findings to nontechnical managers to support hardware decisions.</li></ul></div></article><article class="r-entry"><div class="r-line"><h3 class="r-org">UCI CubeSat<span class="r-descriptor">, Student spacecraft program</span></h3><span class="r-date">Irvine, CA</span></div><div class="r-role"><div class="r-line"><span class="r-title">Systems Engineer</span><span class="r-date">Mar 2026 – Present</span></div><ul class="r-bullets"><li>Built FlatSat V1, a modular aluminum-extrusion bench fixture that holds up to 12 avionics PCBs for ground integration and testing; simplifying the design reduced the total FlatSat purchase-order cost by 30% compared with V0.</li><li>Designed, 3D-printed in PLA and installed all 14 custom extrusion mounts, replacing an expensive commercial part with a long lead time so assembly did not wait on procurement.</li></ul></div><div class="r-role"><div class="r-line"><span class="r-title">Structural Engineer</span><span class="r-date">Sep 2025 – Mar 2026</span></div><ul class="r-bullets"><li>Designed and evaluated structural components for internal bus integration and external radiation shielding under mass, stiffness and envelope constraints, using SOLIDWORKS and ANSYS Mechanical static-structural and modal analysis.</li></ul></div><div class="r-role"><div class="r-line"><span class="r-title r-title--sub">Across roles: structural analysis, 2025–present</span></div><ul class="r-bullets"><li>Analyzed the M3 standoffs carrying the internal bus stack for end-cap-to-end-cap tension and launch vibration, considering PCB vibration limits; calculated a factor of safety of 5 against yield by calculation and simulation (physical vibration testing pending). Design approved by subteam leads and project managers.</li></ul></div><div class="r-role"><div class="r-line"><span class="r-title">Chief Integration Officer</span><span class="r-date">Oct 2024 – Sep 2025</span></div><ul class="r-bullets"><li>Coordinated mechanical, electrical and payload interfaces across subteams during integration and served as the primary liaison between CubeSat leadership and the STMS research group.</li></ul></div></article></section><section class="r-section" aria-labelledby="r-projects"><h2 id="r-projects">Selected Projects</h2><article class="r-entry r-entry--project"><div class="r-line"><h3 class="r-org">Autonomous Robot Design and Verification<span class="r-descriptor">, MAE 106, team of four, experimental lead</span></h3><span class="r-date">Jan – Mar 2026</span></div><ul class="r-bullets"><li>Ran the team&#x27;s experiments on a pneumatic autonomous robot: five solenoid duty cycles × 10 runs at 30 psi (chose 100 ms ON / 900 ms OFF for consistent speed) and five hopper hinge heights × 10 runs (fixed at 210 mm, 2.83 m per five hops).</li></ul></article><article class="r-entry r-entry--project"><div class="r-line"><h3 class="r-org">Mission to Didymos Transfer Analysis<span class="r-descriptor">, MAE 146 Astronautics, course project</span></h3><span class="r-date">Feb – Mar 2026</span></div><ul class="r-bullets"><li>Wrote MATLAB two-body propagation, element-conversion and universal-variable Lambert functions; searched 16,290 departure/arrival pairs on a 201 × 201 grid, reducing transfer Δv from 20.028 km/s for the assigned dates to 7.873 km/s.</li></ul></article></section><section class="r-section" aria-labelledby="r-skills"><h2 id="r-skills">Skills</h2><p class="r-text"><span class="r-label">Design and analysis:</span> SOLIDWORKS (Certified SOLIDWORKS Associate, Oct 2025), ANSYS Mechanical (static, modal), COMSOL, MATLAB.</p><p class="r-text"><span class="r-label">Fabrication and test:</span> PLA 3D printing, mechanical assembly, soldering, laser cutting, bandsaw, Arduino sensor testing.</p><p class="r-text"><span class="r-label">Software:</span> Python, Node.js, JavaScript, HTML/CSS, Shopify Liquid, WebGL, Git/GitHub.</p></section></article></main>
+</body>
+</html>

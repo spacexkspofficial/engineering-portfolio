@@ -1,620 +1,1026 @@
-export type ProjectCategory = "aerospace" | "software" | "analysis" | "policy" | "hands-on";
+// Project records for the work index and case-study pages. Each project says
+// only what its artifacts or confirmed facts support; limitations are part of
+// the record, not an afterthought. IDs are stable URLs (#/projects/<id>) and
+// legacy links (#/projects?id=<id>) redirect to them.
 
-export interface ProjectMedia {
-  kind: "video" | "image" | "code";
+export type ProjectGroup = "engineering" | "course" | "software" | "hands-on" | "archive";
+
+export interface Figure {
+  kind: "image" | "video";
   src: string;
   poster?: string;
-  alt?: string;
-  caption?: string;
-  code?: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+  /** Plots and diagrams with a white background are shown on a light plate. */
+  plate?: boolean;
+  /** 800 × 600 crop used when this figure is a project's thumbnail. */
+  thumb?: string;
 }
 
-export interface ProjectInsight {
-  label: string;
-  body: string;
-}
-
-export interface ProjectLink {
+export interface FileLink {
   label: string;
   href: string;
-  primary?: boolean;
-  external?: boolean;
+  type: "PDF" | "DOCX" | "PPTX" | "MATLAB" | "Notebook" | "Video" | "App" | "Repository" | "Image";
+  note?: string;
 }
 
-export interface DocumentPanel {
-  label: string;
-  title: string;
-  body: string;
-  links: { label: string; href?: string }[];
+export interface Section {
+  heading: string;
+  paragraphs?: string[];
+  list?: string[];
+  /** Index into `figures` to show after this section. */
+  figures?: number[];
 }
 
 export interface Project {
   id: string;
   title: string;
-  meta: string;
+  /** Shorter title for indexes and navigation. */
+  short: string;
+  group: ProjectGroup;
+  context: string;
+  period: string;
+  sortKey: string;
   summary: string;
-  categories: ProjectCategory[];
-  chips: string[];
-  insights: ProjectInsight[];
-  primaryActions: ProjectLink[];
-  media: ProjectMedia[];
-  documents?: DocumentPanel[];
+  /** One line for indexes; defaults to the first sentence of the summary. */
+  teaser?: string;
+  facts: { label: string; value: string }[];
+  sections: Section[];
+  figures: Figure[];
+  files?: FileLink[];
+  links?: FileLink[];
+  /** Figure used as the thumbnail in indexes. */
+  cover?: number;
+  /** Short label shown on a plain plate when a project has no image to show. */
+  plate?: string;
+  featured?: number;
 }
 
 export const PROJECTS: Project[] = [
   {
-    id: "aerolab-suite",
-    title: "AeroLab Interactive Aerodynamics Suite",
-    meta: "Personal project - Browser-based aerospace simulation",
-    summary:
-      "Two self-contained engineering laboratories built for the browser: a 2D NACA airfoil flow lab and a 3D aircraft, rocket, and atmospheric re-entry lab. Both combine interactive visualization with live coefficients, diagnostics, plots, and device-aware performance controls.",
-    categories: ["aerospace", "software", "analysis"],
-    chips: ["WebGL 2", "Aerodynamics", "Numerical methods", "Aircraft stability", "Rocket analysis", "Re-entry"],
-    insights: [
-      {
-        label: "AeroLab 2D",
-        body: "Pairs a GPU D2Q9 lattice-Boltzmann flow solver with a Hess-Smith panel method and integral boundary-layer model for NACA airfoil exploration, pressure distributions, force history, transition, and separation diagnostics.",
-      },
-      {
-        label: "AeroLab 3D",
-        body: "Combines vortex-lattice aircraft analysis, viscous performance estimates, Barrowman rocket stability and drag methods, and an atmospheric re-entry model in one interactive 3D workspace.",
-      },
-      {
-        label: "Engineering UX",
-        body: "Responsive control drawers, touch-friendly inputs, keyboard shortcuts, accessible states, automatic mobile-safe rendering profiles, and graceful WebGL fallbacks keep the labs usable across devices.",
-      },
-      {
-        label: "Delivery",
-        body: "Runs entirely client-side with no account, install, backend, or data collection. Each laboratory is a portable standalone application that launches directly from this portfolio.",
-      },
-    ],
-    primaryActions: [
-      { label: "Launch AeroLab 2D", href: "aerolab/index.html", primary: true, external: true },
-      { label: "Launch AeroLab 3D", href: "aerolab-3d/index.html", external: true },
-    ],
-    media: [
-      {
-        kind: "image",
-        src: "assets/media/aerolab/aerolab-2d-airfoil-wake.png",
-        alt: "AeroLab 2D visualization of flow separating around an airfoil and forming a vortex wake",
-        caption: "AeroLab 2D: resolved airfoil flow field with separated shear layers and a downstream vortex street.",
-      },
-      {
-        kind: "image",
-        src: "assets/media/aerolab/aerolab-3d-rocket-stability.png",
-        alt: "AeroLab 3D rocket analysis showing flow tracers, static aerodynamics, center of pressure, center of gravity, and drag breakdown",
-        caption: "AeroLab 3D: rocket flow-tracer view with live static-stability and drag-build-up results.",
-      },
-    ],
-  },
-  {
     id: "cubesat-structures",
-    title: "UCI CubeSat Structures",
-    meta: "Team spacecraft - Structural analysis",
+    title: "FlatSat V1 and CubeSat structures",
+    short: "FlatSat V1 and CubeSat structures",
+    group: "engineering",
+    context: "UCI CubeSat, student spacecraft program",
+    period: "2023 – present",
+    sortKey: "2026-03",
+    featured: 1,
+    cover: 0,
     summary:
-      "Structural analysis work for a student spacecraft team, tied to component behavior, interface constraints, and integration context. Also includes FlatSat V1 - a modular bench-test platform built as systems engineer to integrate and test the satellite's hardware stack.",
-    categories: ["aerospace", "analysis"],
-    chips: ["ANSYS", "Structures", "Modal analysis", "Hardware context", "Systems engineering", "FlatSat"],
-    insights: [
-      { label: "Scope", body: "Static and frequency analysis on a CubeSat structural component." },
-      { label: "Deliverables", body: "Static and frequency clips showing structural response and modal behavior." },
-      { label: "Skills", body: "FEA workflow, design review support, and hardware-aware analysis." },
-      { label: "FlatSat V1", body: "As systems engineer (since April 2026), designed and built FlatSat V1 - a modular, fully serviceable platform that holds the satellite's PCB stack (up to 12 boards) so subteams can integrate and bench-test hardware together before flight." },
+      "FlatSat V1 is a ground fixture for integrating and testing up to 12 avionics PCBs on the bench. I built it and designed, printed and installed all 14 of its mounts. This page also covers the structural analysis I have done for the spacecraft since early 2025.",
+    facts: [
+      { label: "Role", value: "Systems Engineer, Mar 2026 – present. Earlier: Structural Engineer, Chief Integration Officer, Executive Assistant" },
+      { label: "Tools", value: "SOLIDWORKS, ANSYS Mechanical, PLA 3D printing" },
+      { label: "Status", value: "FlatSat V1 assembled (ground fixture). Standoff vibration test pending. Nothing here has flown." },
     ],
-    primaryActions: [
-      { label: "Static clip", href: "assets/media/cubesat/hinge-plate-static-analysis.mp4" },
-      { label: "Frequency clip", href: "assets/media/cubesat/hinge-plate-frequency-analysis.mp4" },
-      { label: "Overview PDF", href: "assets/downloads/projects/extrakpak/what-is-uci-cubesat.pdf" },
-    ],
-    media: [
+    sections: [
       {
-        kind: "video",
-        src: "assets/media/cubesat/hinge-plate-static-analysis.mp4",
-        poster: "assets/images/poster-cubesat-static.png",
-        caption: "Static simulation artifact for the hinge-plate component.",
+        heading: "The fixture",
+        paragraphs: [
+          "Before boards go into a CubeSat stack, the subteams need to wire them up and test them together on the ground. FlatSat V1 is the bench fixture for that: an aluminum-extrusion frame that holds the avionics stack, up to 12 PCBs, so integration and testing can happen before anything goes into the spacecraft.",
+        ],
+        figures: [0, 1],
       },
       {
-        kind: "video",
-        src: "assets/media/cubesat/hinge-plate-frequency-analysis.mp4",
-        poster: "assets/images/poster-cubesat-frequency.png",
-        caption: "Frequency-view clip for the same part, useful for discussing dynamic behavior.",
+        heading: "What I did",
+        list: [
+          "Built V1 as the successor to the team's V0 fixture, dropping features we did not need. The total FlatSat purchase order, including aluminum extrusions, screws and other purchased parts, came in 30% lower than V0's.",
+          "Designed all 14 extrusion mounts from scratch, printed them in standard PLA and installed them. The commercial alternative was expensive and had a long lead time; making the mounts in-house meant assembly did not wait on shipping.",
+        ],
+      },
+      {
+        heading: "Decisions and limits",
+        list: [
+          "PLA is acceptable because these are lightly loaded parts on a ground fixture. They are not flight hardware.",
+          "The 30% saving is on the whole purchase order compared with V0, so it reflects the simpler design overall, not just the printed mounts.",
+        ],
+      },
+      {
+        heading: "M3 standoffs for the internal bus stack",
+        paragraphs: [
+          "The internal avionics stack is held together by M3 standoffs running from end cap to end cap. I analyzed them for tension along the stack and for launch-vibration conditions, with attention to the vibration limits of the boards they carry. By calculation and simulation, the standoffs have a factor of safety of 5 against yield in the modeled configuration, and the design was approved by our subteam leads and project managers.",
+          "Physical vibration testing has not happened yet, so this is an analysis result, not a test result.",
+        ],
+      },
+      {
+        heading: "Hinge-plate FEA, January 2026",
+        paragraphs: [
+          "Static-structural and modal studies of a hinge plate in ANSYS Mechanical 2025 R2. The recordings show the strain and deformation results and the first six mode shapes; mode 1 is at about 4,157 Hz with the fixed support used in that model.",
+          "The recordings show results, not the load cases and material assumptions behind them, so treat them as examples of the workflow rather than design numbers.",
+        ],
+        figures: [2, 3],
+      },
+      {
+        heading: "Earlier roles",
+        paragraphs: [
+          "I joined in September 2023 as an executive assistant handling documentation and scheduling. As Chief Integration Officer (October 2024 – September 2025) I coordinated mechanical, electrical and payload interfaces between subteams and was the main contact between CubeSat leadership and the STMS research group. My hands-on mechanical design and modal analysis started in early 2025, during that role, and continued as Structural Engineer from September 2025.",
+          "I also design to thermal constraints from the thermal-analysis subteam and review their documentation. The thermal analysis itself is their work.",
+        ],
+      },
+    ],
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/cubesat/flatsat-v1-assembly-web.jpg",
+        alt: "Black aluminum-extrusion frame of FlatSat V1 on a lab bench: a flat rectangular base with an upright rectangular panel frame, joined by corner brackets and a cross member with tan printed mounts.",
+        caption: "FlatSat V1 frame assembled in the lab, March 2026, before boards were installed.",
+        width: 1600,
+        height: 1074,
       },
       {
         kind: "image",
         src: "assets/media/cubesat/flatsat-v1-cad.jpg",
-        alt: "SolidWorks CAD render of the FlatSat V1 modular extrusion frame",
-        caption: "FlatSat V1 (CAD) - the modular extrusion frame that carries the satellite's PCB stack for bench testing.",
+        alt: "SOLIDWORKS render of the FlatSat V1 extrusion frame showing the base, upright panel and cross member.",
+        caption: "SOLIDWORKS model of the same frame.",
+        width: 1204,
+        height: 781,
+        plate: true,
       },
       {
-        kind: "image",
-        src: "assets/media/cubesat/flatsat-v1-assembly.jpg",
-        alt: "Assembled FlatSat V1 aluminum extrusion frame in the lab",
-        caption: "FlatSat V1 assembled in the lab from 1010 aluminum extrusion and custom mounts.",
+        kind: "video",
+        src: "assets/media/cubesat/hinge-plate-static-analysis.mp4",
+        poster: "assets/media/cubesat/hinge-plate-static-frame.jpg",
+        alt: "ANSYS Mechanical screen recording of a static-structural strain result on a rectangular hinge plate.",
+        caption: "Static-structural result on the hinge plate (equivalent elastic strain). Screen recording, 29\u00a0s.",
+        width: 1920,
+        height: 1080,
+      },
+      {
+        kind: "video",
+        src: "assets/media/cubesat/hinge-plate-frequency-analysis.mp4",
+        poster: "assets/media/cubesat/hinge-plate-modal-frame.jpg",
+        alt: "ANSYS Mechanical screen recording stepping through mode shapes of the hinge plate, with a frequency table for six modes.",
+        caption: "Modal study of the same part, modes 1–6. Contour values in a modal solution are relative, not physical displacement. Screen recording, 30\u00a0s.",
+        width: 1920,
+        height: 1080,
+      },
+    ],
+    files: [
+      {
+        label: "UCI CubeSat team poster",
+        href: "assets/downloads/projects/extrakpak/what-is-uci-cubesat.pdf",
+        type: "PDF",
+        note: "Team-produced overview of the program, not my work alone",
       },
     ],
   },
   {
-    id: "obd-scanner",
-    title: "OBD-II Read-Only Diagnostic Dashboard",
-    meta: "Personal project - Embedded diagnostics + web app",
+    id: "boundary-uav-assessment",
+    title: "UAV hardware assessment",
+    short: "UAV hardware assessment",
+    group: "engineering",
+    context: "Boundary Remote Subsurface Solutions, UAV Hardware Engineering Intern",
+    period: "Sep 2026 – present",
+    sortKey: "2026-09",
+    featured: 2,
     summary:
-      "A local web application that streams a vehicle's diagnostic bus in real time over USB, built around a hard-coded read-only safety contract. The app cannot - by design - send any command, write, or control frame to the vehicle. FastAPI + WebSocket backend, single-page JS frontend, drag-and-drop JSON vehicle profiles, and a passive capture/replay layer for unknown manufacturer identifiers.",
-    categories: ["software", "hands-on", "analysis"],
-    chips: [
-      "Python",
-      "FastAPI",
-      "WebSocket",
-      "ISO 15765-4 CAN",
-      "UDS",
-      "SAE J1979",
-      "FTDI / STN2120",
-      "Read-only safety",
+      "A system-level engineering assessment of the company's current UAV design. I delivered it two weeks before the deadline, and the findings informed a change in the company's hardware direction.",
+    facts: [
+      { label: "Role", value: "UAV Hardware Engineering Intern, Sep 2026 – present" },
+      { label: "Tools", value: "SOLIDWORKS, ANSYS, COMSOL" },
+      { label: "Status", value: "Assessment complete; internship ongoing" },
+      { label: "Disclosure", value: "Results, vehicle details and the new direction are under NDA" },
     ],
-    insights: [
+    sections: [
       {
-        label: "Scope",
-        body: "Real-time live PID streaming, stored / pending / permanent DTC reads, UDS Mode $22 DID lookup, MIL state banner, supported-PID discovery, and per-vehicle technical reference (specs, fluids, fuses, warning lights).",
-      },
-      {
-        label: "Safety",
-        body: "Every outbound frame is funneled through a single hard-coded allowlist of read-only service IDs ($01, $02, $03, $07, $09, $0A, $22, $19, $3E). Writes, resets, security access, routine control, code clears, and flashing are rejected at the lowest serial layer. A regression test suite guards the contract.",
-      },
-      {
-        label: "Adapters",
-        body: "OBDLink EX (STN2120, FCA-aware) as the primary cable with FTDI VID/PID auto-detect; generic ELM327 fallback for any compatible USB adapter; a mock adapter generates plausible telemetry so the UI runs without hardware. All adapters share one transmit whitelist - no bypass paths.",
-      },
-      {
-        label: "Capture & replay",
-        body: "A passive NDJSON recorder logs every observed ECU response, including negative responses and unknown DIDs. A slow Mode $22 range sweep probes manufacturer DID space at a configurable rate so undocumented identifiers surface in the log without ever issuing a write.",
-      },
-      {
-        label: "Extensibility",
-        body: "Vehicles are plain JSON files describing protocol, PID groups + poll rates, UDS DIDs, diagram callouts, and threshold overrides. Adding a new car is drag-and-drop - no code changes - with the SVG/PNG diagram becoming the overlay surface for live data.",
-      },
-      {
-        label: "Data depth",
-        body: "2,100+ DTC entries spanning the full P / B / C / U range, including generic SAE J2012 codes and manufacturer-specific FCA / Dodge codes, with categories derived from SAE structure (engine, fuel, ignition, emissions, transmission, body, chassis, network, etc.).",
-      },
-    ],
-    primaryActions: [
-      { label: "Concept hero", href: "assets/media/obd-scanner/obd-scanner-hero.png" },
-      { label: "Technical blueprint", href: "assets/media/obd-scanner/obd-scanner-blueprint.png" },
-      { label: "Source infographic", href: "assets/media/obd-scanner/obd-scanner-infographic.png" },
-    ],
-    media: [
-      {
-        kind: "image",
-        src: "assets/media/obd-scanner/obd-scanner-hero.png",
-        alt: "Concept-study hero banner used on the OBD scanner welcome screen",
-        caption: "Concept-study hero banner used on the application's welcome screen.",
-      },
-      {
-        kind: "image",
-        src: "assets/media/obd-scanner/obd-scanner-blueprint.png",
-        alt: "Technical blueprint overlay used as the dashboard surface for live telemetry callouts",
-        caption: "Technical-blueprint overlay used as the dashboard surface for anchored live telemetry callouts.",
-      },
-    ],
-    documents: [
-      {
-        label: "Architecture",
-        title: "Module Layout",
-        body: "Read-only safety core, adapter abstraction, sampler, capture/sweep, and a single-page UI. The whitelist is the only path to the serial line.",
-        links: [
-          { label: "backend/safety.py - transmit whitelist (safety core)" },
-          { label: "backend/app.py - FastAPI app, WebSocket stream, capture + reference endpoints" },
-          { label: "backend/serial_io.py - adapter abstraction, registry, capture-hook plumbing" },
-          { label: "backend/adapters/ - OBDLink EX, generic ELM327, mock (and a deliberately-failing Ross-Tech stub)" },
-          { label: "backend/sampler.py - background polling worker (per-group poll rates)" },
-          { label: "backend/capture_log.py + capture_sweep.py - passive NDJSON recorder and slow $22 sweep" },
-          { label: "backend/obd_pids.py + uds_client.py - SAE J1979 decoders, read-only $22 / $19 / $3E" },
-          { label: "backend/vehicles/*.json - vehicle profiles (PID groups, callouts, DIDs, thresholds)" },
-          { label: "backend/vehicle_reference/*.json - static reference (specs, fluids, fuses, warning lights)" },
-          { label: "backend/dtc_database.json - 2,100+ P / B / C / U code lookup table" },
-          { label: "frontend/ - single-page UI, blueprint overlay, capture controls, reference screen" },
-          { label: "tests/test_whitelist.py - regression tests guarding the read-only contract" },
+        heading: "Scope",
+        list: [
+          "Mass and power budgets",
+          "Structural load paths",
+          "Thrust",
+          "Propeller performance",
+          "Flight performance envelope",
         ],
       },
       {
-        label: "What it deliberately does not do",
-        title: "Out of Scope by Design",
-        body: "Source code is not published; the application enforces these boundaries at the protocol layer.",
-        links: [
-          { label: "No DTC clearing - the UI has no Clear Codes button" },
-          { label: "No ECU resets, idle adjustments, actuator tests, or routine control" },
-          { label: "No flashing, reprogramming, or module coding" },
-          { label: "No security access, key / PATS programming, or feature unlocking" },
-          { label: "No third-party telemetry - everything stays on the local machine" },
+        heading: "How it went",
+        paragraphs: [
+          "I assessed the existing design across those areas using SOLIDWORKS, ANSYS and COMSOL, collaborated across departments, and delivered the assessment two weeks ahead of its deadline. I then presented the results to managers without engineering backgrounds so they could make a hardware decision. The findings informed a pivot in the company's hardware direction.",
         ],
       },
+      {
+        heading: "What this page doesn't show",
+        paragraphs: [
+          "The findings, the vehicle and the new direction are covered by a non-disclosure agreement, so this page sticks to scope, tools and outcome: no figures, numbers or test results.",
+        ],
+      },
+    ],
+    figures: [],
+  },
+  {
+    id: "mae-106-autonomous",
+    title: "Autonomous robot: test and calibration",
+    short: "Autonomous robot",
+    group: "course",
+    context: "MAE 106 Mechanical Systems Lab, team of four",
+    period: "Jan – Mar 2026",
+    sortKey: "2026-01",
+    featured: 3,
+    cover: 0,
+    teaser: "Experimental lead on a team robot: sensor calibration and the parameter sweeps behind two design decisions.",
+    summary:
+      "A pneumatically driven robot that had to drive 3 ft, turn about 90° and drive another 3 ft on its own. I was the team's experimental lead: sensor calibration, parameter sweeps and the data behind two design decisions.",
+    facts: [
+      { label: "Role", value: "Experimental lead (team roles: mechanical, controls, electrical, experimental)" },
+      { label: "Hardware", value: "Arduino, LIS3MDL magnetometer, servo steering, solenoid-fired pneumatic cylinder at 30 psi, reed-switch odometry" },
+      { label: "Tools", value: "MATLAB, Arduino IDE" },
+      { label: "Status", value: "Course project, completed March 2026" },
+    ],
+    sections: [
+      {
+        heading: "The task",
+        paragraphs: [
+          "The robot pushes itself forward with a pneumatic cylinder fired by a solenoid, steers with a servo, and uses a magnetometer to hold its heading. It had to fit inside a 12-inch-diameter circle and then complete a forward–turn–forward sequence without input.",
+        ],
+        figures: [0],
+      },
+      {
+        heading: "My part",
+        list: [
+          "Calibrated the magnetometer: logged raw readings while rotating it through 360°, computed offsets and scale factors in MATLAB, and put the calibration back into the Arduino code.",
+          "Measured heading noise at fixed bearings (0°, 90°, 180°) and one-hour drift with a linear fit.",
+          "Checked servo accuracy at six commanded angles with a protractor. It overshot by about 10° on average, which I noted for the TA before integration.",
+          "Ran the duty-cycle and hinge-height experiments below, and helped with assembly, part fabrication and circuit troubleshooting.",
+        ],
+        figures: [1, 2],
+      },
+      {
+        heading: "Decision 1: solenoid duty cycle",
+        paragraphs: [
+          "With the ON time fixed at 100 ms and pressure at 30 psi, I varied the OFF time across five settings from 400 to 1,400 ms, 10 runs each. The fastest setting (100/400 ms, about 2.4 m/s mean) also had the most run-to-run spread. We chose 100/900 ms: a little slower, but more consistent from run to run.",
+        ],
+        figures: [3],
+      },
+      {
+        heading: "Decision 2: hopper hinge height",
+        paragraphs: [
+          "I tested five hinge heights from 210 to 270 mm, 10 runs of five hops each. Distance fell steadily as the hinge rose: 2.83 m at 210 mm against 0.30 m at 270 mm. We locked the hinge at 210 mm. The 225 mm setting was more repeatable (standard deviation 0.17 m versus 0.39 m) but gave up about 0.3 m per five hops; we chose distance.",
+        ],
+        figures: [4],
+      },
+      {
+        heading: "Results and checks",
+        paragraphs: [
+          "In the final demonstration the robot drove at least 3 ft, turned about 90° and drove at least another 3 ft, which met the requirement; the run is recorded in the final report. Our measured position data was stair-stepped compared with the course simulator because the reed switch only registers a full wheel revolution.",
+        ],
+      },
+      {
+        heading: "Who did what",
+        paragraphs: [
+          "Teammates owned the chassis and propulsion design and its fabrication, the Arduino control code, and the wiring and electrical documentation. The final report lists each person's contributions.",
+        ],
+        figures: [5],
+      },
+    ],
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/robot/robot-hopper-hinge.jpg",
+        alt: "Close-up of the robot: a laser-cut wooden frame with a ruler, the pneumatic cylinder and the bolted hinge used to set hopper height.",
+        caption: "The adjustable hopper hinge used for the height sweep; bolts move the pivot between settings.",
+        width: 1100,
+        height: 1467,
+      },
+      {
+        kind: "image",
+        src: "assets/media/robot/magnetometer-raw.png",
+        alt: "MATLAB scatter plot of raw magnetometer x–y readings forming an offset, elongated ring.",
+        caption: "Raw magnetometer x–y readings during a 360° rotation: offset and unevenly scaled.",
+        width: 900,
+        height: 567,
+      },
+      {
+        kind: "image",
+        src: "assets/media/robot/magnetometer-calibrated.png",
+        alt: "MATLAB scatter plot of calibrated magnetometer readings forming a ring centered on the origin.",
+        caption: "After applying the offsets and scale factors: centered on the origin.",
+        width: 900,
+        height: 606,
+      },
+      {
+        kind: "image",
+        src: "assets/media/robot/robot-speed-vs-duty-cycle.png",
+        alt: "Line plot of average robot speed against solenoid ON/OFF timing, falling from about 2.4 m/s at 100/400 ms to about 1.2 m/s at 100/1400 ms, with error bars.",
+        caption: "Mean speed against solenoid timing, 10 runs per setting, with standard-deviation error bars.",
+        width: 565,
+        height: 334,
+        plate: true,
+      },
+      {
+        kind: "image",
+        src: "assets/media/robot/robot-distance-vs-hinge-height.png",
+        alt: "Line plot of distance travelled over five hops against hopper hinge height, falling from about 2.8 m at 210 mm to 0.3 m at 270 mm, with the 210 mm point starred as optimum.",
+        caption: "Distance over five hops against hinge height, 10 runs per setting.",
+        width: 1000,
+        height: 647,
+        plate: true,
+      },
+      {
+        kind: "image",
+        src: "assets/media/robot/robot-cad-render.jpg",
+        alt: "SOLIDWORKS render of the robot: a large tire mounted on top of a column frame above a base plate with small wheels.",
+        caption: "Team SOLIDWORKS model of the final robot.",
+        width: 900,
+        height: 1255,
+        plate: true,
+      },
+    ],
+    files: [
+      { label: "Final report", href: "assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-final-report.pdf", type: "PDF", note: "Team report, 7.9 MB" },
+      { label: "Experimental verification 1: magnetometer and servo characterization", href: "assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-experimental-verification-1.pdf", type: "PDF", note: "My deck, 3.3 MB" },
+      { label: "Experimental verification 2: hopper hinge height", href: "assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-experimental-verification-2.pdf", type: "PDF", note: "My deck, 2.2 MB" },
     ],
   },
   {
     id: "mae-146-didymos",
-    title: "Mission to Didymos",
-    meta: "MAE 146 - Mission analysis with MATLAB",
+    title: "Mission to Didymos: transfer-window search",
+    short: "Mission to Didymos",
+    group: "course",
+    context: "MAE 146 Astronautics, course project (my code and report)",
+    period: "Feb – Mar 2026",
+    sortKey: "2026-02",
+    featured: 4,
+    cover: 1,
+    teaser: "A MATLAB transfer search to a near-Earth asteroid: 16,290 Lambert solutions, cutting Δv from 20.0 to 7.9 km/s.",
     summary:
-      "A preliminary Earth-to-Didymos mission analysis built in MATLAB. The project propagates planetary states, solves Lambert transfers, computes total delta-v, and maps candidate windows with a porkchop plot.",
-    categories: ["aerospace", "software", "analysis"],
-    chips: ["MATLAB", "Astrodynamics", "Lambert solver", "Porkchop plot"],
-    insights: [
-      { label: "Scope", body: "Orbital propagation and transfer-planning code built around Earth and Didymos reference elements." },
-      { label: "Deliverables", body: "Final report, mission script, Lambert solver, and supporting orbital mechanics functions." },
-      { label: "Skills", body: "Astrodynamics, MATLAB modeling, transfer analysis, and delta-v optimization." },
+      "A preliminary Earth-to-Didymos transfer analysis in MATLAB, built on orbital-mechanics functions I wrote for the course. A porkchop search brought the transfer Δv from 20.028 km/s for the assigned dates down to 7.873 km/s.",
+    facts: [
+      { label: "Tools", value: "MATLAB" },
+      { label: "Methods", value: "Two-body propagation (Kepler's equation), universal-variable Lambert solver, grid search" },
+      { label: "Status", value: "Course analysis; preliminary, two-body only" },
     ],
-    primaryActions: [
-      { label: "Final report", href: "assets/downloads/projects/mae-146-didymos/mae-146-mission-to-didymos-final-report.pdf", primary: true },
-      { label: "Main script", href: "assets/downloads/projects/mae-146-didymos/problem4_didymos.m" },
-      { label: "Lambert solver", href: "assets/downloads/projects/mae-146-didymos/lambert_universal.m" },
-    ],
-    media: [
+    sections: [
       {
-        kind: "code",
-        src: "mae-146-snippet",
-        caption: "Preliminary mission analysis driver, condensed.",
-        code: `% Preliminary mission analysis for Earth to Didymos transfer
-t_earth = 12 * day2sec;
-t_didymos = 412 * day2sec;
-rv_earth_dep = propagate_elliptical(rv_earth_ref, t_earth, MU);
-rv_didymos_arr = propagate_elliptical(rv_didymos_ref, t_didymos, MU);
-
-[v1_trans, v2_trans, ~] = lambert_universal( ...
-    r1_nom, r2_nom, tof_nom, MU, 0, 1e-8, 1e-8);
-dV_tot_nom = norm(v1_trans - v1_earth) + norm(v2_trans - v2_didymos);`,
+        heading: "The problem",
+        paragraphs: [
+          "The first three parts of the project were to write the basic astrodynamics functions: element/state conversions, propagation and a Lambert solver. The fourth used them to plan a transfer to the near-Earth asteroid Didymos. The assigned case departed Earth 12 days after the reference epoch and arrived 400 days later.",
+        ],
       },
-    ],
-    documents: [
       {
-        label: "Files",
-        title: "Report and Code",
-        body: "Final report, project PDF, and MATLAB source files.",
-        links: [
-          { label: "MAE 146 final report", href: "assets/downloads/projects/mae-146-didymos/mae-146-mission-to-didymos-final-report.pdf" },
-          { label: "Project 4 PDF", href: "assets/downloads/projects/mae-146-didymos/mae-146-didymos-project-4.pdf" },
-          { label: "Mission script", href: "assets/downloads/projects/mae-146-didymos/problem4_didymos.m" },
-          { label: "Lambert solver", href: "assets/downloads/projects/mae-146-didymos/lambert_universal.m" },
-          { label: "Keplerian to state vector", href: "assets/downloads/projects/mae-146-didymos/kep2rv.m" },
-          { label: "State vector to Keplerian", href: "assets/downloads/projects/mae-146-didymos/rv2kep.m" },
-          { label: "Mean anomaly to true anomaly", href: "assets/downloads/projects/mae-146-didymos/ma2ta.m" },
-          { label: "True anomaly to mean anomaly", href: "assets/downloads/projects/mae-146-didymos/ta2ma.m" },
-          { label: "Elliptical propagator", href: "assets/downloads/projects/mae-146-didymos/propagate_elliptical.m" },
-          { label: "True-anomaly propagator", href: "assets/downloads/projects/mae-146-didymos/propagate_elliptical_ta.m" },
-          { label: "Stumpff functions", href: "assets/downloads/projects/mae-146-didymos/stumpff.m" },
+        heading: "Approach",
+        list: [
+          "Converted reference Keplerian elements for Earth and Didymos to state vectors and propagated them with Kepler's equation.",
+          "Solved Lambert's problem with a universal-variable formulation (Stumpff functions) between the departure and arrival positions.",
+          "Took total Δv as the sum of departure and arrival velocity changes, assuming a zero sphere of influence at both bodies.",
+          "Swept departure and arrival from 0 to 1,000 days in 5-day steps (a 201 × 201 grid), skipping flights of 100 days or less: 16,290 Lambert solutions.",
+        ],
+        figures: [0],
+      },
+      {
+        heading: "Result",
+        paragraphs: [
+          "The fixed 400-day transfer needs 20.028 km/s. The porkchop minimum is 7.873 km/s, departing at day 595 and arriving at day 1,000.",
+        ],
+        figures: [1, 2],
+      },
+      {
+        heading: "Limits",
+        list: [
+          "The minimum sits on the edge of the search window (arrival at day 1,000), so a wider window could find lower values.",
+          "Two-body, prograde, single-revolution transfers only, with no launch-vehicle or arrival constraints. It is a course-level preliminary analysis, not a mission design.",
         ],
       },
     ],
-  },
-  {
-    id: "photon-paths",
-    title: "Photon Paths Near a Black Hole",
-    meta: "Simulation - MATLAB",
-    summary:
-      "A computational physics project that models photon capture, escape, and critical trajectories and presents the result as a readable visual output.",
-    categories: ["software", "analysis"],
-    chips: ["MATLAB", "Computational physics", "Visualization", "Numerical reasoning"],
-    insights: [
-      { label: "Scope", body: "Simulation of photon capture, escape, and critical trajectories near a black hole." },
-      { label: "Output", body: "Plotted result showing multiple trajectory families in a single view." },
-      { label: "Skills", body: "Numerical modeling, visualization, and MATLAB-based scientific computing." },
-    ],
-    primaryActions: [
-      { label: "MATLAB script", href: "assets/downloads/projects/thermo/photon-blackhole-simulation.m", primary: true },
-      { label: "Image", href: "assets/media/photons/photon-blackhole-simulation.png" },
-    ],
-    media: [
+    figures: [
       {
         kind: "image",
-        src: "assets/media/photons/photon-blackhole-simulation.png",
-        alt: "Photon path simulation output from MATLAB",
-        caption: "Final simulation output from the photon-path model.",
+        src: "assets/media/didymos/didymos-porkchop.png",
+        alt: "Porkchop contour plot of total delta-v against departure and arrival day, with an optimal point marked.",
+        caption: "Porkchop plot of total Δv (km/s) against departure and arrival day; the marked point is the grid minimum.",
+        width: 819,
+        height: 874,
+      },
+      {
+        kind: "image",
+        src: "assets/media/didymos/didymos-optimal-transfer.png",
+        alt: "3D plot of Earth's orbit, Didymos' orbit and the minimum-delta-v transfer arc around the Sun.",
+        caption: "Minimum-Δv transfer: depart day 595, arrive day 1,000, 7.873 km/s.",
+        width: 842,
+        height: 442,
+      },
+      {
+        kind: "image",
+        src: "assets/media/didymos/didymos-nominal-transfer.png",
+        alt: "3D plot of the assigned 400-day transfer arc between Earth's and Didymos' orbits.",
+        caption: "Assigned 400-day transfer for comparison: 20.028 km/s.",
+        width: 867,
+        height: 424,
       },
     ],
-    documents: [
-      {
-        label: "Files",
-        title: "Simulation Source",
-        body: "MATLAB source for the photon-path model.",
-        links: [{ label: "Source code", href: "assets/downloads/projects/thermo/photon-blackhole-simulation.m" }],
-      },
+    files: [
+      { label: "Final report (problem 4)", href: "assets/downloads/projects/mae-146-didymos/mae-146-mission-to-didymos-final-report.pdf", type: "PDF" },
+      { label: "Project assignment", href: "assets/downloads/projects/mae-146-didymos/mae-146-didymos-project-4.pdf", type: "PDF", note: "Course handout" },
+      { label: "Mission script (problem4_didymos.m)", href: "assets/downloads/projects/mae-146-didymos/problem4_didymos.m", type: "MATLAB" },
+      { label: "Lambert solver (lambert_universal.m)", href: "assets/downloads/projects/mae-146-didymos/lambert_universal.m", type: "MATLAB" },
+      { label: "Kepler propagator (propagate_elliptical.m)", href: "assets/downloads/projects/mae-146-didymos/propagate_elliptical.m", type: "MATLAB" },
+      { label: "True-anomaly propagator (propagate_elliptical_ta.m)", href: "assets/downloads/projects/mae-146-didymos/propagate_elliptical_ta.m", type: "MATLAB" },
+      { label: "Elements to state vector (kep2rv.m)", href: "assets/downloads/projects/mae-146-didymos/kep2rv.m", type: "MATLAB" },
+      { label: "State vector to elements (rv2kep.m)", href: "assets/downloads/projects/mae-146-didymos/rv2kep.m", type: "MATLAB" },
+      { label: "Mean to true anomaly (ma2ta.m)", href: "assets/downloads/projects/mae-146-didymos/ma2ta.m", type: "MATLAB" },
+      { label: "True to mean anomaly (ta2ma.m)", href: "assets/downloads/projects/mae-146-didymos/ta2ma.m", type: "MATLAB" },
+      { label: "Stumpff functions (stumpff.m)", href: "assets/downloads/projects/mae-146-didymos/stumpff.m", type: "MATLAB" },
     ],
   },
   {
-    id: "mae-106-autonomous",
-    title: "Autonomous Robot",
-    meta: "MAE 106 - Team robotics project",
+    id: "aerolab-suite",
+    title: "AeroLab 2D and 3D",
+    short: "AeroLab 2D and 3D",
+    group: "software",
+    context: "Personal project, browser-based aerodynamics tools",
+    period: "Published Aug 2026",
+    sortKey: "2026-08",
+    featured: 5,
+    cover: 0,
+    teaser: "Browser aerodynamics labs for airfoils, aircraft, rockets and re-entry. Both run live on this site.",
     summary:
-      "MAE 106 robotics project documented through the final report and experimental verification files.",
-    categories: ["software", "analysis"],
-    chips: ["Robotics", "Experimental verification", "Team project", "Iteration"],
-    insights: [
-      { label: "Scope", body: "Team robotics project documented through the final report and verification files." },
-      { label: "Deliverables", body: "Final report plus experimental verification documents." },
-      { label: "Skills", body: "Testing, iteration, team project documentation, and system verification." },
+      "Two interactive aerodynamics labs that run in the browser. AeroLab 2D is for airfoils; AeroLab 3D covers aircraft, model rockets and atmospheric re-entry. Both are live on this site.",
+    facts: [
+      { label: "Built with", value: "JavaScript, WebGL 2" },
+      { label: "Runs", value: "Entirely in the browser; no install, account or data collection" },
+      { label: "Status", value: "Live. Educational tool; no published comparison against reference data" },
     ],
-    primaryActions: [
-      { label: "Final report", href: "assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-final-report.pdf", primary: true },
-      { label: "Verification 1", href: "assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-experimental-verification-1.pdf" },
-      { label: "Verification 2", href: "assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-experimental-verification-2.pdf" },
-    ],
-    media: [],
-    documents: [
+    sections: [
       {
-        label: "Report",
-        title: "Final Report",
-        body: "Primary document for project scope, design decisions, and system-level summary.",
-        links: [{ label: "Open final report", href: "assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-final-report.pdf" }],
+        heading: "AeroLab 2D",
+        paragraphs: [
+          "Pairs a GPU lattice-Boltzmann (D2Q9) flow view with a Hess–Smith panel method and an integral boundary-layer model (Thwaites laminar, Michel transition, Head turbulent) for NACA airfoils: pressure distributions, lift and drag, transition and separation.",
+        ],
+        figures: [0],
       },
       {
-        label: "Verification",
-        title: "Experimental Checks",
-        body: "Supporting verification documents from the project test process.",
-        links: [
-          { label: "Experimental verification 1", href: "assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-experimental-verification-1.pdf" },
-          { label: "Experimental verification 2", href: "assets/downloads/projects/mae-106-autonomous/mae-106-autonomous-robot-experimental-verification-2.pdf" },
+        heading: "AeroLab 3D",
+        paragraphs: [
+          "Vortex-lattice aircraft analysis with viscous drag estimates and static-stability readouts, Barrowman stability and drag build-up for rockets, and an atmospheric re-entry trajectory model.",
+        ],
+        figures: [1],
+      },
+      {
+        heading: "Limits",
+        paragraphs: [
+          "These are learning tools built on standard textbook methods, with those methods' usual assumptions. I haven't published comparisons against wind-tunnel data or reference codes, so treat the outputs as estimates.",
         ],
       },
     ],
-  },
-  {
-    id: "mae-106-pid",
-    title: "PID Controller Design",
-    meta: "MAE 106 - Controls",
-    summary: "Controls-focused report covering PID design, tuning, and closed-loop response reasoning.",
-    categories: ["software", "analysis"],
-    chips: ["Controls", "PID", "Closed-loop behavior", "Design reasoning"],
-    insights: [
-      { label: "Scope", body: "PID controller design, tuning logic, and response analysis." },
-      { label: "Deliverable", body: "Controls report focused on closed-loop behavior and design tradeoffs." },
-      { label: "Skills", body: "Controls analysis, tuning, and technical reporting." },
-    ],
-    primaryActions: [
-      { label: "Open report", href: "assets/downloads/projects/mae-106-pid/mae-106-pid-controller-design-report.pdf", primary: true },
-    ],
-    media: [],
-    documents: [
+    figures: [
       {
-        label: "Report",
-        title: "Controller Design Report",
-        body: "Primary project document covering design choices, tuning, and response behavior.",
-        links: [{ label: "PID controller design report", href: "assets/downloads/projects/mae-106-pid/mae-106-pid-controller-design-report.pdf" }],
+        kind: "image",
+        src: "assets/media/aerolab/aerolab-2d-vortex-street.jpg",
+        thumb: "assets/media/aerolab/aerolab-2d-vortex-street-thumb.jpg",
+        alt: "AeroLab 2D vorticity view: a NACA 2412 airfoil at 14 degrees with flow separating from the upper surface and a street of red vortices shed downstream.",
+        caption:
+          "AeroLab 2D at 14° angle of attack (NACA 2412): the lattice-Boltzmann view shows the flow separating from the upper surface and shedding a vortex street. The lattice runs at a far lower Reynolds number than a full-size wing, so this is a qualitative picture.",
+        width: 1350,
+        height: 632,
       },
+      {
+        kind: "image",
+        src: "assets/media/aerolab/aerolab-3d-rocket-stability.png",
+        alt: "AeroLab 3D rocket view with flow tracers and panels showing center of pressure, center of gravity and drag breakdown.",
+        caption: "AeroLab 3D: rocket stability view with center of pressure, center of gravity and drag build-up.",
+        width: 1274,
+        height: 879,
+      },
+    ],
+    links: [
+      { label: "Open AeroLab 2D", href: "aerolab/", type: "App" },
+      { label: "Open AeroLab 3D", href: "aerolab-3d/", type: "App" },
     ],
   },
   {
     id: "extrakpak-drone",
-    title: "ExtrakPak SAR Drone Concept",
-    meta: "ENGR 190W - Technical proposal",
+    title: "ExtrakPak: heavy-lift recovery UAV proposal",
+    short: "Recovery UAV proposal",
+    group: "course",
+    context: "ENGR 190W Communications in the Professional World, team of three",
+    period: "Jan – Mar 2025",
+    sortKey: "2025-01",
+    cover: 1,
     summary:
-      "A heavy-lift search-and-recovery drone proposal framed around system requirements, operational practicality, and risk rather than only concept sketches.",
-    categories: ["aerospace", "policy"],
-    chips: ["Aerospace systems", "Technical writing", "Concept development", "Risk framing"],
-    insights: [
-      { label: "Scope", body: "Airframe layout, grappling concept, remote command unit, payload framing, and risk considerations." },
-      { label: "Deliverables", body: "Technical proposal document and presentation deck." },
-      { label: "Skills", body: "Systems thinking, technical writing, and requirements framing." },
+      "A written technical proposal for a remotely operated drone that could recover fallen service members without sending a crew into danger. I wrote the vehicle, grappling-system, remote-command and regulatory sections.",
+    facts: [
+      { label: "My sections", value: "Introduction, proposal statement, drone, grappling system, remote command unit, regulatory compliance, user risk management" },
+      { label: "Status", value: "Paper concept. Nothing was built or flown" },
     ],
-    primaryActions: [
-      { label: "Proposal", href: "assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal.docx", primary: true },
-      { label: "Presentation", href: "assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal-presentation.pptx" },
-    ],
-    media: [],
-    documents: [
+    sections: [
       {
-        label: "Report",
-        title: "Technical Proposal",
-        body: "Primary document covering system concept, operations, and risk considerations.",
-        links: [{ label: "Technical proposal", href: "assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal.docx" }],
+        heading: "Concept",
+        paragraphs: [
+          "A six-motor electric multirotor with a carbon-fiber airframe about 2 m across, targeting a 200 kg payload for about an hour, with four compliant grappling arms modeled on octopus arms and a separate remote command unit.",
+        ],
+        figures: [0, 1],
       },
       {
-        label: "Deck",
-        title: "Presentation",
-        body: "Condensed project overview for presentation format.",
-        links: [{ label: "Presentation deck", href: "assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal-presentation.pptx" }],
+        heading: "What I worked through",
+        list: [
+          "Requirements and architecture for the airframe, propulsion, flight computers, communications and command unit.",
+          "Thrust-to-weight and order-of-magnitude feasibility estimates at maximum payload.",
+          "Regulatory constraints, including FAA Part 107 and OSHA workplace-safety rules, and the user-risk section.",
+        ],
       },
+      {
+        heading: "Limits",
+        paragraphs: [
+          "Payload and endurance figures are proposal targets, not demonstrated performance. No vehicle was built, flown or certified.",
+        ],
+      },
+    ],
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/extrakpak/extrakpak-layout.png",
+        alt: "Simple top-view sketch of a six-arm multirotor around a central box labeled as the airframe housing flight computers and sensors, with an antenna.",
+        caption: "Top-view layout sketch from the proposal: six rotor arms around the central airframe.",
+        width: 513,
+        height: 463,
+      },
+      {
+        kind: "image",
+        src: "assets/media/extrakpak/extrakpak-data-flow.png",
+        alt: "Block diagram: GPS, radar, LiDAR, accelerometer, gyroscope and compass feed three independent flight computers, alongside grappler, camera, battery and cache-storage blocks, linked by antenna and satellite to the remote command unit.",
+        caption: "Data-flow schematic from the proposal: sensors into three independent flight computers, linked to the remote command unit.",
+        width: 889,
+        height: 549,
+      },
+    ],
+    files: [
+      { label: "Technical proposal", href: "assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal.docx", type: "DOCX", note: "Group paper, 1.5 MB" },
+      { label: "Presentation", href: "assets/downloads/projects/extrakpak/military-sar-drone-technical-proposal-presentation.pptx", type: "PPTX", note: "4.5 MB" },
     ],
   },
   {
     id: "lunar-impact",
-    title: "Lunar Micrometeoroid Protection",
-    meta: "ENGR 54 - Materials and impact analysis",
+    title: "Reinforced ice for lunar micrometeoroid protection",
+    short: "Lunar ice impact study",
+    group: "course",
+    context: "ENGR 54 Principles of Materials Science, team of seven",
+    period: "May – Jun 2025",
+    sortKey: "2025-05",
     summary:
-      "A project exploring reinforced ice concepts for lunar protection, combining experimental framing with fast impact and feasibility reasoning.",
-    categories: ["aerospace", "analysis"],
-    chips: ["Materials", "Impact reasoning", "Tradeoff analysis", "Presentation"],
-    insights: [
-      { label: "Scope", body: "Damage behavior, reinforcement concepts, and scale estimates for high-speed micrometeoroid impacts." },
-      { label: "Deliverable", body: "Presentation covering comparisons, feasibility framing, and impact reasoning." },
-      { label: "Skills", body: "Analytical framing, comparison work, and presentation development." },
+      "Drop tests on ice reinforced with paper and plastic, plus an energy-balance estimate for stopping a micrometeoroid. Paper reinforcement helped in our tests; the estimate showed passive ice shielding doesn't scale.",
+    facts: [
+      { label: "My part", value: "Helped plan and run the drop tests and the energy-balance analysis" },
+      { label: "Status", value: "Course project, completed" },
     ],
-    primaryActions: [
-      { label: "Presentation", href: "assets/downloads/projects/lunar-impact/lunar-micrometeoroid-impact-projection-analysis.pptx", primary: true },
-    ],
-    media: [],
-    documents: [
+    sections: [
       {
-        label: "Deck",
-        title: "Impact Analysis Presentation",
-        body: "Primary project file covering concept comparison and feasibility analysis.",
-        links: [{ label: "Open presentation", href: "assets/downloads/projects/lunar-impact/lunar-micrometeoroid-impact-projection-analysis.pptx" }],
+        heading: "Question",
+        paragraphs: [
+          "Ice mined from lunar craters is exposed to micrometeoroids, and pure ice is brittle. Could waste materials on hand, like toilet paper and plastic bags, make it tougher? And how thick would ice need to be to stop a 3 cm iron micrometeoroid at 42 km/s?",
+        ],
       },
+      {
+        heading: "Test",
+        paragraphs: [
+          "We froze 33 one-inch spheres: pure ice, ice with toilet-paper strips, with plastic strips, and mixes at several loadings. We dropped them from about 0.5 m to 8 m (heights from a phone barometer, checked against a measured 30 cm rise) and estimated damage visually as a percentage.",
+        ],
+        figures: [0, 1],
+      },
+      {
+        heading: "Findings",
+        paragraphs: [
+          "Paper (cellulose) reinforcement generally reduced damage compared with plastic alone. The energy balance for the modeled micrometeoroid showed that the ice thickness needed is impractical.",
+        ],
+      },
+      {
+        heading: "Limits",
+        list: [
+          "One or two samples per configuration and visual damage estimates make the data noisy: pure-ice controls dropped from 8 m showed both 5% and 80% damage.",
+          "Low-speed drops say nothing direct about hypervelocity impact. The micrometeoroid case was only calculated.",
+        ],
+        figures: [2],
+      },
+    ],
+    cover: 0,
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/lunar/lunar-samples-in-mold.jpg",
+        alt: "Ice-sphere mold on a table with crumpled toilet paper in some cavities and plastic strips in others, before freezing.",
+        caption: "Samples before freezing: toilet-paper and plastic reinforcement in the sphere mold.",
+        width: 900,
+        height: 1200,
+      },
+      {
+        kind: "image",
+        src: "assets/media/lunar/lunar-sample-after-drop.jpg",
+        alt: "A cracked, partly shattered ice sphere held in a palm after a drop test.",
+        caption: "A sample after its drop; damage was estimated by eye as a percentage.",
+        width: 900,
+        height: 1200,
+      },
+      {
+        kind: "image",
+        src: "assets/media/lunar/lunar-pure-ice-damage-chart.png",
+        alt: "Bar chart of kinetic energy and estimated damage for pure-ice samples at drop heights from 0.5 to 8 m; estimated damage varies widely between samples at the same height.",
+        caption: "Team chart for the pure-ice controls: kinetic energy (blue) and estimated damage (red) by drop height. The two 8 m samples disagree sharply.",
+        width: 1000,
+        height: 618,
+        plate: true,
+      },
+    ],
+    files: [
+      { label: "Final presentation", href: "assets/downloads/projects/lunar-impact/lunar-micrometeoroid-impact-projection-analysis.pptx", type: "PPTX", note: "Large file, 36.6 MB" },
     ],
   },
   {
-    id: "periodic-table-db",
-    title: "Periodic Table Database",
-    meta: "MAE 10 - MATLAB data tool",
+    id: "mae-106-pid",
+    title: "PD control of an inverted pendulum",
+    short: "PD/PID controller design",
+    group: "course",
+    context: "MAE 106 Mechanical Systems Lab, individual assignment",
+    period: "Feb 2026",
+    sortKey: "2026-02",
+    cover: 0,
     summary:
-      "A MATLAB project that combines element lookup with trend plotting, built to return both direct values and a visual read on periodic behavior.",
-    categories: ["software"],
-    chips: ["MATLAB", "Data handling", "Visualization", "User-oriented scripting"],
-    insights: [
-      { label: "Scope", body: "Element lookup plus periodic-trend plotting for mass, electronegativity, ionization energy, and related properties." },
-      { label: "Deliverable", body: "MATLAB project report for the database and plotting workflow." },
-      { label: "Skills", body: "Data handling, plotting, and MATLAB scripting." },
+      "Derived the closed-loop dynamics of a cart–pendulum under PD control, chose gains and checked stability in simulation.",
+    facts: [
+      { label: "Tools", value: "Hand derivation; course-provided simulation code" },
+      { label: "Status", value: "Simulation only; no hardware" },
     ],
-    primaryActions: [
-      { label: "Project report", href: "assets/downloads/projects/matlab-db/matlab-periodic-table-database-report.docx", primary: true },
-    ],
-    media: [],
-    documents: [
+    sections: [
       {
-        label: "Report",
-        title: "Project Report",
-        body: "Primary file for the database structure, outputs, and plotted trends.",
-        links: [{ label: "Open report", href: "assets/downloads/projects/matlab-db/matlab-periodic-table-database-report.docx" }],
+        heading: "Work",
+        paragraphs: [
+          "I wrote the closed-loop transfer function and its poles as functions of the gains, and found the condition on Kp for complex poles. With a 1 kg cart, a 0.5 kg pendulum and a 1 m length, I chose Kp = 50 and Kd = 5, which puts the poles at −2.5 ± 5.39j: stable and underdamped. The same controller recovered from initial angles up to 0.78 rad in simulation.",
+          "I argued that an integral term isn't needed here, because there is no constant disturbance to reject, and that it would add a pole at the origin and reduce the stability margin.",
+        ],
+        figures: [0, 1],
       },
     ],
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/pid/pid-p-vs-pd-response.png",
+        alt: "Plot of pendulum angle over 10 seconds: the P-only response oscillates with growing amplitude while the PD response settles to zero within about a second.",
+        caption: "P versus PD response from the same initial angle: the derivative term supplies the damping.",
+        width: 581,
+        height: 432,
+        plate: true,
+      },
+      {
+        kind: "image",
+        src: "assets/media/pid/pid-closed-loop-poles.png",
+        alt: "Complex-plane plot with two closed-loop poles at real part −2.5 and imaginary parts ±5.4.",
+        caption: "Closed-loop poles for Kp = 50, Kd = 5.",
+        width: 527,
+        height: 524,
+        plate: true,
+      },
+    ],
+    files: [{ label: "Controller design report", href: "assets/downloads/projects/mae-106-pid/mae-106-pid-controller-design-report.pdf", type: "PDF" }],
   },
   {
-    id: "thermo-notebooks",
-    title: "Thermodynamics Notebook Set",
-    meta: "MAE 91 - Python notebooks",
+    id: "exohunt",
+    title: "EXOHUNT: open TESS transit search",
+    short: "EXOHUNT",
+    group: "software",
+    context: "Personal open-source project",
+    period: "Jul 2026 – present",
+    sortKey: "2026-07",
     summary:
-      "A set of Python notebooks focused on state-property calculations, plotted sweeps, and cycle behavior across adiabatic mixing, Rankine analysis, turbine power, and isothermal expansion.",
-    categories: ["software", "analysis"],
-    chips: ["Python", "CoolProp", "NumPy", "Matplotlib"],
-    insights: [
-      { label: "Scope", body: "Cycle analysis, state-property work, plotted parameter sweeps, and engineering calculations in notebook form." },
-      { label: "Deliverables", body: "Three direct-open notebooks covering Rankine, gas and turbine plots, and isothermal expansion." },
-      { label: "Skills", body: "Python workflow, thermodynamics calculations, and plotted engineering outputs." },
+      "A pipeline that processes public NASA TESS light curves, searches for transits and tests itself by recovering known planets. Any other signals it finds are unvetted candidates, not discoveries.",
+    facts: [
+      { label: "Built with", value: "Python (Lightkurve, Astroquery), pytest; Node.js for the local dashboard" },
+      { label: "Status", value: "Ongoing, open source (MIT). Methods and limits are documented in the repository" },
     ],
-    primaryActions: [
-      { label: "Mixing + Rankine", href: "assets/downloads/projects/thermo/adiabatic-mixing-and-rankine-cycle.ipynb", primary: true },
-      { label: "Gas + turbine", href: "assets/downloads/projects/thermo/polytropic-ideal-gas-and-turbine-plots.ipynb" },
-      { label: "Isothermal plots", href: "assets/downloads/projects/thermo/temperature-conversion-and-isothermal-expansion.ipynb" },
-    ],
-    media: [],
-    documents: [
+    sections: [
       {
-        label: "Files",
-        title: "Notebook Set",
-        body: "Three notebooks covering thermodynamics calculations and plots.",
-        links: [
-          { label: "Adiabatic mixing and Rankine", href: "assets/downloads/projects/thermo/adiabatic-mixing-and-rankine-cycle.ipynb" },
-          { label: "Polytropic gas and turbine plots", href: "assets/downloads/projects/thermo/polytropic-ideal-gas-and-turbine-plots.ipynb" },
-          { label: "Temperature conversion and isothermal expansion", href: "assets/downloads/projects/thermo/temperature-conversion-and-isothermal-expansion.ipynb" },
+        heading: "What it does",
+        list: [
+          "Downloads processed TESS light curves, detrends them and runs a Box Least Squares period search, writing a JSON screening report and a diagnostic plot for each star.",
+          "Checks itself on known planets first: a five-case benchmark, including a shallow sub-Neptune and a deliberate harmonic-alias case, confirms the pipeline works before it is pointed at new stars.",
+          "Masks the transits of already-known planets in a system and searches what is left, then cross-checks signals against the NASA Exoplanet Archive's candidate and confirmed-planet tables.",
+          "Builds target lists from saved selection criteria and runs resumable batch campaigns with bounded disk use, with a local-only dashboard for reviewing them.",
+        ],
+      },
+      {
+        heading: "Known-planet check",
+        paragraphs: [
+          "In the benchmark run of July 22, 2026, four of the five known planets came back at their catalog periods; WASP-18 b was recovered at 0.941489 days against the archive's 0.941452. TOI-700 c, the deliberate stress test, came back at half its period, which is the alias that case exists to expose.",
+        ],
+        figures: [0],
+      },
+      {
+        heading: "Limits",
+        paragraphs: [
+          "A BLS detection is a screening result, not a planet. Eclipsing binaries, nearby stars, stellar variability and spacecraft systematics all produce look-alike signals, and a missing catalog match doesn't prove a signal is new. Anything beyond the known planets is an unvetted candidate until it has been reviewed and independently confirmed.",
         ],
       },
     ],
+    cover: 0,
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/exohunt/exohunt-wasp-18b-validation.png",
+        thumb: "assets/media/exohunt/exohunt-wasp-18b-thumb.jpg",
+        alt: "Three-panel plot for WASP-18 in TESS sector 2: a detrended light curve with regular transit dips, a box-least-squares period search peaking near 0.94 days, and the folded transit dip.",
+        caption:
+          "Validation output for WASP-18 b (TESS sector 2): detrended light curve, BLS period search and the light curve folded at the recovered period.",
+        width: 1200,
+        height: 1080,
+        plate: true,
+      },
+    ],
+    links: [{ label: "EXOHUNT on GitHub", href: "https://github.com/spacexkspofficial/Exoplanet-Discoveries", type: "Repository" }],
   },
   {
-    id: "policy-writing",
-    title: "Internet Policy Writing",
-    meta: "ICS 11 - Technical writing and policy analysis",
+    id: "obd-scanner",
+    title: "Read-only OBD-II diagnostic dashboard",
+    short: "OBD-II dashboard",
+    group: "software",
+    context: "Personal project, built for my 2013 Dodge Charger R/T",
+    period: "Published May 2026",
+    sortKey: "2026-05",
+    cover: 0,
     summary:
-      "Policy work on data caps, throttling, net neutrality, H.R. 1870, and BEAD, presented through memos, research, and slide decks.",
-    categories: ["policy", "analysis"],
-    chips: ["Research synthesis", "Policy writing", "Recommendations", "Audience-aware communication"],
-    insights: [
-      { label: "Scope", body: "Technical issues with policy implications, written as memos, presentations, and recommendation-focused analysis." },
-      { label: "Deliverables", body: "Memos, slide decks, and policy analysis documents." },
-      { label: "Skills", body: "Research synthesis, technical writing, and audience-aware communication." },
+      "A local web app that streams live vehicle diagnostic data over a USB OBD-II adapter. It is designed so it cannot write to the car: every outgoing request passes through a fixed allowlist of read-only services.",
+    facts: [
+      { label: "Built with", value: "Python, FastAPI, WebSocket, JavaScript" },
+      { label: "Hardware", value: "OBDLink EX (STN2120) USB cable; ISO 15765-4 CAN at 500 kbps" },
+      { label: "Status", value: "Personal tool; source code isn't published. The screenshot shows the app on its mock adapter" },
     ],
-    primaryActions: [
-      { label: "H.R. 1870 memo", href: "assets/downloads/projects/policy/hr-1870-analysis.docx", primary: true },
-      { label: "H.R. 1870 deck", href: "assets/downloads/projects/policy/hr-1870-presentation.pptx" },
-      { label: "Data caps deck", href: "assets/downloads/projects/policy/fcc-data-throttling-and-data-caps-analysis.pptx" },
-    ],
-    media: [],
-    documents: [
+    sections: [
       {
-        label: "Memo",
-        title: "H.R. 1870 Analysis",
-        body: "Primary writing sample from the policy section.",
-        links: [{ label: "Open memo", href: "assets/downloads/projects/policy/hr-1870-analysis.docx" }],
+        heading: "Design",
+        list: [
+          "FastAPI and WebSocket back end with a single-page front end for live parameter streaming and stored, pending and permanent trouble codes.",
+          "Adapter layer for an OBDLink EX (STN2120) and generic ELM327 cables, with automatic port detection for the OBDLink.",
+          "A mock adapter that generates synthetic data for the same car, so the interface can be developed and demonstrated without a cable.",
+          "Vehicles described in plain JSON files: protocol, parameter groups and poll rates, identifiers and thresholds.",
+          "A passive capture log of every ECU response, including negative responses, for studying undocumented identifiers.",
+        ],
+        figures: [0],
       },
       {
-        label: "Decks",
-        title: "Presentation Files",
-        body: "Supporting deck materials from the policy section.",
-        links: [
-          { label: "H.R. 1870 deck", href: "assets/downloads/projects/policy/hr-1870-presentation.pptx" },
-          { label: "Data caps deck", href: "assets/downloads/projects/policy/fcc-data-throttling-and-data-caps-analysis.pptx" },
-          { label: "Data caps writeup", href: "assets/downloads/projects/policy/fcc-data-throttling-and-data-caps-presentation.docx" },
+        heading: "Safety boundary",
+        paragraphs: [
+          "Only read-only diagnostic services are allowed out ($01, $02, $03, $07, $09, $0A, $19, $22, $3E). Clearing codes, resets, security access, routine control and reprogramming are rejected at the serial layer, and regression tests cover the allowlist.",
         ],
+      },
+    ],
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/obd-scanner/obd-dashboard-mock.jpg",
+        thumb: "assets/media/obd-scanner/obd-dashboard-mock-thumb.jpg",
+        alt: "OBD Scanner dashboard: read-only and mock-adapter badges, a capture-mode panel, a coolant-temperature alarm, dials for engine RPM, speed, coolant temperature, module voltage, throttle and fuel, and a table of live readings.",
+        caption:
+          "The dashboard on its mock adapter (synthetic 2013 Charger R/T data, not a live car): read-only badge, capture controls, live dials and the full reading table. The coolant alarm is the simulated engine still warming up.",
+        width: 1600,
+        height: 1000,
       },
     ],
   },
   {
     id: "mechanical-logs",
-    title: "Mechanical Project Logs",
-    meta: "Hands-on engineering - Vehicle projects",
-    summary:
-      "Documented work across two personal vehicle platforms, covering suspension, braking, lighting, exhaust, tuning, trim, and supporting upgrade tasks.",
-    categories: ["hands-on"],
-    chips: ["Diagnostics", "Installation", "Mechanical troubleshooting", "Real-world follow-through"],
-    insights: [
-      { label: "Scope", body: "Coilover work, braking upgrades, lighting projects, muffler changes, tuning, and visual trim updates." },
-      { label: "Media", body: "Install clips and stills from completed mechanical projects." },
-      { label: "Skills", body: "Diagnostics, installation, troubleshooting, and documentation." },
+    title: "Vehicle maintenance and upgrades",
+    short: "Vehicle work log",
+    group: "hands-on",
+    context: "Personal vehicles: 2013 Dodge Charger 5.7 L and 2008 Ford Mustang 4.0 L",
+    period: "Ongoing",
+    sortKey: "2025-01",
+    cover: 0,
+    summary: "Work on two personal vehicles: brakes, suspension, exhaust, lighting, trim and an engine-computer flash tune.",
+    facts: [{ label: "Work", value: "Rotors and pads, coilovers, muffler delete, tail lights, spoiler, steering-wheel airbag cover, handheld flash tune" }],
+    sections: [
+      {
+        heading: "Photos and clips",
+        figures: [0, 1, 2, 3, 4, 5, 6],
+      },
     ],
-    primaryActions: [
-      { label: "Coilover clip", href: "assets/media/charger/charger-coilover-upgrade.mp4", primary: true },
-      { label: "Tail-light clip", href: "assets/media/mustang/mustang-tail-light-upgrade.mp4" },
-      { label: "Brake still", href: "assets/media/charger/charger-rotor-pad-upgrade.jpg" },
-      { label: "Brake clip", href: "assets/media/charger/charger-rotor-pad-upgrade.mp4" },
-      { label: "Exhaust clip", href: "assets/media/mustang/mustang-muffler-delete.mp4" },
-    ],
-    media: [
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/charger/charger-rotor-pad-upgrade-web.jpg",
+        alt: "Silver Dodge Charger raised on a jack stand in a driveway with a front wheel off and tools and parts on the ground.",
+        caption: "Charger: rotor and pad replacement.",
+        width: 800,
+        height: 1420,
+      },
       {
         kind: "video",
         src: "assets/media/charger/charger-coilover-upgrade.mp4",
-        poster: "assets/images/poster-hands-on.png",
-        caption: "Coilover installation clip from the Charger project set.",
-      },
-      {
-        kind: "image",
-        src: "assets/media/charger/charger-rotor-pad-upgrade.jpg",
-        alt: "Rotor and pad upgrade work on a Dodge Charger",
-        caption: "Brake upgrade still from the mechanical project work.",
+        poster: "assets/media/charger/charger-coilover-upgrade-poster.jpg",
+        alt: "Short clip of the Charger after a coilover suspension install.",
+        caption: "Charger: coilover suspension install. 9\u00a0s.",
+        width: 720,
+        height: 1280,
       },
       {
         kind: "video",
         src: "assets/media/charger/charger-rotor-pad-upgrade.mp4",
-        poster: "assets/images/poster-hands-on.png",
-        caption: "Rotor and pad upgrade clip from the Charger project set.",
+        poster: "assets/media/charger/charger-rotor-pad-upgrade-poster.jpg",
+        alt: "Short clip from the brake job on the Charger.",
+        caption: "Charger: brake job. 15\u00a0s.",
+        width: 720,
+        height: 1280,
       },
       {
         kind: "image",
-        src: "assets/media/charger/charger-airbag-upgrade.jpg",
-        alt: "Airbag and trim upgrade on a Dodge Charger",
-        caption: "Interior and supporting modification work from the vehicle project work.",
+        src: "assets/media/charger/charger-spoiler-install-web.jpg",
+        alt: "Rear of a silver Dodge Charger in a garage with tools and parts laid out on a blanket behind it.",
+        caption: "Charger: spoiler install.",
+        width: 800,
+        height: 1420,
       },
       {
         kind: "image",
-        src: "assets/media/charger/charger-spoiler-install.jpg",
-        alt: "Spoiler install on a Dodge Charger",
-        caption: "Exterior trim installation from the Charger project set.",
+        src: "assets/media/charger/charger-airbag-upgrade-web.jpg",
+        alt: "Charger steering wheel with the airbag module removed and the new R/T cover held up in front of it.",
+        caption: "Charger: steering-wheel airbag cover replacement.",
+        width: 800,
+        height: 1422,
       },
       {
         kind: "image",
         src: "assets/media/mustang/mustang-flash-tune.jpg",
-        alt: "Flash tune device during Mustang project work",
-        caption: "Flash-tune workflow from the Mustang project set.",
+        alt: "Handheld tuner showing 'Program vehicle, saving stock data, 11%' in front of a Mustang instrument cluster.",
+        caption: "Mustang: flash tune in progress, saving the stock calibration first.",
+        width: 1100,
+        height: 2024,
       },
       {
         kind: "video",
         src: "assets/media/mustang/mustang-muffler-delete.mp4",
-        poster: "assets/images/poster-hands-on.png",
-        caption: "Exhaust work clip from the Mustang project set.",
+        poster: "assets/media/mustang/mustang-muffler-delete-poster.jpg",
+        alt: "Short clip of the Mustang's exhaust after a muffler delete.",
+        caption: "Mustang: exhaust after the muffler delete. 6\u00a0s, with sound.",
+        width: 672,
+        height: 1232,
       },
+    ],
+    files: [
+      { label: "Mustang tail-light upgrade clip", href: "assets/media/mustang/mustang-tail-light-upgrade.mp4", type: "Video", note: "2\u00a0s" },
+    ],
+  },
+  {
+    id: "photon-paths",
+    title: "Photon paths near a black hole (exploratory sketch)",
+    short: "Photon paths sketch",
+    group: "archive",
+    context: "Personal MATLAB visualization",
+    period: "Jan 2026",
+    sortKey: "2026-01",
+    cover: 0,
+    summary:
+      "A picture of light bending near a black hole, not a relativity solver. Photons are stepped with a pseudo-Newtonian pull, and the critical path is drawn by hand for illustration.",
+    facts: [{ label: "Status", value: "Exploratory visualization" }],
+    sections: [
+      {
+        heading: "How it works",
+        paragraphs: [
+          "Each photon starts on a straight line with a chosen impact parameter. At every step the script applies a Paczyński–Wiita acceleration, GM/(r − Rs)², renormalizes the speed to c and moves forward with explicit Euler integration. Rays launched inside the textbook critical impact parameter (3√3/2 Rs) are colored red and rays launched outside are colored yellow; the color comes from the starting offset, not from the simulated outcome.",
+          "The cyan \"critical\" orbit is constructed by hand from a blended approach curve, a circular arc at the photon sphere and an inward spiral. It is not computed.",
+        ],
+        figures: [0],
+      },
+      {
+        heading: "What it isn't",
+        paragraphs: [
+          "The Paczyński–Wiita potential was designed to mimic some orbits of massive particles, not null geodesics, and the script doesn't integrate the geodesic equations. Its capture boundary hasn't been checked against general relativity.",
+        ],
+      },
+    ],
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/photons/photon-blackhole-simulation.png",
+        alt: "MATLAB figure on a black background: red photon paths falling into a black sphere, yellow paths bending away, and a cyan path wrapping around a dashed orange photon-sphere ring.",
+        caption: "Output figure. The cyan path is drawn analytically for illustration.",
+        width: 1412,
+        height: 979,
+      },
+    ],
+    files: [{ label: "Source (photon-blackhole-simulation.m)", href: "assets/downloads/projects/thermo/photon-blackhole-simulation.m", type: "MATLAB" }],
+  },
+  {
+    id: "thermo-notebooks",
+    title: "Thermodynamics notebooks",
+    short: "Thermodynamics notebooks",
+    group: "archive",
+    context: "MAE 91 Introduction to Thermodynamics, coursework",
+    period: "Coursework",
+    sortKey: "2024-01",
+    summary:
+      "Python homework notebooks using CoolProp, NumPy and Matplotlib: an adiabatic mixing chamber, a Rankine cycle, polytropic ideal-gas processes, turbine plots and isothermal expansion.",
+    facts: [{ label: "Status", value: "Course assignments" }],
+    cover: 0,
+    sections: [
+      {
+        heading: "Selected plots",
+        figures: [0, 1],
+      },
+    ],
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/thermo/rankine-ts-diagram.png",
+        thumb: "assets/media/thermo/rankine-ts-diagram-thumb.jpg",
+        alt: "Temperature-entropy diagram of a Rankine cycle with superheated turbine inlet, drawn over the water saturation dome.",
+        caption: "T–s diagram of a Rankine cycle with a superheated turbine inlet (8 MPa, 480 °C), from the notebook's CoolProp property calls.",
+        width: 583,
+        height: 477,
+        plate: true,
+      },
+      {
+        kind: "image",
+        src: "assets/media/thermo/water-pv-isothermal.png",
+        alt: "Pressure-volume plot for water on log axes with the saturation dome and an isothermal expansion at 250 degrees Celsius through the two-phase plateau.",
+        caption: "Isothermal expansion of water at 250 °C across the saturation dome, on log axes.",
+        width: 653,
+        height: 470,
+        plate: true,
+      },
+    ],
+    files: [
+      { label: "Adiabatic mixing and Rankine cycle", href: "assets/downloads/projects/thermo/adiabatic-mixing-and-rankine-cycle.ipynb", type: "Notebook" },
+      { label: "Polytropic ideal gas and turbine plots", href: "assets/downloads/projects/thermo/polytropic-ideal-gas-and-turbine-plots.ipynb", type: "Notebook" },
+      { label: "Temperature conversion and isothermal expansion", href: "assets/downloads/projects/thermo/temperature-conversion-and-isothermal-expansion.ipynb", type: "Notebook" },
+    ],
+  },
+  {
+    id: "periodic-table-db",
+    title: "Periodic table database in MATLAB",
+    short: "Periodic table database",
+    group: "archive",
+    context: "MAE 10 Introduction to Engineering Computations, team project",
+    period: "Sep – Dec 2023",
+    sortKey: "2023-09",
+    summary:
+      "A MATLAB tool that loads element properties from a CSV file, answers lookups by element symbol and plots periodic trends such as electronegativity and ionization energy against atomic number.",
+    facts: [{ label: "Status", value: "Team course project, completed December 2023" }],
+    cover: 0,
+    sections: [
+      {
+        heading: "Output",
+        figures: [0],
+      },
+    ],
+    figures: [
+      {
+        kind: "image",
+        src: "assets/media/matlab-db/ionization-energy-plot.png",
+        thumb: "assets/media/matlab-db/ionization-energy-plot-thumb.jpg",
+        alt: "MATLAB figure plotting first ionization energy against atomic number, with peaks at the noble gases.",
+        caption: "One of the tool's trend plots: first ionization energy against atomic number.",
+        width: 555,
+        height: 500,
+        plate: true,
+      },
+    ],
+    files: [{ label: "Project report", href: "assets/downloads/projects/matlab-db/matlab-periodic-table-database-report.docx", type: "DOCX" }],
+  },
+  {
+    id: "policy-writing",
+    title: "Broadband policy analysis",
+    short: "Broadband policy analysis",
+    group: "archive",
+    context: "ICS 11 Internet and Public Policy, group work",
+    plate: "Memos and briefing decks",
+    period: "Coursework",
+    sortKey: "2024-06",
+    summary:
+      "Staffer-style memos and decks on H.R. 1870 and broadband funding, and on FCC data caps and throttling.",
+    facts: [{ label: "Status", value: "Course assignments" }],
+    sections: [],
+    figures: [],
+    files: [
+      { label: "H.R. 1870 staffer report", href: "assets/downloads/projects/policy/hr-1870-analysis.docx", type: "DOCX" },
+      { label: "H.R. 1870 presentation", href: "assets/downloads/projects/policy/hr-1870-presentation.pptx", type: "PPTX", note: "4.4 MB" },
+      { label: "Data caps and throttling presentation", href: "assets/downloads/projects/policy/fcc-data-throttling-and-data-caps-analysis.pptx", type: "PPTX", note: "2 MB" },
+      { label: "Data caps and throttling write-up", href: "assets/downloads/projects/policy/fcc-data-throttling-and-data-caps-presentation.docx", type: "DOCX" },
     ],
   },
 ];
 
-export const FEATURED_PROJECT_IDS = [
-  "aerolab-suite",
-  "cubesat-structures",
-  "obd-scanner",
-  "photon-paths",
-  "mechanical-logs",
-] as const;
-
-export const PROJECT_FILTERS: { key: ProjectCategory | "all"; label: string }[] = [
-  { key: "all", label: "All" },
-  { key: "aerospace", label: "Aerospace" },
-  { key: "software", label: "Software" },
-  { key: "analysis", label: "Analysis" },
-  { key: "policy", label: "Writing" },
-  { key: "hands-on", label: "Hands-on" },
+export const PROJECT_GROUPS: { id: ProjectGroup; title: string; blurb: string }[] = [
+  { id: "engineering", title: "Engineering work", blurb: "Internship and spacecraft-team hardware." },
+  { id: "course", title: "Course and team projects", blurb: "Lab, design and analysis projects at UC Irvine." },
+  { id: "software", title: "Software and tools", blurb: "Things I built on my own time." },
+  { id: "hands-on", title: "Hands-on", blurb: "Work on my own vehicles." },
+  { id: "archive", title: "Archive", blurb: "Smaller coursework and an exploratory sketch, kept for reference." },
 ];
+
+/** The figure used as a project's thumbnail, preferring its 4:3 crop. */
+export function coverFigure(project: Project): Figure | undefined {
+  if (project.cover === undefined) return undefined;
+  const figure = project.figures[project.cover];
+  if (!figure) return undefined;
+  if (!figure.thumb) return figure;
+  return { ...figure, kind: "image", src: figure.thumb, width: 800, height: 600, plate: false };
+}
+
+export function teaser(project: Project): string {
+  return project.teaser ?? `${project.summary.split(/(?<=\.)\s/)[0]}`;
+}
+
+export function getProject(id: string): Project | undefined {
+  return PROJECTS.find((p) => p.id === id);
+}
+
+export function featuredProjects(): Project[] {
+  return PROJECTS.filter((p) => p.featured).sort((a, b) => (a.featured ?? 0) - (b.featured ?? 0));
+}

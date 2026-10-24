@@ -1,142 +1,112 @@
-# Alexander Amadeo-Ranch — Engineering Portfolio
+# alexengineer.net
 
-Immersive 3D engineering portfolio built with **Vite**, **React**, **TypeScript**,
-**React Three Fiber**, **drei**, **Three.js**, **GSAP**, and **ScrollTrigger**.
-Deployed for free through GitHub Pages on the custom domain **alexengineer.net**.
-
-The full content of the prior static site is preserved — projects, reports, media,
-and downloads still live under `public/assets/` and continue to ship in the build
-output.
-
-## Stack
-
-| Concern        | Tool                                          |
-| -------------- | --------------------------------------------- |
-| Build / dev    | Vite                                          |
-| UI             | React 18 + TypeScript                         |
-| 3D             | three.js via @react-three/fiber + @react-three/drei |
-| Animation      | GSAP + ScrollTrigger                          |
-| Hosting        | GitHub Pages (free) — custom domain via CNAME |
-
-No paid services, no analytics, no premium libraries, no third-party accounts.
+Engineering portfolio of Alexander Amadeo-Ranch. Vite + React + TypeScript, with
+React Three Fiber for the home-page CubeSat scene. Static site on GitHub Pages
+(custom domain `alexengineer.net`), hash routing, no backend, analytics or accounts.
 
 ## Run locally
 
-Requires **Node 18+** (Node 20 recommended).
+Node 20+ (Node 22+ for the resume and QA scripts, which use the built-in WebSocket).
 
 ```bash
 npm install
-npm run dev
+npm run dev        # http://127.0.0.1:5173/#/
+npm run build      # typecheck + production build into dist/ (also writes dist/404.html)
+npm run preview    # serve dist/ on port 4173
 ```
 
-Open <http://localhost:5173>.
+From the outer `Engineering Portfolio` folder, `run.bat` starts the dev server too.
 
-### Other scripts
+## Where content lives
+
+All professional facts are data, not markup. Change them here and every page and
+resume picks them up.
+
+| File | Holds |
+| --- | --- |
+| `src/data/profile.ts` | Name, contact links, availability, education, every role and its bullets, skills, certifications, honors |
+| `src/data/projects.ts` | Work index and case-study pages: summary, facts, sections, figures, files |
+| `src/data/resume.ts` | Resume-only wording for project entries and the header tagline |
+| `public/assets/` | Images, video, downloads (URLs are stable; existing links keep working) |
+
+Writing rules the data follows: say what Alexander did versus the team, label
+analysis as analysis and concepts as concepts, keep dates exact, and leave out
+results that no artifact or confirmation supports.
+
+## Routes
+
+| Route | Page |
+| --- | --- |
+| `#/` | Home: hero over the Earth/CubeSat scene, selected work, experience, about, contact |
+| `#/work`, `#/experience`, `#/about` | Home, scrolled to that section |
+| `#/projects` | Work index |
+| `#/projects/<id>` | Case study (`<id>` is stable, e.g. `cubesat-structures`) |
+| `#/projects?id=<id>` | Old link format; redirects to `#/projects/<id>` |
+| `#/resume` | Resume (same component as the PDF) |
+| `#/contact`, `#/privacy`, `#/terms` | Contact and policies |
+| `/resume/`, `/resume/engineering.html` | Static resume pages (no JavaScript needed) |
+| `/aerolab/`, `/aerolab-3d/` | Standalone AeroLab demos |
+
+## Resume
+
+One React component, `src/resume/ResumeDocument.tsx`, renders the resume for the
+`#/resume` page, the static HTML pages and the PDFs, so they cannot drift apart.
+Styles are in `src/resume/resume.css` (Georgia name, Calibri body, ~11 pt, navy accent).
+
+Regenerate after editing `src/data/*.ts`:
 
 ```bash
-npm run typecheck   # tsc --noEmit (project references)
-npm run build       # typecheck + production build into ./dist
-npm run preview     # serve ./dist locally on port 4173
+npm run resume
 ```
 
-## Project structure
+This writes:
 
-```
-engineering portfolio/
-├── index.html                  # Vite entry
-├── vite.config.ts
-├── tsconfig*.json
-├── public/
-│   ├── CNAME                   # alexengineer.net
-│   └── assets/                 # original images / media / downloads / resume
-│       ├── images/
-│       ├── media/
-│       └── downloads/
-├── src/
-│   ├── main.tsx
-│   ├── App.tsx
-│   ├── styles/global.css
-│   ├── data/
-│   │   ├── projects.ts         # all project entries, chips, downloads
-│   │   └── skills.ts
-│   ├── utils/
-│   │   ├── assets.ts           # resolves URLs against import.meta.env.BASE_URL
-│   │   ├── router.ts           # tiny hash-based router (no react-router dep)
-│   │   └── motion.ts           # reduced-motion + mouse-position helpers
-│   ├── components/
-│   │   ├── layout/             # Navbar, Footer
-│   │   ├── three/              # Scene, FloatingObjects, ParticleField
-│   │   ├── sections/           # Hero, About, ProjectsPreview, Skills, Contact, ProjectEntry
-│   │   └── ui/                 # GlassCard, RouterLink, Reveal
-│   └── pages/                  # Home, Projects, Contact, Privacy, Terms, NotFound
-└── .github/workflows/deploy.yml
-```
+- `public/resume/index.html` and `public/resume/engineering.html`
+- `public/assets/downloads/resume/alexander-amadeo-ranch-resume.pdf` (full resume; this path is the long-standing public link)
+- `public/assets/downloads/resume/alexander-amadeo-ranch-engineering-resume.pdf` (one-page engineering version)
 
-## Routing
+PDFs are printed by a local Chrome or Edge (`CHROME_PATH` overrides the lookup)
+through `scripts/lib/chrome.mjs`. Calibri and Georgia come from Windows; on other
+systems the CSS falls back to Carlito/Arial and Times, so check page breaks after
+regenerating elsewhere. Then check the PDFs: page count (full: 4, engineering: 1),
+no orphaned role titles, and extracted text (`pdftotext` or `pypdf`) in reading order.
 
-A small in-house hash router (no `react-router` dependency) drives navigation:
-
-| Route                                  | Page                  |
-| -------------------------------------- | --------------------- |
-| `#/`                                   | Home                  |
-| `#/projects`                           | Full project archive  |
-| `#/projects?id=<project-id>`           | Archive scrolled / highlighted to that project |
-| `#/contact`                            | Contact               |
-| `#/privacy`                            | Privacy Policy        |
-| `#/terms`                              | Terms & Conditions    |
-
-Hash routing means direct URLs work on GitHub Pages without a 404-redirect trick.
-
-## Assets
-
-All preserved assets are served from `public/assets/`. The `asset(path)` helper
-in `src/utils/assets.ts` joins paths against `import.meta.env.BASE_URL`, so they
-continue to work whether the site is deployed at the root of a custom domain
-(`base: "/"`) or under a sub-path on `*.github.io`.
-
-Resume PDF: `public/assets/downloads/resume/alexander-amadeo-ranch-resume.pdf`
-
-## Deploy to GitHub Pages
-
-This repo includes a free GitHub Actions workflow at
-`.github/workflows/deploy.yml` that:
-
-1. Installs Node 20.
-2. Runs `npm ci`.
-3. Builds with `npm run build`.
-4. Uploads `dist/` as a Pages artifact and deploys it.
-
-### One-time GitHub setup
-
-1. Repo → **Settings → Pages → Source**: choose **GitHub Actions**.
-2. Push to `main`. The workflow runs, the site goes live.
-
-### Custom domain (`alexengineer.net`)
-
-* `public/CNAME` is preserved — Vite copies it into `dist/CNAME` on build, so
-  GitHub Pages keeps the custom domain across deploys.
-* DNS for `alexengineer.net` should `CNAME` to `spacexkspofficial.github.io`
-  (already configured for the existing site).
-* `vite.config.ts` ships with `base: "/"` because the deployment target is the
-  custom-domain root. If you ever drop the custom domain and deploy under
-  `https://spacexkspofficial.github.io/engineering-portfolio/` instead, switch
-  to `base: "/engineering-portfolio/"`.
-
-### Manual deploy (no Actions)
-
-If you'd rather deploy from your machine:
+## QA scripts
 
 ```bash
-npm run build
-# then commit dist/ to a gh-pages branch with gh-pages CLI, or push dist to
-# the branch GitHub Pages is configured to serve. Actions is simpler.
+# Screenshots plus console errors and failed requests for a list of pages
+node scripts/qa-capture.mjs <config.json>
+
+# Follow every route, collect every link/image/video URL and request each one
+node scripts/qa-links.mjs http://127.0.0.1:4173 <report.json>
 ```
 
-## Notes
+Both drive headless Chrome over the DevTools protocol with no extra npm packages.
+`qa-capture` configs can set viewport, mobile emulation, reduced motion, scroll
+position and a no-WebGL mode.
 
-* Reduced motion is respected — particle drift, hero parallax, GSAP reveals,
-  and card tilt all stand down when `prefers-reduced-motion: reduce` is set.
-* The 3D scene falls back to a quiet message if WebGL is unavailable; the rest
-  of the page remains fully functional.
-* No lint script is configured — TypeScript strict mode plus `npm run typecheck`
-  handles correctness for this project.
+## Home-page scene
+
+`src/components/three/`:
+
+- `SceneBackground.tsx`: fixed layer behind the hero. Poster image first, then the
+  Earth video (an 854 px version on small screens), then the WebGL model. Skips
+  video and model when the browser asks to save data, pauses everything once the
+  hero has scrolled away, and keeps the model still with reduced motion.
+- `Scene.tsx`: camera, lights and where the satellite sits for wide, medium and
+  portrait/phone layouts (as fractions of the visible frame).
+- `FloatingObjects.tsx`: splits the GLB into parts and drives the scroll-linked
+  exploded view.
+- `SceneErrorBoundary.tsx`: a WebGL or model failure leaves the poster in place
+  instead of breaking the page.
+
+The CubeSat model (`public/assets/models/lumid-cubesat.glb`) is a free-use
+third-party CAD model; the site credits it as illustration, not Alexander's design.
+
+Contact: LinkedIn is the only public point of contact. Email and phone are
+intentionally absent from the site, its metadata and the published resumes.
+
+## Deploy
+
+`.github/workflows/deploy.yml` builds and publishes `dist/` to GitHub Pages on every
+push to `main`. `public/CNAME` keeps the custom domain. Nothing deploys until a push.

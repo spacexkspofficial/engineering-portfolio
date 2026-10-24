@@ -1,17 +1,23 @@
-import { About } from "../components/sections/About";
-import { Contact } from "../components/sections/Contact";
-import { Hero } from "../components/sections/Hero";
-import { ProjectsPreview } from "../components/sections/ProjectsPreview";
-import { Skills } from "../components/sections/Skills";
+import { About } from "../components/home/About";
+import { ContactBlock } from "../components/home/ContactBlock";
+import { ExperienceSummary } from "../components/home/ExperienceSummary";
+import { Hero } from "../components/home/Hero";
+import { SelectedWork } from "../components/home/SelectedWork";
+import { SceneBackground } from "../components/three/SceneBackground";
 
 export function Home() {
   return (
-    <main id="main" className="page-fade">
+    <>
+      <SceneBackground />
       <Hero />
-      <About />
-      <ProjectsPreview />
-      <Skills />
-      <Contact />
-    </main>
+      <div className="page-body">
+        <SelectedWork />
+        <ExperienceSummary />
+        <About />
+        <section className="section" id="contact" aria-labelledby="contact-title">
+          <ContactBlock />
+        </section>
+      </div>
+    </>
   );
 }

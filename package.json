@@ -8,7 +8,9 @@
     "dev": "node scripts/dev.mjs",
     "build": "tsc -b && node scripts/build.mjs",
     "typecheck": "tsc -b --noEmit",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "resume": "node scripts/build-resume.mjs",
+    "qa:capture": "node scripts/qa-capture.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.114.0",

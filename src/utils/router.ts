@@ -1,16 +1,18 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export interface Route {
   path: string;
+  segments: string[];
   query: Record<string, string>;
   hash: string;
 }
 
-function parseHash(raw: string): Route {
+export function parseHash(raw: string): Route {
   const stripped = raw.replace(/^#/, "");
   const [pathPart, queryPart = ""] = stripped.split("?");
   let path = pathPart || "/";
   if (!path.startsWith("/")) path = `/${path}`;
+  if (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
   const query: Record<string, string> = {};
   if (queryPart) {
     for (const pair of queryPart.split("&")) {
@@ -18,7 +20,7 @@ function parseHash(raw: string): Route {
       if (k) query[decodeURIComponent(k)] = decodeURIComponent(v);
     }
   }
-  return { path, query, hash: raw };
+  return { path, segments: path.split("/").filter(Boolean), query, hash: raw };
 }
 
 export function useRoute(): Route {
@@ -31,14 +33,23 @@ export function useRoute(): Route {
   return route;
 }
 
+function toHash(to: string): string {
+  return to.startsWith("#") ? to : `#${to.startsWith("/") ? to : `/${to}`}`;
+}
+
 export function navigate(to: string): void {
-  const target = to.startsWith("#") ? to : `#${to.startsWith("/") ? to : `/${to}`}`;
+  const target = toHash(to);
   if (window.location.hash === target) {
     window.dispatchEvent(new HashChangeEvent("hashchange"));
   } else {
     window.location.hash = target;
   }
-  window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+}
+
+/** Swap the current URL without adding a history entry (used for legacy links). */
+export function replaceRoute(to: string): void {
+  history.replaceState(null, "", toHash(to));
+  window.dispatchEvent(new HashChangeEvent("hashchange"));
 }
 
 export function useNavigate() {
@@ -47,8 +58,7 @@ export function useNavigate() {
 
 export function isInternalRoute(href: string): boolean {
   if (!href) return false;
-  if (href.startsWith("http://") || href.startsWith("https://")) return false;
-  if (href.startsWith("mailto:") || href.startsWith("tel:")) return false;
+  if (/^[a-z]+:/i.test(href)) return false;
   if (href.startsWith("#")) return true;
-  return href.startsWith("/");
+  return href.startsWith("/") && !href.startsWith("//");
 }

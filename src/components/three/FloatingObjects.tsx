@@ -6,11 +6,13 @@ import { asset } from "../../utils/assets";
 
 interface SceneProps {
   mouseRef: MutableRefObject<{ x: number; y: number }>;
-  scrollRef: MutableRefObject<number>;
+  /** 0 at the top of the page, 1 once the hero has scrolled away. Drives the exploded view. */
+  progressRef: MutableRefObject<number>;
   reducedMotion: boolean;
   earthCenter?: THREE.Vector3;
   orbitRadius?: number;
   anchor?: THREE.Vector3;
+  scale?: number;
   showLabels?: boolean;
 }
 
@@ -542,17 +544,18 @@ function makePartMeshes(scene: THREE.Group): ProcessedPart[] {
   });
 }
 
-// Orbit motion is intentionally small — satellite stays roughly fixed in view (LEO companion shot).
+// Orbit motion is intentionally small: the satellite stays roughly fixed in view.
 // A subtle scroll-driven drift across a narrow arc; no aggressive sweep.
 const ORBIT_DRIFT_DEG = 8;
 
 export function FloatingObjects({
   mouseRef,
-  scrollRef,
+  progressRef,
   reducedMotion,
   earthCenter = new THREE.Vector3(0, 0, 0),
   orbitRadius = 22,
   anchor,
+  scale,
   showLabels = false,
 }: SceneProps) {
   const orbitRef = useRef<THREE.Group>(null);
@@ -568,11 +571,12 @@ export function FloatingObjects({
 
   // Explosion reach kept similar to the original — preserves the same animation feel
   const explodeReach = isPhone ? 0.18 : isCompact ? 0.19 : 0.19;
-  const satScale = isPhone ? 4.35 : isCompact ? 5 : 6;
+  const satScale = scale ?? (isPhone ? 4.35 : isCompact ? 5 : 6);
 
   useFrame((state, delta) => {
     if (!orbitRef.current || !containerRef.current) return;
-    const t = scrollRef.current;
+    // With reduced motion the model stays assembled and still.
+    const t = reducedMotion ? 0 : progressRef.current;
     const time = state.clock.getElapsedTime();
 
     // === Anchor: satellite holds station against the Earth horizon.
@@ -595,7 +599,8 @@ export function FloatingObjects({
       targetPos.y += -m.y * 0.2;
     }
 
-    const ease = Math.min(1, delta * 1.6);
+    // With reduced motion the scene renders on demand, so snap instead of easing.
+    const ease = reducedMotion ? 1 : Math.min(1, delta * 1.6);
     orbitRef.current.position.lerp(targetPos, ease);
 
     // Slow continuous yaw — gives the orbital impression without looking chaotic.

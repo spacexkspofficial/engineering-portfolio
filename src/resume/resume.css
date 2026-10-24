@@ -1,0 +1,238 @@
+/* Resume document styles. Shared by the #/resume page, the static /resume/
+   pages and the PDF build. Single column, ~11 pt body, navy accent, no layout
+   tables. Everything is scoped to .resume except the print page box. */
+
+@page {
+  size: Letter;
+  margin: 0.55in 0.62in 0.6in;
+}
+
+.resume {
+  --r-ink: #16191d;
+  --r-muted: #4a535c;
+  --r-navy: #1f3d57;
+  --r-rule: #c9d2da;
+  color: var(--r-ink);
+  font-family: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 11pt;
+  line-height: 1.28;
+  text-align: left;
+  /* Ligatures extract as single glyphs ("staﬀ") and trip keyword matching. */
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.resume a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.resume h1,
+.resume h2,
+.resume h3,
+.resume p,
+.resume ul {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: normal;
+  text-wrap: pretty;
+}
+
+.resume .r-header {
+  padding-bottom: 7pt;
+  border-bottom: 1.4pt solid var(--r-navy);
+  margin-bottom: 8pt;
+}
+
+.resume .r-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23pt;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--r-ink);
+}
+
+.resume .r-tagline {
+  margin-top: 3pt;
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: var(--r-navy);
+}
+
+.resume .r-contact {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 3pt;
+  font-size: 10.2pt;
+  color: var(--r-muted);
+}
+
+.resume .r-contact span + span::before {
+  content: "|";
+  margin: 0 0.45em;
+  color: var(--r-rule);
+}
+
+.resume .r-contact a {
+  overflow-wrap: anywhere;
+}
+
+.resume .r-nowrap {
+  white-space: nowrap;
+}
+
+/* Phone screens: stack the contact items instead of wrapping separators. */
+@media screen and (max-width: 640px) {
+  .resume .r-contact {
+    flex-direction: column;
+  }
+
+  .resume .r-contact span + span::before {
+    content: none;
+  }
+}
+
+.resume .r-section {
+  margin-top: 9pt;
+}
+
+.resume .r-section > h2 {
+  font-size: 11.2pt;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--r-navy);
+  padding-bottom: 1.5pt;
+  border-bottom: 0.6pt solid var(--r-rule);
+  margin-bottom: 4pt;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.resume .r-entry {
+  margin-top: 5pt;
+}
+
+.resume .r-entry--compact,
+.resume .r-entry--project {
+  margin-top: 4pt;
+}
+
+.resume .r-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12pt;
+}
+
+/* Keep an organization's name with its first role line. */
+.resume .r-entry > .r-line:first-child {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.resume .r-org {
+  font-size: 11.2pt;
+  font-weight: 700;
+  color: var(--r-ink);
+}
+
+.resume .r-descriptor {
+  font-weight: 400;
+}
+
+.resume .r-title {
+  font-weight: 700;
+  color: var(--r-navy);
+}
+
+.resume .r-title--sub {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--r-muted);
+}
+
+.resume .r-date {
+  flex: none;
+  font-size: 10.2pt;
+  color: var(--r-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.resume .r-role {
+  margin-top: 2pt;
+}
+
+/* Keep a role title with its first bullet when the page breaks. */
+.resume .r-role > .r-line {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.resume .r-entry--project,
+.resume .r-entry--compact {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.resume .r-role + .r-role {
+  margin-top: 2.5pt;
+}
+
+.resume .r-text {
+  margin-top: 1.5pt;
+}
+
+.resume .r-label {
+  font-weight: 700;
+}
+
+.resume .r-bullets {
+  list-style: none;
+  margin-top: 1.5pt;
+}
+
+/* Hanging bullets without positioning: positioned elements are painted after
+   normal text, which scrambles the PDF's text order for resume parsers. */
+.resume .r-bullets li {
+  padding-left: 11pt;
+  margin-top: 1.5pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.resume .r-bullets li::before {
+  content: "•";
+  display: inline-block;
+  width: 11pt;
+  margin-left: -11pt;
+  padding-left: 2pt;
+  box-sizing: border-box;
+  color: var(--r-navy);
+}
+
+/* The one-page engineering variant is slightly tighter; body stays ~11 pt. */
+@page engineering {
+  size: Letter;
+  margin: 0.42in 0.55in 0.4in;
+}
+
+.resume--engineering {
+  page: engineering;
+  font-size: 10.6pt;
+  line-height: 1.2;
+}
+
+.resume--engineering .r-section {
+  margin-top: 6pt;
+}
+
+.resume--engineering .r-entry {
+  margin-top: 3.5pt;
+}

@@ -1,19 +1,27 @@
 import { useEffect, useRef, useState, type MutableRefObject } from "react";
 
-export function prefersReducedMotion(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+export function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(() =>
+    typeof window === "undefined" ? false : window.matchMedia(query).matches,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const onChange = () => setMatches(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [query]);
+  return matches;
 }
 
 export function useReducedMotion(): boolean {
-  const [reduced, setReduced] = useState<boolean>(() => prefersReducedMotion());
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-  return reduced;
+  return useMediaQuery("(prefers-reduced-motion: reduce)");
+}
+
+/** True when the visitor asked to save data (Chromium's Save-Data hint). */
+export function prefersSavedData(): boolean {
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  return Boolean(connection?.saveData);
 }
 
 export function useMousePositionRef(): MutableRefObject<{ x: number; y: number }> {
@@ -36,41 +44,26 @@ export function useMousePositionRef(): MutableRefObject<{ x: number; y: number }
   return ref;
 }
 
-export function useMousePosition(): { x: number; y: number } {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
+/**
+ * Scroll progress through the first viewport (0 at the top of the page, 1 once
+ * the hero has scrolled away) plus whether the background is still visible.
+ */
+export function useHeroScroll(): { progressRef: MutableRefObject<number>; visible: boolean } {
+  const progressRef = useRef(0);
+  const [visible, setVisible] = useState(true);
   useEffect(() => {
-    let frame = 0;
-    const onMove = (e: MouseEvent) => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const x = (e.clientX / window.innerWidth) * 2 - 1;
-        const y = (e.clientY / window.innerHeight) * 2 - 1;
-        setPos({ x, y });
-      });
+    const update = () => {
+      const h = Math.max(1, window.innerHeight);
+      progressRef.current = Math.min(1, Math.max(0, window.scrollY / h));
+      setVisible(window.scrollY < h * 1.15);
     };
-    window.addEventListener("mousemove", onMove, { passive: true });
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
     return () => {
-      window.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
     };
   }, []);
-  return pos;
-}
-
-export function useScrollProgressRef(): MutableRefObject<number> {
-  const ref = useRef(0);
-  useEffect(() => {
-    const compute = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      ref.current = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-    };
-    compute();
-    window.addEventListener("scroll", compute, { passive: true });
-    window.addEventListener("resize", compute, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", compute);
-      window.removeEventListener("resize", compute);
-    };
-  }, []);
-  return ref;
+  return { progressRef, visible };
 }

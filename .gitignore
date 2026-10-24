@@ -16,3 +16,6 @@ yarn-error.log*
 !.vscode/extensions.json
 .idea
 *.tsbuildinfo
+
+# Local QA/browser scratch (chrome profiles for scripts/)
+.cache
