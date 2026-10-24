@@ -340,7 +340,7 @@ export const EDUCATION = {
   ],
   highSchool: {
     school: "Monte Vista High School",
-    detail: "High school diploma, 2019–2023",
+    detail: "High school diploma with honors, 2019–2023",
     honors: ["California Scholarship Federation", "National Honor Society", "eight-semester honor roll"],
   },
 } as const;

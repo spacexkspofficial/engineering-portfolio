@@ -124,11 +124,11 @@ export const PROJECTS: Project[] = [
     figures: [
       {
         kind: "image",
-        src: "assets/media/cubesat/flatsat-v1-assembly-web.jpg",
-        alt: "Black aluminum-extrusion frame of FlatSat V1 on a lab bench: a flat rectangular base with an upright rectangular panel frame, joined by corner brackets and a cross member with tan printed mounts.",
-        caption: "FlatSat V1 frame assembled in the lab, March 2026, before boards were installed.",
-        width: 1600,
-        height: 1074,
+        src: "assets/media/cubesat/flatsat-v1-avionics-web.jpg",
+        alt: "Stacked avionics boards connected by jumper wires on the black aluminum-extrusion frame of FlatSat V1.",
+        caption: "FlatSat V1 with avionics boards and wiring installed on the aluminum-extrusion bench fixture.",
+        width: 1920,
+        height: 1440,
       },
       {
         kind: "image",

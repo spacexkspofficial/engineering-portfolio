@@ -76,7 +76,7 @@ function Education({ variant }: { variant: ResumeVariant }) {
             <h3 className="r-org">{EDUCATION.highSchool.school}</h3>
             <span className="r-date">2019 – 2023</span>
           </div>
-          <p className="r-text">High school diploma; {EDUCATION.highSchool.honors.join(", ")}.</p>
+          <p className="r-text">High school diploma with honors; {EDUCATION.highSchool.honors.join(", ")}.</p>
         </article>
       )}
     </section>
