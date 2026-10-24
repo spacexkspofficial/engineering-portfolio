@@ -9,7 +9,7 @@ export function About() {
         </header>
         <img
           className="about__portrait"
-          src={asset("assets/images/headshot.jpg")}
+          src={asset("assets/images/headshot-2026.jpg")}
           alt="Portrait of Alexander Amadeo-Ranch"
           width={400}
           height={400}
