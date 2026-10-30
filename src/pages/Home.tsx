@@ -3,7 +3,7 @@ import { ContactBlock } from "../components/home/ContactBlock";
 import { ExperienceSummary } from "../components/home/ExperienceSummary";
 import { Hero } from "../components/home/Hero";
 import { MobileHero, MobileIntroduction } from "../components/home/MobileHero";
-import { SelectedWork } from "../components/home/SelectedWork";
+import { ProjectStream } from "../components/home/ProjectStream";
 import { SceneBackground } from "../components/three/SceneBackground";
 import { MOBILE_QUERY, useMediaQuery } from "../utils/motion";
 
@@ -15,10 +15,10 @@ export function Home() {
       {mobile ? <MobileHero /> : <Hero />}
       <div className="page-body">
         {mobile && <MobileIntroduction />}
-        <SelectedWork />
+        <ProjectStream />
         <ExperienceSummary />
         <About />
-        <section className="section" id="contact" aria-labelledby="contact-title">
+        <section className="section" id="contact" data-scroll-section="Contact" aria-labelledby="contact-title">
           <ContactBlock />
         </section>
       </div>

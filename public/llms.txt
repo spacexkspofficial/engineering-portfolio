@@ -3,7 +3,9 @@
 > Aerospace engineering student at UC Irvine (B.S. in progress; coursework ends March 2027; available for full-time work from April 2027). UAV Hardware Engineering Intern at Boundary Remote Subsurface Solutions (Sep 2026 - present) and Systems Engineer on UCI CubeSat (Mar 2026 - present). Focus: mechanical design, structures and hardware integration.
 
 Site: https://alexengineer.net/
-Work index: https://alexengineer.net/#/projects
+Projects (within the scrolling homepage): https://alexengineer.net/#/work
+Experience: https://alexengineer.net/#/experience
+Background, education and skills: https://alexengineer.net/#/about
 Resume (HTML, no JavaScript): https://alexengineer.net/resume/
 Resume (PDF): https://alexengineer.net/assets/downloads/resume/alexander-amadeo-ranch-resume.pdf
 One-page engineering resume (PDF): https://alexengineer.net/assets/downloads/resume/alexander-amadeo-ranch-engineering-resume.pdf
@@ -19,9 +21,10 @@ Contact: LinkedIn, https://www.linkedin.com/in/alexamadeoranch/
 - [Autonomous robot](https://alexengineer.net/#/projects/mae-106-autonomous): experimental lead on a four-person MAE 106 team (sensor calibration, duty-cycle and hinge-height sweeps).
 - [Mission to Didymos](https://alexengineer.net/#/projects/mae-146-didymos): MATLAB Lambert-transfer search; 20.028 km/s for the assigned dates versus a 7.873 km/s grid minimum. Preliminary course analysis.
 - [AeroLab 2D](https://alexengineer.net/aerolab/) and [AeroLab 3D](https://alexengineer.net/aerolab-3d/): browser aerodynamics tools for learning; outputs are estimates.
-- Other entries in the work index: recovery-UAV proposal (concept only), lunar ice impact study, PD controller design, EXOHUNT (TESS transit search; unvetted candidates, not discoveries), read-only OBD-II dashboard, vehicle work, coursework.
+- All 15 projects appear on the homepage with their figures, files and inline technical notes. Other entries include the recovery-UAV proposal (concept only), lunar ice impact study, PD controller design, EXOHUNT (TESS transit search; unvetted candidates, not discoveries), read-only OBD-II dashboard, vehicle work and coursework.
 
 ## Notes
 
 - Team projects say which parts were Alexander's.
+- Old project URLs still land on the matching project in the homepage scroll.
 - The home-page CubeSat model and Earth footage are third-party illustration, not Alexander's design.

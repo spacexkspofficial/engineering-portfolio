@@ -25,7 +25,8 @@ resume picks them up.
 | File | Holds |
 | --- | --- |
 | `src/data/profile.ts` | Name, contact links, availability, education, every role and its bullets, skills, certifications, honors |
-| `src/data/projects.ts` | Work index and case-study pages: summary, facts, sections, figures, files |
+| `src/data/projects.ts` | Complete project records: summary, facts, technical notes, figures and files |
+| `src/components/home/ProjectStream.tsx` | Single-page project sequence and concise takeaways; full records expand inline |
 | `src/data/resume.ts` | Resume-only wording for project entries and the header tagline |
 | `public/assets/` | Images, video, downloads (URLs are stable; existing links keep working) |
 
@@ -37,15 +38,22 @@ results that no artifact or confirmation supports.
 
 | Route | Page |
 | --- | --- |
-| `#/` | Home: hero over the Earth/CubeSat scene, selected work, experience, about, contact |
-| `#/work`, `#/experience`, `#/about` | Home, scrolled to that section |
-| `#/projects` | Work index |
-| `#/projects/<id>` | Case study (`<id>` is stable, e.g. `cubesat-structures`) |
+| `#/` | One scrolling portfolio: Earth/CubeSat hero, every project, all experience, background and contact |
+| `#/work`, `#/experience`, `#/about`, `#/contact` | Same homepage, scrolled to that section |
+| `#/projects` | Same homepage, scrolled to Projects |
+| `#/projects/<id>` | Same homepage, scrolled to that project (`<id>` remains stable) |
 | `#/projects?id=<id>` | Old link format; redirects to `#/projects/<id>` |
 | `#/resume` | Resume (same component as the PDF) |
-| `#/contact`, `#/privacy`, `#/terms` | Contact and policies |
+| `#/privacy`, `#/terms` | Policies |
 | `/resume/`, `/resume/engineering.html` | Static resume pages (no JavaScript needed) |
 | `/aerolab/`, `/aerolab-3d/` | Standalone AeroLab demos |
+
+The fixed header tracks the section currently being read, its progress, the
+current project and overall page progress. Navigation follows scrolling as well
+as links. Every project figure and file appears in the main scroll; complete
+technical notes and role contributions use native inline disclosures. The old
+work index, case-study and contact page components have been removed, while their
+shared URLs still work. Resume HTML/PDFs and legal pages retain their own views.
 
 ## Resume
 
@@ -105,10 +113,10 @@ position and a no-WebGL mode.
 `Home.tsx` selects `MobileHero.tsx` at widths up to 900 px, or up to 1100 px with
 a coarse pointer (including landscape phones and small tablets). The desktop
 hero and all portfolio sections use the same content. The mobile opening gives
-the Earth and CubeSat a full viewport, then fades both the scene and opening copy
-to zero as the introduction enters. Scrolling back restores them. Short landscape
-viewports put the model beside the name. The opening uses stable viewport units
-to avoid jumps when mobile browser chrome changes height.
+the Earth and CubeSat one viewport, with direct project, AeroLab 2D and resume PDF
+actions visible in the opening. The scene fades as the introduction enters;
+scrolling back restores it. Short landscape viewports allow room for the opening
+copy and buttons. Stable viewport units avoid jumps when browser chrome changes.
 
 Mobile uses the full-resolution Earth video, an antialiased canvas capped at 2×
 pixel density, and demand rendering paced at 30 fps. Brighter lighting, exposure

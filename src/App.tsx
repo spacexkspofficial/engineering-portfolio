@@ -5,10 +5,7 @@ import { replaceRoute, useRoute, type Route } from "./utils/router";
 import { SiteHeader } from "./components/layout/SiteHeader";
 import { SiteFooter } from "./components/layout/SiteFooter";
 import { Home } from "./pages/Home";
-import { ProjectsIndex } from "./pages/ProjectsIndex";
-import { ProjectPage } from "./pages/ProjectPage";
 import { ResumePage } from "./pages/ResumePage";
-import { ContactPage } from "./pages/Contact";
 import { Privacy } from "./pages/Privacy";
 import { Terms } from "./pages/Terms";
 import { NotFound } from "./pages/NotFound";
@@ -16,29 +13,29 @@ import { NotFound } from "./pages/NotFound";
 // Home-page sections that also have their own route, e.g. #/experience.
 const HOME_SECTIONS: Record<string, string> = {
   "/work": "work",
+  "/projects": "work",
   "/experience": "experience",
   "/about": "about",
+  "/contact": "contact",
 };
 
 type View =
   | { kind: "home"; section?: string }
-  | { kind: "projects" }
-  | { kind: "project"; id: string }
-  | { kind: "resume" | "contact" | "privacy" | "terms" | "missing" };
+  | { kind: "resume" | "privacy" | "terms" | "missing" };
 
 function resolve(route: Route): View {
   if (route.path === "/") return { kind: "home" };
+  if (route.path === "/projects" && route.query.id && getProject(route.query.id)) {
+    return { kind: "home", section: `project-${route.query.id}` };
+  }
   if (HOME_SECTIONS[route.path]) return { kind: "home", section: HOME_SECTIONS[route.path] };
   if (route.segments[0] === "projects") {
-    if (route.segments.length === 1) return { kind: "projects" };
-    if (route.segments.length === 2 && getProject(route.segments[1])) return { kind: "project", id: route.segments[1] };
+    if (route.segments.length === 2 && getProject(route.segments[1])) return { kind: "home", section: `project-${route.segments[1]}` };
     return { kind: "missing" };
   }
   switch (route.path) {
     case "/resume":
       return { kind: "resume" };
-    case "/contact":
-      return { kind: "contact" };
     case "/privacy":
       return { kind: "privacy" };
     case "/terms":
@@ -57,14 +54,8 @@ function titleFor(view: View): string {
         : view.section === "about"
           ? `About | ${name}`
           : `${name} | Aerospace engineering: mechanical design, structures and integration`;
-    case "projects":
-      return `Work | ${name}`;
-    case "project":
-      return `${getProject(view.id)?.title} | ${name}`;
     case "resume":
       return `Resume | ${name}`;
-    case "contact":
-      return `Contact | ${name}`;
     case "privacy":
       return `Privacy | ${name}`;
     case "terms":
@@ -74,7 +65,7 @@ function titleFor(view: View): string {
   }
 }
 
-/** Old links like #/projects?id=obd-scanner now have their own pages. */
+/** Keep old shared project links pointing at their place in the home feed. */
 function useLegacyRedirects(route: Route) {
   useEffect(() => {
     if (route.path === "/projects" && route.query.id && getProject(route.query.id)) {
@@ -98,7 +89,7 @@ function useRouteFocus(view: View, route: Route) {
       if (section) {
         const target = document.getElementById(section);
         if (target) {
-          target.scrollIntoView({ block: "start" });
+          target.scrollIntoView({ block: "start", behavior: isFirst || window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
           if (!isFirst) {
             target.setAttribute("tabindex", "-1");
             target.focus({ preventScroll: true });
@@ -107,7 +98,7 @@ function useRouteFocus(view: View, route: Route) {
         }
       }
       if (!isFirst) {
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: "instant" });
         main?.focus({ preventScroll: true });
       }
     };
@@ -142,17 +133,8 @@ export default function App() {
     case "home":
       content = <Home />;
       break;
-    case "projects":
-      content = route.query.id && getProject(route.query.id) ? null : <ProjectsIndex />;
-      break;
-    case "project":
-      content = <ProjectPage project={getProject(view.id)!} />;
-      break;
     case "resume":
       content = <ResumePage />;
-      break;
-    case "contact":
-      content = <ContactPage />;
       break;
     case "privacy":
       content = <Privacy />;

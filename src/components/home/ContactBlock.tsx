@@ -8,7 +8,7 @@ export function ContactBlock({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
   return (
     <div className="wrap contact">
       <header className="section-head">
-        <Heading id="contact-title">Contact</Heading>
+        <div><p className="kicker">04 / Get in touch</p><Heading id="contact-title">Contact</Heading></div>
         <p>
           Based in the {PERSON.location.replace(" Metropolitan Area", " area")}. {PERSON.availability} LinkedIn is the best way
           to reach me.

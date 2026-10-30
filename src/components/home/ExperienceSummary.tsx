@@ -25,7 +25,27 @@ function CompactRow({ org }: { org: Organization }) {
         )}
       </span>
       {org.summary && <span className="xp-row__note">{org.summary}</span>}
+      <div className="xp-row__details"><ExperienceNotes org={org} /></div>
     </li>
+  );
+}
+
+function ExperienceNotes({ org }: { org: Organization }) {
+  return (
+    <details className="inline-notes experience-notes">
+      <summary>Roles & contributions <span aria-hidden="true">+</span></summary>
+      <div className="inline-notes__body prose">
+        {org.location && <p className="kicker">{org.location}</p>}
+        {org.roles.map((role) => <section className="project-note" key={role.title}>
+          <h4>{role.title}</h4>
+          <p className="note">{formatRange(role.start, role.end)}</p>
+          {role.bullets && <ul>{role.bullets.map((b) => <li key={b}>{b}</li>)}</ul>}
+        </section>)}
+        {org.workstreams?.map((work) => <section className="project-note" key={work.heading}>
+          <h4>{work.heading}</h4><ul>{work.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
+        </section>)}
+      </div>
+    </details>
   );
 }
 
@@ -35,13 +55,12 @@ export function ExperienceSummary() {
   const operations = EXPERIENCE.filter((o) => o.group === "operations");
 
   return (
-    <section className="section" id="experience" aria-labelledby="experience-title">
+    <section className="section" id="experience" data-scroll-section="Experience" aria-labelledby="experience-title">
       <div className="wrap">
         <header className="section-head">
-          <h2 id="experience-title">Experience</h2>
+          <div><p className="kicker">02 / Where I've worked</p><h2 id="experience-title">Experience</h2></div>
           <p>
-            Engineering in detail; software, operations and teaching in brief. The{" "}
-            <RouterLink href="/resume">full resume</RouterLink> has every role.
+            Aerospace hardware, software and the experience that taught me to lead a team. Every role is here; expand an entry for its full contributions.
           </p>
         </header>
 
@@ -64,9 +83,10 @@ export function ExperienceSummary() {
               {org.note && <p className="note">{org.note}</p>}
               {org.projectId && (
                 <RouterLink href={`/projects/${org.projectId}`} className="text-link">
-                  {getProject(org.projectId)?.short}
+                  Jump to {getProject(org.projectId)?.short}
                 </RouterLink>
               )}
+              <ExperienceNotes org={org} />
             </article>
           ))}
         </div>

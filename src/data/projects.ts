@@ -1,6 +1,6 @@
-// Project records for the work index and case-study pages. Each project says
+// Complete project records for the scrolling homepage and inline notes. Each project says
 // only what its artifacts or confirmed facts support; limitations are part of
-// the record, not an afterthought. IDs are stable URLs (#/projects/<id>) and
+// the record, not an afterthought. IDs remain stable links (#/projects/<id>) and
 // legacy links (#/projects?id=<id>) redirect to them.
 
 export type ProjectGroup = "engineering" | "course" | "software" | "hands-on" | "archive";
@@ -70,7 +70,7 @@ export const PROJECTS: Project[] = [
     featured: 1,
     cover: 0,
     summary:
-      "FlatSat V1 is a ground fixture for integrating and testing up to 12 avionics PCBs on the bench. I built it and designed, printed and installed all 14 of its mounts. This page also covers the structural analysis I have done for the spacecraft since early 2025.",
+      "FlatSat V1 is a ground fixture for integrating and testing up to 12 avionics PCBs on the bench. I built it and designed, printed and installed all 14 of its mounts, alongside spacecraft structural analysis since early 2025.",
     facts: [
       { label: "Role", value: "Systems Engineer, Mar 2026 – present. Earlier: Structural Engineer, Chief Integration Officer, Executive Assistant" },
       { label: "Tools", value: "SOLIDWORKS, ANSYS Mechanical, PLA 3D printing" },

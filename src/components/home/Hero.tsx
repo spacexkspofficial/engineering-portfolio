@@ -1,9 +1,10 @@
 import { EDUCATION, PERSON } from "../../data/profile";
 import { RouterLink } from "../ui/RouterLink";
+import { asset } from "../../utils/assets";
 
 export function Hero() {
   return (
-    <section className="hero" aria-labelledby="hero-name">
+    <section className="hero" id="intro" aria-labelledby="hero-name">
       <div className="wrap hero__inner">
         <h1 id="hero-name" className="hero__name">
           {PERSON.givenName} <span className="nowrap">{PERSON.name.replace(`${PERSON.givenName} `, "")}</span>
@@ -51,13 +52,13 @@ export function HeroActions() {
   return (
     <div className="hero__actions">
       <RouterLink href="/work" className="button button--primary">
-        Selected work
+        Explore projects ↓
       </RouterLink>
-      <RouterLink href="/resume" className="button">
-        Resume
-      </RouterLink>
-      <a href={PERSON.linkedin} className="button button--quiet" rel="noreferrer">
-        LinkedIn
+      <a href={asset("aerolab/")} className="button">
+        Run AeroLab 2D ↗
+      </a>
+      <a href={asset("assets/downloads/resume/alexander-amadeo-ranch-engineering-resume.pdf")} className="button button--quiet">
+        Resume PDF ↓
       </a>
     </div>
   );
