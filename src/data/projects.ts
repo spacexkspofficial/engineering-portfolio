@@ -74,7 +74,7 @@ export const PROJECTS: Project[] = [
     facts: [
       { label: "Role", value: "Systems Engineer, Mar 2026 – present. Earlier: Structural Engineer, Chief Integration Officer, Executive Assistant" },
       { label: "Tools", value: "SOLIDWORKS, ANSYS Mechanical, PLA 3D printing" },
-      { label: "Status", value: "FlatSat V1 assembled (ground fixture). Standoff vibration test pending. Nothing here has flown." },
+      { label: "Status", value: "FlatSat V1 assembled for ground integration. Standoff result is analytical; physical vibration testing pending" },
     ],
     sections: [
       {
@@ -502,7 +502,7 @@ export const PROJECTS: Project[] = [
       "A written technical proposal for a remotely operated drone that could recover fallen service members without sending a crew into danger. I wrote the vehicle, grappling-system, remote-command and regulatory sections.",
     facts: [
       { label: "My sections", value: "Introduction, proposal statement, drone, grappling system, remote command unit, regulatory compliance, user risk management" },
-      { label: "Status", value: "Paper concept. Nothing was built or flown" },
+      { label: "Status", value: "Technical proposal; payload and endurance are concept targets. Vehicle not built or flown" },
     ],
     sections: [
       {

@@ -10,11 +10,11 @@ export function Hero() {
           {PERSON.givenName} <span className="nowrap">{PERSON.name.replace(`${PERSON.givenName} `, "")}</span>
         </h1>
         <p className="hero__lede">
-          Aerospace engineering student at UC Irvine, working on mechanical design, structures and hardware integration.
+          {PERSON.introduction}
         </p>
 
-        <HeroFacts />
         <HeroActions />
+        <HeroFacts />
       </div>
       <p className="hero__credit wrap">Background: Earth footage and a third-party CubeSat model, for illustration.</p>
     </section>
@@ -27,8 +27,8 @@ export function HeroFacts() {
       <div>
         <dt>Now</dt>
         <dd>
-          <span>UAV Hardware Engineering Intern, Boundary Remote Subsurface Solutions</span>
-          <span>Systems Engineer, UCI CubeSat</span>
+          <span>{PERSON.currentRoles[0].title}, Boundary</span>
+          <span>{PERSON.currentRoles[1].title}, {PERSON.currentRoles[1].org}</span>
         </dd>
       </div>
       <div>
@@ -41,7 +41,7 @@ export function HeroFacts() {
       <div>
         <dt>Available</dt>
         <dd>
-          <span>Full-time from {PERSON.availableFrom}</span>
+          <span>Full-time from {PERSON.availableFrom} · {PERSON.workAuthorization}</span>
         </dd>
       </div>
     </dl>
@@ -52,13 +52,16 @@ export function HeroActions() {
   return (
     <div className="hero__actions">
       <RouterLink href="/work" className="button button--primary">
-        Explore projects ↓
+        View engineering work ↓
       </RouterLink>
       <a href={asset("aerolab/")} className="button">
         Run AeroLab 2D ↗
       </a>
-      <a href={asset("assets/downloads/resume/alexander-amadeo-ranch-engineering-resume.pdf")} className="button button--quiet">
-        Resume PDF ↓
+      <a href={asset("assets/downloads/resume/alexander-amadeo-ranch-engineering-resume.pdf")} className="button">
+        Engineering resume ↓
+      </a>
+      <a href={PERSON.linkedin} className="button button--quiet" rel="noreferrer">
+        LinkedIn ↗
       </a>
     </div>
   );

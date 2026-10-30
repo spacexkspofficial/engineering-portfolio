@@ -2,18 +2,21 @@
 
 > Aerospace engineering student at UC Irvine (B.S. in progress; coursework ends March 2027; available for full-time work from April 2027). UAV Hardware Engineering Intern at Boundary Remote Subsurface Solutions (Sep 2026 - present) and Systems Engineer on UCI CubeSat (Mar 2026 - present). Focus: mechanical design, structures and hardware integration.
 
+Seeking new graduate roles in mechanical design, structural analysis, or hardware integration and test. U.S. citizen, based in the Los Angeles Metropolitan Area. Cumulative UC GPA: 3.759. March 2027 refers to coursework completion.
+
 Site: https://alexengineer.net/
 Projects (within the scrolling homepage): https://alexengineer.net/#/work
 Experience: https://alexengineer.net/#/experience
 Background, education and skills: https://alexengineer.net/#/about
 Resume (HTML, no JavaScript): https://alexengineer.net/resume/
+Engineering resume (HTML, no JavaScript): https://alexengineer.net/resume/engineering.html
 Resume (PDF): https://alexengineer.net/assets/downloads/resume/alexander-amadeo-ranch-resume.pdf
 One-page engineering resume (PDF): https://alexengineer.net/assets/downloads/resume/alexander-amadeo-ranch-engineering-resume.pdf
 Contact: LinkedIn, https://www.linkedin.com/in/alexamadeoranch/
 
 ## Engineering work
 
-- [FlatSat V1 and CubeSat structures](https://alexengineer.net/#/projects/cubesat-structures): bench fixture for up to 12 avionics PCBs; designed, PLA-printed and installed all 14 mounts; total purchase order 30% lower than V0. M3 standoff factor of safety 5 against yield by calculation and simulation (physical vibration testing pending). Ground hardware; nothing has flown.
+- [FlatSat V1 and CubeSat structures](https://alexengineer.net/#/projects/cubesat-structures): bench fixture for up to 12 avionics PCBs; designed, PLA-printed and installed all 14 mounts; total purchase order 30% lower than V0 through overall design simplification. M3 standoff factor of safety 5 against yield by calculation and simulation (physical vibration testing pending). FlatSat is ground hardware.
 - [UAV hardware assessment](https://alexengineer.net/#/projects/boundary-uav-assessment): system-level assessment (mass and power budgets, load paths, thrust, propellers, performance envelope) with SOLIDWORKS, ANSYS and COMSOL; delivered two weeks early; informed a change in hardware direction. Findings are under NDA.
 
 ## Course and personal projects
@@ -26,5 +29,6 @@ Contact: LinkedIn, https://www.linkedin.com/in/alexamadeoranch/
 ## Notes
 
 - Team projects say which parts were Alexander's.
+- The Projects opening highlights three engineering contributions and links work by skill; all 15 project entries and existing URLs remain available.
 - Old project URLs still land on the matching project in the homepage scroll.
 - The home-page CubeSat model and Earth footage are third-party illustration, not Alexander's design.

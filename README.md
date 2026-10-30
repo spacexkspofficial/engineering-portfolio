@@ -26,6 +26,7 @@ resume picks them up.
 | --- | --- |
 | `src/data/profile.ts` | Name, contact links, availability, education, every role and its bullets, skills, certifications, honors |
 | `src/data/projects.ts` | Complete project records: summary, facts, technical notes, figures and files |
+| `src/data/positioning.ts` | Selected engineering contributions and skill-to-project links, derived from the confirmed profile and project records |
 | `src/components/home/ProjectStream.tsx` | Single-page project sequence and concise takeaways; full records expand inline |
 | `src/data/resume.ts` | Resume-only wording for project entries and the header tagline |
 | `public/assets/` | Images, video, downloads (URLs are stable; existing links keep working) |
@@ -54,6 +55,10 @@ as links. Every project figure and file appears in the main scroll; complete
 technical notes and role contributions use native inline disclosures. The old
 work index, case-study and contact page components have been removed, while their
 shared URLs still work. Resume HTML/PDFs and legal pages retain their own views.
+The Projects opening gives three selected engineering contributions before the
+complete project stream, with direct links by skill. The one-page engineering
+resume is the default at `#/resume`; the full background can be selected there.
+The fixed reading bar links to the engineering PDF throughout the homepage.
 
 ## Resume
 
@@ -114,7 +119,8 @@ position and a no-WebGL mode.
 a coarse pointer (including landscape phones and small tablets). The desktop
 hero and all portfolio sections use the same content. The mobile opening gives
 the Earth and CubeSat one viewport, with direct project, AeroLab 2D and resume PDF
-actions visible in the opening. The scene fades as the introduction enters;
+actions visible in the opening, alongside engineering availability and LinkedIn.
+The scene fades as the introduction enters;
 scrolling back restores it. Short landscape viewports allow room for the opening
 copy and buttons. Stable viewport units avoid jumps when browser chrome changes.
 

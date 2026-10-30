@@ -8,6 +8,8 @@ export const PERSON = {
   givenName: "Alexander",
   headline: "Aerospace engineering student, UC Irvine",
   focus: "Mechanical design, structures and hardware integration",
+  targetRoles: "Mechanical design, structural analysis and hardware integration / test",
+  introduction: "Aerospace engineering student at UC Irvine. I design, analyze and build hardware for CubeSat ground integration.",
   location: "Los Angeles Metropolitan Area",
   // LinkedIn is the only public point of contact (owner's choice): no email or
   // phone on the site or in the published resumes.

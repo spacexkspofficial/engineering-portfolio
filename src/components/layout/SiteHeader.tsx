@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { PERSON } from "../../data/profile";
 import { RouterLink } from "../ui/RouterLink";
+import { asset } from "../../utils/assets";
 
 const NAV = [
   { to: "/work", id: "work", label: "Projects" },
@@ -78,7 +79,7 @@ export function SiteHeader({ overlay }: { overlay: boolean }) {
           </ul>
         </nav>
       </div>
-      {overlay && <div className="wrap reading-position"><span>{state.context}</span><span>{state.progress}%</span></div>}
+      {overlay && <div className="wrap reading-position"><span>{state.context}</span><span className="reading-position__actions"><a href={asset("assets/downloads/resume/alexander-amadeo-ranch-engineering-resume.pdf")} aria-label="One-page engineering resume PDF">Resume ↓</a><span>{state.progress}%</span></span></div>}
       {overlay && <progress className="reading-progress" max={100} value={state.progress} aria-label="Portfolio reading progress" />}
     </header>
   );

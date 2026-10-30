@@ -25,14 +25,18 @@ export function About() {
             the hardware side: structures, mechanical design and getting systems to fit together.
           </p>
           <p>
-            A lot of what I know about building things comes from doing it. On the CubeSat team I've gone from scheduling
-            meetings as an executive assistant to designing, printing and installing parts for our bench fixture. At home I
-            maintain and modify my own cars. I've also managed a public pool's staff of 75+ and tutored math and physics for
-            almost five years, and I'm an Eagle Scout with a first-degree black belt in taekwondo.
+            On UCI CubeSat, I've taken on documentation, cross-team integration, structural analysis and hands-on fixture
+            design. At Boundary, I translate engineering findings into hardware decisions with managers across departments.
+            My Management minor complements that technical work with a business perspective.
           </p>
           <p>
-            I want to build spacecraft and aerospace hardware with a team that takes on ambitious goals and expects people
-            to learn fast.
+            Outside the lab, I've supervised a public pool's staff of 75+, led emergency responses and written training
+            documentation. Tutoring math, physics and computer science taught me to explain technical ideas to different
+            audiences. I bring that experience to a team alongside the practical skills I've built maintaining my own cars.
+          </p>
+          <p>
+            I'm seeking new graduate roles in mechanical design, structural analysis, or hardware integration and test,
+            with a particular interest in spacecraft and aerospace hardware. {PERSON.availability}
           </p>
         </div>
       </div>

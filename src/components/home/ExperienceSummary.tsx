@@ -1,20 +1,13 @@
 import { EXPERIENCE, type Organization } from "../../data/profile";
 import { getProject } from "../../data/projects";
-import { formatRange, formatYears } from "../../utils/format";
+import { formatRange } from "../../utils/format";
 import { RouterLink } from "../ui/RouterLink";
-
-function span(org: Organization): string {
-  const starts = org.roles.map((r) => r.start).sort();
-  const current = org.roles.some((r) => !r.end);
-  const ends = org.roles.map((r) => r.end ?? "9999").sort();
-  return formatYears(starts[0], current ? undefined : ends[ends.length - 1]);
-}
 
 function CompactRow({ org }: { org: Organization }) {
   const [latest, ...earlier] = org.roles;
   return (
     <li className="xp-row">
-      <span className="xp-row__years">{span(org)}</span>
+      <span className="xp-row__years">{formatRange(latest.start, latest.end)}</span>
       <span className="xp-row__main">
         <strong>{latest.title}</strong>, {org.name}
         {earlier.length > 0 && (
@@ -60,7 +53,7 @@ export function ExperienceSummary() {
         <header className="section-head">
           <div><p className="kicker">02 / Where I've worked</p><h2 id="experience-title">Experience</h2></div>
           <p>
-            Aerospace hardware, software and the experience that taught me to lead a team. Every role is here; expand an entry for its full contributions.
+            Current UAV and spacecraft work, supported by software delivery, team leadership and technical communication. Expand a role for its dates and contributions.
           </p>
         </header>
 
@@ -80,6 +73,7 @@ export function ExperienceSummary() {
                 ))}
               </ol>
               <p>{org.summary}</p>
+              {org.id === "uci-cubesat" && <p className="note">Coordinated mechanical, electrical and payload interfaces across subteams and served as the liaison to the STMS research group.</p>}
               {org.note && <p className="note">{org.note}</p>}
               {org.projectId && (
                 <RouterLink href={`/projects/${org.projectId}`} className="text-link">

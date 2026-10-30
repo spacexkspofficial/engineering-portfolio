@@ -3,12 +3,13 @@ import { asset } from "../../utils/assets";
 import { Figure } from "../ui/Figure";
 import { FileList } from "../ui/FileList";
 import { RouterLink } from "../ui/RouterLink";
+import { EngineeringOverview } from "./EngineeringOverview";
 
 // Bring the live demo forward; keep every other record in its existing order.
 const projects = [...PROJECTS].sort((a, b) => Number(b.id === "aerolab-suite") - Number(a.id === "aerolab-suite"));
 
 const HIGHLIGHTS: Record<string, string[]> = {
-  "cubesat-structures": ["14 custom PLA mounts replaced a costly commercial part; the simpler design reduced the total purchase order by 30% versus V0.", "M3 standoffs: factor of safety 5 against yield by analysis. Hinge-plate static and modal FEA shown below."],
+  "cubesat-structures": ["Designed, printed and installed all 14 PLA mounts. Simplifying the overall fixture reduced the total purchase order by 30% versus V0.", "M3 standoffs: factor of safety 5 against yield by analysis. Hinge-plate static and modal FEA shown below."],
   "boundary-uav-assessment": ["Mass and power budgets, load paths, thrust, propeller performance and flight envelope.", "SOLIDWORKS, ANSYS and COMSOL; findings presented to nontechnical managers. Vehicle details and results are under NDA."],
   "aerolab-suite": ["2D: live flow, pressure, lift/drag and boundary-layer estimates. 3D: vortex-lattice aircraft analysis, rocket stability and re-entry trajectories.", "Built with JavaScript + WebGL 2. Runs entirely in your browser; no install or account."],
   "mae-106-autonomous": ["Calibrated the magnetometer and characterized servo accuracy, noise and drift using MATLAB and Arduino.", "Duty-cycle and hinge-height sweeps informed the team's settings; the robot met its 3 ft → 90° turn → 3 ft requirement. Teammates owned mechanical, controls and electrical design."],
@@ -26,6 +27,8 @@ function ProjectEntry({ project, index }: { project: Project; index: number }) {
   const remaining = project.figures.filter((_, i) => i !== cover);
   const status = project.facts.filter((f) => f.label === "Status" || f.label === "Disclosure");
   const facts = project.facts.filter((f) => f.label !== "Status" && f.label !== "Disclosure");
+  const visibleFacts = facts.filter((f) => ["Role", "My part", "Tools", "Built with", "Methods"].includes(f.label));
+  const detailFacts = facts.filter((f) => !visibleFacts.includes(f));
   const notes = project.sections.filter((s) => s.paragraphs?.length || s.list?.length);
 
   return (
@@ -41,6 +44,9 @@ function ProjectEntry({ project, index }: { project: Project; index: number }) {
             <p className="kicker">{project.context}</p>
             <h3 id={`title-${project.id}`}>{project.title}</h3>
             <p className="project-entry__summary">{project.summary}</p>
+            {visibleFacts.length > 0 && <dl className="project-entry__credentials">{visibleFacts.map((fact) => (
+              <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>
+            ))}</dl>}
             {project.links?.length ? (
               <div className="project-entry__actions">
                 {project.links.map((link) => (
@@ -68,11 +74,11 @@ function ProjectEntry({ project, index }: { project: Project; index: number }) {
             <FileList files={project.files} label={`Files for ${project.short}`} />
           </div>
         ) : null}
-        {(notes.length > 0 || facts.length > 0) && (
+        {(notes.length > 0 || detailFacts.length > 0) && (
           <details className="inline-notes">
             <summary>Technical notes & project details <span aria-hidden="true">+</span></summary>
             <div className="inline-notes__body">
-              {facts.length > 0 && <dl className="project-facts">{facts.map((f) => <div key={f.label}><dt>{f.label}</dt><dd>{f.value}</dd></div>)}</dl>}
+              {detailFacts.length > 0 && <dl className="project-facts">{detailFacts.map((f) => <div key={f.label}><dt>{f.label}</dt><dd>{f.value}</dd></div>)}</dl>}
               {notes.map((section) => (
                 <section className="project-note" key={section.heading}>
                   <h4>{section.heading.replace("What this page doesn't show", "Disclosure")}</h4>
@@ -95,9 +101,10 @@ export function ProjectStream() {
     <section id="work" className="project-stream" data-scroll-section="Projects" aria-labelledby="work-title">
       <div className="wrap section-intro">
         <header className="section-head">
-          <div><p className="kicker">01 / Explore the work</p><h2 id="work-title">Projects</h2></div>
-          <p>From spacecraft hardware to browser simulations. Scroll through all {projects.length} projects, with figures, results and source files along the way.</p>
+          <div><p className="kicker">01 / Engineering in practice</p><h2 id="work-title">Projects</h2></div>
+          <p>Hardware built, decisions informed and experiments documented. Start with three engineering contributions, then explore all {projects.length} projects with their figures, reports and code.</p>
         </header>
+        <EngineeringOverview />
         <details className="project-index inline-notes">
           <summary>Jump to a project <span aria-hidden="true">+</span></summary>
           <nav className="project-directory" aria-label="Jump to a project">

@@ -24,7 +24,7 @@ export const ENGINEERING_PROJECTS: ResumeProject[] = [
     engineering: true,
     engineeringBullets: 1,
     bullets: [
-      "Ran the team's experiments on a pneumatic autonomous robot: five solenoid duty cycles × 10 runs at 30 psi (chose 100 ms ON / 900 ms OFF for consistent speed) and five hopper hinge heights × 10 runs (fixed at 210 mm, 2.83 m per five hops).",
+      "Led duty-cycle and hinge-height experiments (five settings × 10 runs each) for a four-person pneumatic-robot team. Data informed the selected settings; the robot met its autonomous 3 ft / 90° turn / 3 ft requirement.",
       "Calibrated the magnetometer in MATLAB, measured heading noise and one-hour drift, and quantified servo position error (about 10° mean overshoot) before integration.",
     ],
   },
@@ -35,7 +35,7 @@ export const ENGINEERING_PROJECTS: ResumeProject[] = [
     period: "Feb – Mar 2026",
     engineering: true,
     bullets: [
-      "Wrote MATLAB two-body propagation, element-conversion and universal-variable Lambert functions; searched 16,290 departure/arrival pairs on a 201 × 201 grid, reducing transfer Δv from 20.028 km/s for the assigned dates to 7.873 km/s.",
+      "Wrote MATLAB two-body propagation, element-conversion and Lambert functions; searched 16,290 departure/arrival pairs on a 201 × 201 grid, reducing modeled transfer Δv from 20.028 to 7.873 km/s within the search window.",
     ],
   },
   {
@@ -62,7 +62,7 @@ export const ENGINEERING_PROJECTS: ResumeProject[] = [
     context: "ENGR 54, team of seven",
     period: "May – Jun 2025",
     bullets: [
-      "Ran drop-impact tests on ice reinforced with paper and plastic and an energy balance showing passive ice shielding is impractical against a modeled 3 cm, 42 km/s iron micrometeoroid.",
+      "Helped plan and run drop tests on 33 reinforced ice samples and the energy-balance analysis for a modeled 3 cm, 42 km/s iron micrometeoroid; the calculated ice thickness was impractical.",
     ],
   },
   {

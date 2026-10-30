@@ -13,6 +13,7 @@ export function MobileHero() {
             <span>{PERSON.name.replace(`${PERSON.givenName} `, "")}</span>
           </h1>
           <p className="mobile-hero__lede">Mechanical design, structures<br />and hardware integration.</p>
+          <p className="mobile-hero__availability">Full-time from {PERSON.availableFrom} · {PERSON.workAuthorization}</p>
           <HeroActions />
         </div>
       </div>
